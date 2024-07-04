@@ -1,1 +1,1 @@
-npm --prefix react2024 run lint
+npm run fix
