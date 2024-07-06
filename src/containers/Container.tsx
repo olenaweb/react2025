@@ -8,10 +8,10 @@ export class CardsList extends Component<Props> {
     super(props);
   }
   render() {
-    console.log('"this.props.propsArr="', this.props.propsArr);
+    // console.log('"this.props.propsArr="', this.props.propsArr);
     return (
       <ul className="cards">
-        {this.props.propsArr.map((item) => (
+        {this.props.results.map((item) => (
           <Card key={item.id} {...item} />
         ))}
       </ul>

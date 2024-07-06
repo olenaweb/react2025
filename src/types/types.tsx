@@ -36,7 +36,7 @@ export interface Character {
 }
 
 export interface Props {
-  propsArr: Character[];
+  results: Character[];
 }
 export interface Response {
   info: Info;

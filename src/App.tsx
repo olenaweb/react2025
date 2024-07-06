@@ -64,7 +64,7 @@ class App extends Component<StateAppPage> {
           {this.state.isLoading ? (
             <p>Loading...</p>
           ) : (
-            <CardsList propsArr={this.state.requestData.results} />
+            <CardsList results={this.state.requestData.results} />
           )}
         </div>
       </>
