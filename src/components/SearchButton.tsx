@@ -4,11 +4,16 @@ import { getData } from "../request/getData";
 
 import "./components.css";
 
-export default class SearchInput extends Component<SearchState> {
+interface SearchInputProps {
+  searchValue: string;
+  updateRequestData: (result: Response) => void;
+}
+
+export default class SearchInput extends Component<SearchInputProps, SearchState> {
   state: SearchState = {
     searchValue: "",
   };
-  constructor(props: SearchState) {
+  constructor(props: SearchInputProps) {
     super(props);
 
     this.state = {
@@ -19,16 +24,16 @@ export default class SearchInput extends Component<SearchState> {
 
   handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     this.setState({ searchValue: e.target.value });
+
     console.log('"handleChange this.state.searchValue="', this.state.searchValue);
     console.log('"this="', this);
     console.log('"e.target="', e.target);
-    console.log('"e.target.value="', e.target.value);
   };
 
   handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('"handleSubmit this.state.searchValue="', this.state.searchValue);
     const result = await getData(this.state.searchValue);
+    this.props.updateRequestData(result);
     console.log('"result="', result);
   };
 

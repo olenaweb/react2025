@@ -1,9 +1,9 @@
 import { Component } from "react";
-import { CardCharacter } from "../types/types";
-import "./style.css";
+import { Character } from "../types/types";
+import "./components.css";
 
-export class Card extends Component<CardCharacter> {
-  constructor(props: CardCharacter) {
+export class Card extends Component<Character> {
+  constructor(props: Character) {
     super(props);
   }
   render() {

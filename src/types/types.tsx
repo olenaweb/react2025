@@ -34,16 +34,9 @@ export interface Character {
   url: string;
   created: string;
 }
-export interface CardCharacter {
-  key: number;
-  name: string;
-  status: Status;
-  species: Species;
-  gender: Gender;
-  image: string;
-}
+
 export interface Props {
-  propsArr: CardCharacter[];
+  propsArr: Character[];
 }
 export interface Response {
   info: Info;
@@ -51,13 +44,9 @@ export interface Response {
 }
 
 export type StateAppPage = {
-  defaultValue: string;
+  storeValue: string;
   isLoading: boolean;
-};
-
-export type SearchProps = {
-  searchValue: string;
-  getData: (value: string) => void;
+  requestData: Response;
 };
 
 export type SearchState = {
