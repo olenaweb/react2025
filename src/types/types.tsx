@@ -1,5 +1,5 @@
 export type Gender = "Male" | "Female" | "unknown";
-export type Status = "Dead" | "Alive" | "unknown";
+export type Status = "Alive" | "Dead" | "unknown";
 export type Species =
   | "Human"
   | "Alien"
@@ -50,9 +50,16 @@ export interface Response {
   results: Character[];
 }
 
-export interface StateAppPage {
-  search: string;
-  loading: boolean;
-  textError: string;
-  characters: Character[];
-}
+export type StateAppPage = {
+  defaultValue: string;
+  isLoading: boolean;
+};
+
+export type SearchProps = {
+  searchValue: string;
+  getData: (value: string) => void;
+};
+
+export type SearchState = {
+  searchValue: string;
+};

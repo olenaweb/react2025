@@ -20,8 +20,7 @@ export class Card extends Component<CardCharacter> {
           <p>
             <b>Species:</b> {this.props.species}
           </p>
-          <p className="card-status"> {this.props.status}
-          </p>
+          <p className="card-status"> {this.props.status}</p>
         </div>
       </li>
     );

@@ -11,7 +11,14 @@ export default class CardsList extends Component<Props> {
     return (
       <ul className="cards">
         {this.props.propsArr.map((item) => (
-          <Card key={item.key} name={item.name} image={item.image} gender={item.gender} species={item.species} status={item.status} />
+          <Card
+            key={item.key}
+            name={item.name}
+            image={item.image}
+            gender={item.gender}
+            species={item.species}
+            status={item.status}
+          />
         ))}
       </ul>
     );
