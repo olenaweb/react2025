@@ -23,9 +23,9 @@ class App extends Component<StateAppPage> {
 
   constructor(props: StateAppPage) {
     super(props);
-    const localStore: string | null = localStorage.getItem('olena_01_search');
+    const localStore: string | null = localStorage.getItem("olena_01_search");
     this.state = {
-      storeValue: localStore || '',
+      storeValue: localStore || "",
       isLoading: false,
       requestData: {
         info: {

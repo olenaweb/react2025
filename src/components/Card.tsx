@@ -10,16 +10,14 @@ export class Card extends Component<Character> {
     return (
       <li className="card">
         <div className="card-content">
-          <p className="card-name">{this.props.name}</p>
+          <p className="card-name">
+            <b>{this.props.name}</b>
+          </p>
           <div>
             <img className="card-image" src={this.props.image} />
           </div>
-          <p>
-            <b>Gender:</b> {this.props.gender}
-          </p>
-          <p>
-            <b>Species:</b> {this.props.species}
-          </p>
+          <p>Gender: {this.props.gender}</p>
+          <p>Species: {this.props.species}</p>
           <p className="card-status"> {this.props.status}</p>
         </div>
       </li>

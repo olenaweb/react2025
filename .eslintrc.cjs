@@ -14,5 +14,18 @@ module.exports = {
   rules: {
     "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
     "react-compiler/react-compiler": "error",
+    "@typescript-eslint/no-explicit-any": 2,
+    "no-console": 0,
+    semi: ["error", "always"],
+    "no-case-declarations": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "lines-between-class-members": "off",
+    "@typescript-eslint/lines-between-class-members": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        endOfLine: "auto",
+      },
+    ],
   },
 };
