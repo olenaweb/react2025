@@ -1,6 +1,5 @@
 import { Component } from "react";
 import { Character } from "../types/types";
-import "./components.css";
 
 export class Card extends Component<Character> {
   constructor(props: Character) {

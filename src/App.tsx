@@ -38,6 +38,11 @@ class App extends Component<StateAppPage> {
       },
     };
   }
+
+  updateStoreValue = (value: string) => {
+    this.setState({ storeValue: value });
+  };
+
   updateRequestData = (result: Response) => {
     this.setState({ requestData: result });
   };
@@ -57,7 +62,11 @@ class App extends Component<StateAppPage> {
       <>
         <div className="search-panel">
           <h2>Rick and Morty</h2>
-          <SearchInput searchValue={""} updateRequestData={this.updateRequestData} />
+          <SearchInput
+            searchValue={this.state.storeValue ? this.state.storeValue : ""}
+            updateRequestData={this.updateRequestData}
+            updateStoreValue={this.updateStoreValue}
+          />
         </div>
 
         <div className="cards-panel">
