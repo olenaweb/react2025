@@ -20,6 +20,7 @@ export interface Location {
   name: string;
   url: string;
 }
+
 export interface Character {
   id: number;
   name: string;
@@ -34,17 +35,23 @@ export interface Character {
   url: string;
   created: string;
 }
-
 export interface Props {
   results: Character[];
 }
-export interface Response {
+export interface SuccessResponse {
   info: Info;
   results: Character[];
 }
 
-export type StateAppPage = {
+export interface ErrorResponse {
+  error: string;
+}
+
+export type Response = SuccessResponse | ErrorResponse;
+
+export interface StateAppPage {
   storeValue: string;
   isLoading: boolean;
-  requestData: Response;
-};
+  requestData: SuccessResponse;
+  errorMessage: string;
+}

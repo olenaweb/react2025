@@ -1,11 +1,13 @@
 import { Component } from "react";
-import { StateAppPage } from "./types/types";
+import { StateAppPage, Response } from "./types/types";
 import "./App.css";
 import SearchInput from "./components/SearchButton";
 import { getData } from "./request/getData";
 import { Container } from "./containers/Container";
+import { ReloadButton } from "./components/ReloadButton";
+import { ErrorButton } from "./components/ErrorButton";
 
-class App extends Component {
+class App extends Component<object, StateAppPage> {
   state: StateAppPage = {
     storeValue: "",
     isLoading: false,
@@ -18,8 +20,10 @@ class App extends Component {
       },
       results: [],
     },
+    errorMessage: "",
   };
-  constructor(props: string) {
+
+  constructor(props: object) {
     super(props);
     const localStore: string | null = localStorage.getItem("olena_01_search");
     this.state = {
@@ -34,41 +38,68 @@ class App extends Component {
         },
         results: [],
       },
+      errorMessage: "",
     };
   }
+
   updateStoreValue = (value: string) => {
     this.setState({ storeValue: value });
   };
 
   updateRequestData = (result: Response) => {
-    this.setState({ requestData: result });
+    if ("error" in result) {
+      this.setState({
+        errorMessage: result.error,
+        requestData: { info: { count: 0, pages: 0, next: null, prev: null }, results: [] },
+      });
+    } else {
+      this.setState({ requestData: result, errorMessage: "" });
+    }
+  };
+
+  updateErrorMessage = (message: string) => {
+    this.setState({ errorMessage: message });
   };
 
   async componentDidMount() {
     this.setState({ isLoading: true });
     try {
       const resultData: Response = await getData(this.state.storeValue);
-      this.setState({ requestData: resultData, isLoading: false });
+      if ("error" in resultData) {
+        this.setState({
+          isLoading: false,
+          errorMessage: "**** Sorry, the name is not found. Try another name",
+          requestData: { info: { count: 0, pages: 0, next: null, prev: null }, results: [] },
+        });
+      } else {
+        this.setState({ requestData: resultData, isLoading: false, errorMessage: "" });
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
-      this.setState({ isLoading: false });
+      this.setState({ isLoading: false, errorMessage: "Something's gone wrong :-( " });
     }
   }
+
   render() {
     return (
       <>
         <div className="search-panel">
-          <h2>Rick and Morty</h2>
+          <h2 className="search-title">Rick and Morty</h2>
           <SearchInput
             searchValue={this.state.storeValue ? this.state.storeValue : ""}
             updateRequestData={this.updateRequestData}
             updateStoreValue={this.updateStoreValue}
+            updateErrorMessage={this.updateErrorMessage}
           />
+          <ErrorButton />
         </div>
-
         <div className="cards-panel">
           {this.state.isLoading ? (
             <p>Loading...</p>
+          ) : this.state.errorMessage !== "" ? (
+            <div className="error-message">
+              {this.state.errorMessage} <ReloadButton />
+            </div>
           ) : (
             <Container results={this.state.requestData.results} />
           )}
