@@ -48,7 +48,3 @@ export type StateAppPage = {
   isLoading: boolean;
   requestData: Response;
 };
-
-export type SearchState = {
-  searchValue: string;
-};

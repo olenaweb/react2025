@@ -1,15 +1,14 @@
 import { Component, ChangeEvent, FormEvent } from "react";
-import { SearchState } from "../types/types";
 import { getData } from "../request/getData";
 
 interface SearchInputProps {
   searchValue: string;
-  updateRequestData: (result: Response) => void;
-  updateStoreValue: (value: string) => void;
+  updateRequestData?: (result: Response) => void;
+  updateStoreValue?: (value: string) => void;
 }
 
-export default class SearchInput extends Component<SearchInputProps, SearchState> {
-  state: SearchState = {
+export default class SearchInput extends Component<SearchInputProps> {
+  state: SearchInputProps = {
     searchValue: "",
   };
   constructor(props: SearchInputProps) {
@@ -28,8 +27,10 @@ export default class SearchInput extends Component<SearchInputProps, SearchState
     e.preventDefault();
     const result = await getData(this.state.searchValue.trim());
     console.log('"result="', result);
-    this.props.updateRequestData(result);
-    this.props.updateStoreValue(this.state.searchValue.trim());
+    if (this.props.updateRequestData && this.props.updateStoreValue) {
+      this.props.updateRequestData(result);
+      this.props.updateStoreValue(this.state.searchValue.trim());
+    }
     if (result) {
       localStorage.setItem("olena_01_search", this.state.searchValue.trim());
     }
