@@ -1,13 +1,14 @@
 #root {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  height: 100%;
+  min-height: 100vh;
+  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 15px;
   text-align: center;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 8fr;
-  width: 100%;
-  height: 100vh;
 }
 
 .search-panel {
@@ -23,6 +24,7 @@
   width: 100%;
   background: rgb(169, 142, 3);
   color: white;
+  padding: 0 0 20px;
 }
 
 .cards {
@@ -70,11 +72,13 @@
 @media (max-width: 600px) {
   .cards {
     grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr 1fr;
   }
 }
 
 @media (max-width: 400px) {
   .cards {
     grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
   }
 }

@@ -2,7 +2,7 @@ import { Component } from "react";
 import { Card } from "../components/Card";
 import { Props } from "../types/types";
 
-export class CardsList extends Component<Props> {
+export class Container extends Component<Props> {
   constructor(props: Props) {
     super(props);
   }

@@ -1,12 +1,11 @@
-// import { useState } from "react";
 import { Component } from "react";
 import { StateAppPage } from "./types/types";
 import "./App.css";
 import SearchInput from "./components/SearchButton";
 import { getData } from "./request/getData";
-import { CardsList } from "./containers/Container";
+import { Container } from "./containers/Container";
 
-class App extends Component<StateAppPage> {
+class App extends Component {
   state: StateAppPage = {
     storeValue: "",
     isLoading: false,
@@ -20,8 +19,7 @@ class App extends Component<StateAppPage> {
       results: [],
     },
   };
-
-  constructor(props: StateAppPage) {
+  constructor(props: string) {
     super(props);
     const localStore: string | null = localStorage.getItem("olena_01_search");
     this.state = {
@@ -38,7 +36,6 @@ class App extends Component<StateAppPage> {
       },
     };
   }
-
   updateStoreValue = (value: string) => {
     this.setState({ storeValue: value });
   };
@@ -73,7 +70,7 @@ class App extends Component<StateAppPage> {
           {this.state.isLoading ? (
             <p>Loading...</p>
           ) : (
-            <CardsList results={this.state.requestData.results} />
+            <Container results={this.state.requestData.results} />
           )}
         </div>
       </>
