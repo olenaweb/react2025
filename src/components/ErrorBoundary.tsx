@@ -32,7 +32,9 @@ export class ErrorBoundary extends Component<ErrorProps, ErrorState> {
           <div className="error-page">
             <h2 className="error-title">Something went wrong:-( </h2>
             <ReloadButton />
-            <img className="error-image" src={errorImage} alt="error" />
+            <div className="error-image-host">
+              <img className="error-image" src={errorImage} alt="error" />
+            </div>
           </div>
         </>
       );

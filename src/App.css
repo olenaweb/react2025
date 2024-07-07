@@ -92,6 +92,7 @@ h2.search-title {
 }
 
 .error-page {
+  grid-row: 1 / 3;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -100,6 +101,10 @@ h2.search-title {
   color: white;
   min-height: 100vh;
   height: 100%;
+  width: 100%;
+}
+
+.error-image-host {
   width: 100%;
 }
 
