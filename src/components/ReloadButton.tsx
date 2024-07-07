@@ -5,7 +5,6 @@ export class ReloadButton extends Component {
     return (
       <>
         <button className="reload-btn btn" onClick={() => window.location.reload()}>
-          {" "}
           Sorry, try again
         </button>
       </>

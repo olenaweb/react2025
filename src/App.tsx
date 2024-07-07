@@ -6,6 +6,7 @@ import { getData } from "./request/getData";
 import { Container } from "./containers/Container";
 import { ReloadButton } from "./components/ReloadButton";
 import { ErrorButton } from "./components/ErrorButton";
+import rickmorty from "./assets/rickmorty.jpg";
 
 class App extends Component<object, StateAppPage> {
   state: StateAppPage = {
@@ -84,6 +85,9 @@ class App extends Component<object, StateAppPage> {
     return (
       <>
         <div className="search-panel">
+          <div className="rick-morty">
+            <img className="rick-morty-img" src={rickmorty} alt="RickandMorty" />
+          </div>
           <h2 className="search-title">Rick and Morty</h2>
           <SearchInput
             searchValue={this.state.storeValue ? this.state.storeValue : ""}

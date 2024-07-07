@@ -38,6 +38,7 @@ export interface Character {
 export interface Props {
   results: Character[];
 }
+
 export interface SuccessResponse {
   info: Info;
   results: Character[];

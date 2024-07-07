@@ -1,7 +1,6 @@
-import { Component, ErrorInfo } from 'react';
+import { Component, ErrorInfo } from "react";
 import { ReloadButton } from "./ReloadButton";
-// import errorImage from '../../assets/error.jpg';
-import errorImage from './error.jpg';
+import errorImage from "../assets/error.jpg";
 
 interface ErrorProps {
   children: React.ReactNode;
