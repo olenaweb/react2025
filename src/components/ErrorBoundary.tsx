@@ -26,7 +26,6 @@ export class ErrorBoundary extends Component<ErrorProps, ErrorState> {
 
   render() {
     if (this.state.hasError) {
-      localStorage.removeItem("olena_01_search");
       return (
         <>
           <div className="error-page">

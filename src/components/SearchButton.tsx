@@ -37,9 +37,10 @@ export default class SearchInput extends Component<SearchInputProps> {
           this.props.updateRequestData &&
           this.props.updateErrorMessage
         ) {
-          this.props.updateErrorMessage("*** Sorry, the name is not found. Try another name");
+          this.props.updateErrorMessage(
+            result.error + ". Sorry, the name is not found. Try another name"
+          );
           this.props.updateStoreValue("");
-          localStorage.removeItem("olena_01_search");
         }
       } else {
         localStorage.setItem("olena_01_search", this.state.searchValue.trim());
