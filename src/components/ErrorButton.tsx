@@ -1,29 +1,23 @@
-import { Component } from "react";
+import React, { useState, useEffect } from 'react';
 
-interface ErrorState {
-  errorState: boolean;
-}
+const ErrorButton: React.FC = () => {
+  const [errorState, setErrorState] = useState(false);
 
-export class ErrorButton extends Component {
-  state: ErrorState = {
-    errorState: false,
+  const createError = () => {
+    setErrorState(true);
   };
 
-  createError = () => {
-    this.setState({ errorState: true });
-  };
-
-  componentDidUpdate() {
-    if (this.state.errorState) {
+  useEffect(() => {
+    if (errorState) {
       throw new Error('New Error was created by press button "Create Error"');
     }
-  }
+  }, [errorState]);
 
-  render() {
-    return (
-      <button className="search-error-button btn" onClick={this.createError}>
-        Create Error
-      </button>
-    );
-  }
-}
+  return (
+    <button className="search-error-button btn" onClick={createError}>
+      Create Error
+    </button>
+  );
+};
+
+export default ErrorButton;

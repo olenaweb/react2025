@@ -1,6 +1,6 @@
-import { Component, ChangeEvent, FormEvent } from "react";
-import { getData } from "../request/getData";
-import { Response } from "../types/types";
+import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { getData } from '../request/getData';
+import { Response } from '../types/types';
 
 interface SearchInputProps {
   searchValue: string;
@@ -9,49 +9,30 @@ interface SearchInputProps {
   updateErrorMessage?: (message: string) => void;
 }
 
-export default class SearchInput extends Component<SearchInputProps> {
-  state: SearchInputProps = {
-    searchValue: "",
+const SearchInput: React.FC<SearchInputProps> = ({ searchValue, updateRequestData, updateStoreValue, updateErrorMessage }) => {
+  const [inputValue, setInputValue] = useState<string>(searchValue);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setInputValue(e.target.value);
   };
 
-  constructor(props: SearchInputProps) {
-    super(props);
-    this.state = {
-      searchValue: props.searchValue,
-    };
-  }
-
-  handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    this.setState({ searchValue: e.target.value });
-  };
-
-  handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const result = await getData(this.state.searchValue.trim());
+      const result = await getData(inputValue.trim());
       console.log('"result="', result);
 
-      if ("error" in result) {
-        if (
-          this.props.updateStoreValue &&
-          this.props.updateRequestData &&
-          this.props.updateErrorMessage
-        ) {
-          this.props.updateErrorMessage(
-            result.error + ". Sorry, the name is not found. Try another name"
-          );
-          this.props.updateStoreValue("");
+      if ('error' in result) {
+        if (updateStoreValue && updateRequestData && updateErrorMessage) {
+          updateErrorMessage(result.error + '. Sorry, the name is not found. Try another name');
+          updateStoreValue('');
         }
       } else {
-        localStorage.setItem("olena_01_search", this.state.searchValue.trim());
-        if (
-          this.props.updateStoreValue &&
-          this.props.updateRequestData &&
-          this.props.updateErrorMessage
-        ) {
-          this.props.updateErrorMessage("");
-          this.props.updateRequestData(result);
-          this.props.updateStoreValue(this.state.searchValue.trim());
+        localStorage.setItem('olena_01_search', inputValue.trim());
+        if (updateStoreValue && updateRequestData && updateErrorMessage) {
+          updateErrorMessage('');
+          updateRequestData(result);
+          updateStoreValue(inputValue.trim());
         }
       }
     } catch {
@@ -59,23 +40,23 @@ export default class SearchInput extends Component<SearchInputProps> {
     }
   };
 
-  render() {
-    return (
-      <>
-        <form className="search-form" onSubmit={this.handleSubmit}>
-          <input
-            className="search-input"
-            type="search"
-            id="searchValue"
-            value={this.state.searchValue}
-            onChange={this.handleChange}
-            placeholder="Enter the name"
-          />
-          <button className="search-button btn" type="submit">
-            🔍
-          </button>
-        </form>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <form className="search-form" onSubmit={handleSubmit}>
+        <input
+          className="search-input"
+          type="search"
+          id="searchValue"
+          value={inputValue}
+          onChange={handleChange}
+          placeholder="Enter the name"
+        />
+        <button className="search-button btn" type="submit">
+          🔍
+        </button>
+      </form>
+    </>
+  );
+};
+
+export default SearchInput;
