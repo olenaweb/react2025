@@ -1,4 +1,3 @@
-
 const ErrorButton = () => {
   return (
     <>
@@ -7,6 +6,6 @@ const ErrorButton = () => {
       </button>
     </>
   );
-}
+};
 
 export default ErrorButton;
