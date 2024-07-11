@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-const ErrorButton: React.FC = () => {
+const ErrorButton = () => {
   const [errorState, setErrorState] = useState(false);
 
   const createError = () => {

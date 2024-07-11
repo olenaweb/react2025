@@ -1,5 +1,5 @@
 import { Component, ErrorInfo } from "react";
-import { ReloadButton } from "./ReloadButton";
+import ReloadButton from "./ReloadButton";
 import errorImage from "../assets/error.jpg";
 
 interface ErrorProps {

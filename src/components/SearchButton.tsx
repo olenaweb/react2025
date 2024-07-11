@@ -1,6 +1,6 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { getData } from '../request/getData';
-import { Response } from '../types/types';
+import React, { useState, ChangeEvent, FormEvent } from "react";
+import { getData } from "../request/getData";
+import { Response } from "../types/types";
 
 interface SearchInputProps {
   searchValue: string;
@@ -9,7 +9,12 @@ interface SearchInputProps {
   updateErrorMessage?: (message: string) => void;
 }
 
-const SearchInput: React.FC<SearchInputProps> = ({ searchValue, updateRequestData, updateStoreValue, updateErrorMessage }) => {
+const SearchInput: React.FC<SearchInputProps> = ({
+  searchValue,
+  updateRequestData,
+  updateStoreValue,
+  updateErrorMessage,
+}) => {
   const [inputValue, setInputValue] = useState<string>(searchValue);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -22,15 +27,15 @@ const SearchInput: React.FC<SearchInputProps> = ({ searchValue, updateRequestDat
       const result = await getData(inputValue.trim());
       console.log('"result="', result);
 
-      if ('error' in result) {
+      if ("error" in result) {
         if (updateStoreValue && updateRequestData && updateErrorMessage) {
-          updateErrorMessage(result.error + '. Sorry, the name is not found. Try another name');
-          updateStoreValue('');
+          updateErrorMessage(result.error + ". Sorry, the name is not found. Try another name");
+          updateStoreValue("");
         }
       } else {
-        localStorage.setItem('olena_01_search', inputValue.trim());
+        localStorage.setItem("olena_01_search", inputValue.trim());
         if (updateStoreValue && updateRequestData && updateErrorMessage) {
-          updateErrorMessage('');
+          updateErrorMessage("");
           updateRequestData(result);
           updateStoreValue(inputValue.trim());
         }

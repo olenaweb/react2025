@@ -4,7 +4,7 @@ import "./App.css";
 import SearchInput from "./components/SearchButton";
 import { getData } from "./request/getData";
 import { Container } from "./containers/Container";
-import { ReloadButton } from "./components/ReloadButton";
+import ReloadButton from "./components/ReloadButton";
 import ErrorButton from "./components/ErrorButton";
 import rickmorty from "./assets/rickmorty.jpg";
 
