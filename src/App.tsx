@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { StateAppPage, Response } from "./types/types";
 import "./App.css";
 import SearchInput from "./components/SearchButton";
@@ -8,109 +8,92 @@ import { ReloadButton } from "./components/ReloadButton";
 import { ErrorButton } from "./components/ErrorButton";
 import rickmorty from "./assets/rickmorty.jpg";
 
-class App extends Component<object, StateAppPage> {
-  state: StateAppPage = {
-    storeValue: "",
-    isLoading: false,
-    requestData: {
-      info: {
-        count: 0,
-        pages: 0,
-        next: null,
-        prev: null,
-      },
-      results: [],
+const App: React.FC = () => {
+  const [storeValue, setStoreValue] = useState<string>(
+    localStorage.getItem("olena_01_search") || ""
+  );
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [requestData, setRequestData] = useState<StateAppPage["requestData"]>({
+    info: {
+      count: 0,
+      pages: 0,
+      next: null,
+      prev: null,
     },
-    errorMessage: "",
+    results: [],
+  });
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
+  const updateStoreValue = (value: string) => {
+    setStoreValue(value);
   };
 
-  constructor(props: object) {
-    super(props);
-    const localStore: string | null = localStorage.getItem("olena_01_search");
-    this.state = {
-      storeValue: localStore || "",
-      isLoading: false,
-      requestData: {
-        info: {
-          count: 0,
-          pages: 0,
-          next: null,
-          prev: null,
-        },
-        results: [],
-      },
-      errorMessage: "",
-    };
-  }
-
-  updateStoreValue = (value: string) => {
-    this.setState({ storeValue: value });
-  };
-
-  updateRequestData = (result: Response) => {
+  const updateRequestData = (result: Response) => {
     if ("error" in result) {
-      this.setState({
-        errorMessage: result.error,
-        requestData: { info: { count: 0, pages: 0, next: null, prev: null }, results: [] },
-      });
+      setErrorMessage(result.error);
+      setRequestData({ info: { count: 0, pages: 0, next: null, prev: null }, results: [] });
     } else {
-      this.setState({ requestData: result, errorMessage: "" });
+      setRequestData(result);
+      setErrorMessage("");
     }
   };
 
-  updateErrorMessage = (message: string) => {
-    this.setState({ errorMessage: message });
+  const updateErrorMessage = (message: string) => {
+    setErrorMessage(message);
   };
 
-  async componentDidMount() {
-    this.setState({ isLoading: true });
-    try {
-      const resultData: Response = await getData(this.state.storeValue);
-      if ("error" in resultData) {
-        this.setState({
-          isLoading: false,
-          errorMessage: "**** Sorry, the name is not found. Try another name",
-          requestData: { info: { count: 0, pages: 0, next: null, prev: null }, results: [] },
-        });
-      } else {
-        this.setState({ requestData: resultData, isLoading: false, errorMessage: "" });
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const resultData: Response = await getData(storeValue);
+        if ("error" in resultData) {
+          setIsLoading(false);
+          setErrorMessage("**** Sorry, the name is not found. Try another name");
+          setRequestData({ info: { count: 0, pages: 0, next: null, prev: null }, results: [] });
+        } else {
+          setRequestData(resultData);
+          setIsLoading(false);
+          setErrorMessage("");
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setIsLoading(false);
+        setErrorMessage("Something's gone wrong :-( ");
       }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      this.setState({ isLoading: false, errorMessage: "Something's gone wrong :-( " });
-    }
-  }
+    };
 
-  render() {
-    return (
-      <>
-        <div className="search-panel">
-          <div className="rick-morty">
-            <img className="rick-morty-img" src={rickmorty} alt="RickandMorty" />
+    fetchData();
+  }, [storeValue]);
+
+  return (
+    <>
+      <div className="search-panel">
+        <div className="rick-morty">
+          <img className="rick-morty-img" src={rickmorty} alt="Rick and Morty" />
+        </div>
+        <h2 className="search-title">Rick and Morty</h2>
+        <SearchInput
+          searchValue={storeValue}
+          updateRequestData={updateRequestData}
+          updateStoreValue={updateStoreValue}
+          updateErrorMessage={updateErrorMessage}
+        />
+        <ErrorButton />
+      </div>
+      <div className="cards-panel">
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : errorMessage !== "" ? (
+          <div className="error-message">
+            {errorMessage} <ReloadButton />
           </div>
-          <h2 className="search-title">Rick and Morty</h2>
-          <SearchInput
-            searchValue={this.state.storeValue ? this.state.storeValue : ""}
-            updateRequestData={this.updateRequestData}
-            updateStoreValue={this.updateStoreValue}
-            updateErrorMessage={this.updateErrorMessage}
-          />
-          <ErrorButton />
-        </div>
-        <div className="cards-panel">
-          {this.state.isLoading ? (
-            <p>Loading...</p>
-          ) : this.state.errorMessage !== "" ? (
-            <div className="error-message">
-              {this.state.errorMessage} <ReloadButton />
-            </div>
-          ) : (
-            <Container results={this.state.requestData.results} />
-          )}
-        </div>
-      </>
-    );
-  }
-}
+        ) : (
+          <Container results={requestData.results} />
+        )}
+      </div>
+    </>
+  );
+};
 
 export default App;
