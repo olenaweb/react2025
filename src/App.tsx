@@ -1,19 +1,18 @@
-import { useState, useEffect } from "react";
-import { StateAppPage, Response } from "./types/types";
+import { useState, useEffect, useMemo } from "react";
+import { SuccessResponse, Response } from "./types/types";
 import "./App.css";
 import SearchInput from "./components/SearchButton";
 import { getData } from "./request/getData";
 import { Container } from "./containers/Container";
 import ReloadButton from "./components/ReloadButton";
-import ErrorButton from "./components/ErrorButton";
-import rickmorty from "./assets/rickmorty.jpg";
 import useLocalSearch from "./utils/useLocalSearch";
 import Pagination from "./components/Pagination";
+import Loader from "./components/Loader";
 
 const App = () => {
   const [storeValue, setStoreValue] = useLocalSearch("olena_01_search", "");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [requestData, setRequestData] = useState<StateAppPage["requestData"]>({
+  const [requestData, setRequestData] = useState<SuccessResponse>({
     info: {
       count: 0,
       pages: 0,
@@ -54,10 +53,12 @@ const App = () => {
   const updateLastPage = (page: number | null) => {
     setLastPage(page);
   };
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
+        await new Promise((resolve) => setTimeout(resolve, 300));
         const resultData: Response = await getData(storeValue, currentPage);
         if ("error" in resultData) {
           setIsLoading(false);
@@ -80,41 +81,40 @@ const App = () => {
     fetchData();
   }, [storeValue, currentPage]);
 
+  const viewContainer = useMemo(() => {
+    if (isLoading) {
+      return <Loader />;
+    } else if (errorMessage !== "") {
+      return (
+        <div className="error-message">
+          {errorMessage} <ReloadButton />
+        </div>
+      );
+    } else {
+      return <Container results={requestData.results} />;
+    }
+  }, [isLoading, errorMessage, requestData]);
+
   return (
     <>
-      <div className="search-panel">
-        <div className="rick-morty">
-          <img className="rick-morty-img" src={rickmorty} alt="Rick and Morty" />
-        </div>
-        <h2 className="search-title">Rick and Morty</h2>
-        <SearchInput
-          searchValue={storeValue}
-          currentPage={currentPage}
-          updateRequestData={updateRequestData}
-          updateStoreValue={updateStoreValue}
-          updateErrorMessage={updateErrorMessage}
-          updateCurrentPage={updateCurrentPage}
-        />
-        <ErrorButton />
-      </div>
-      <div className="pagination-panel">
-        <Pagination
-          currentPage={currentPage}
-          updateCurrentPage={updateCurrentPage}
-          nextPage={nextPage}
-          lastPage={lastPage}
-        />
-      </div>
+      <SearchInput
+        searchValue={storeValue}
+        currentPage={currentPage}
+        updateRequestData={updateRequestData}
+        updateStoreValue={updateStoreValue}
+        updateErrorMessage={updateErrorMessage}
+        updateCurrentPage={updateCurrentPage}
+      />
+
+      <Pagination
+        currentPage={currentPage}
+        updateCurrentPage={updateCurrentPage}
+        nextPage={nextPage}
+        lastPage={lastPage}
+      />
+
       <div className="cards-panel">
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : errorMessage !== "" ? (
-          <div className="error-message">
-            {errorMessage} <ReloadButton />
-          </div>
-        ) : (
-          <Container results={requestData.results} />
-        )}
+        {viewContainer}
       </div>
     </>
   );

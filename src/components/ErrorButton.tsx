@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import "./../App.css";
 
 const ErrorButton = () => {
   const [errorState, setErrorState] = useState(false);

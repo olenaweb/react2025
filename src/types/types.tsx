@@ -50,12 +50,12 @@ export interface ErrorResponse {
 
 export type Response = SuccessResponse | ErrorResponse;
 
-export interface StateAppPage {
-  storeValue: string;
-  isLoading: boolean;
-  requestData: SuccessResponse;
-  errorMessage: string;
-}
+// export interface StateAppPage {
+//   storeValue: string;
+//   isLoading: boolean;
+//   requestData: SuccessResponse;
+//   errorMessage: string;
+// }
 export function isNotNullable<T>(value: T): value is NonNullable<T> {
   return value != null;
 }
