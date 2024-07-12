@@ -16,7 +16,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
   updateRequestData,
   updateStoreValue,
   updateErrorMessage,
-  updateCurrentPage
+  updateCurrentPage,
 }) => {
   const [inputValue, setInputValue] = useState<string>(searchValue);
 

@@ -6,7 +6,9 @@ interface FetchError extends Error {
 
 export async function getData(searchValue: string, choosenPage: string): Promise<Response> {
   try {
-    const response = await fetch(`https://rickandmortyapi.com/api/character/?page=${choosenPage}&name=${searchValue}`);
+    const response = await fetch(
+      `https://rickandmortyapi.com/api/character/?page=${choosenPage}&name=${searchValue}`
+    );
     const data = await response.json();
     console.log('"data="', data);
     if (!response.ok) {

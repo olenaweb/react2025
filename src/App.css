@@ -16,11 +16,17 @@
   width: 100%;
   background: rgb(184, 179, 156);
   color: rgb(207, 207, 6);
-  padding-bottom: 20px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   justify-items: center;
+}
+
+.current-page {
+  color: rgb(245, 245, 13);
+  -webkit-text-stroke: 1px #3a3a04;
+  font-size: 24px;
+  font-weight: 800;
 }
 
 h2.search-title {

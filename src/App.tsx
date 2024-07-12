@@ -25,6 +25,7 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<string>("1");
   const [nextPage, setNextPage] = useState<string | null>(requestData.info.next);
+  const [lastPage, setLastPage] = useState<number | null>(requestData.info.pages);
 
   const updateStoreValue = (value: string) => {
     setStoreValue(value);
@@ -50,8 +51,9 @@ const App = () => {
   const updateNextPage = (page: string | null) => {
     setNextPage(page);
   };
-
-
+  const updateLastPage = (page: number | null) => {
+    setLastPage(page);
+  };
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -66,6 +68,7 @@ const App = () => {
           setIsLoading(false);
           setErrorMessage("");
           updateNextPage(resultData.info.next);
+          updateLastPage(resultData.info.pages);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -94,11 +97,12 @@ const App = () => {
         />
         <ErrorButton />
       </div>
-      <div className='pagination-panel'>
+      <div className="pagination-panel">
         <Pagination
           currentPage={currentPage}
           updateCurrentPage={updateCurrentPage}
           nextPage={nextPage}
+          lastPage={lastPage}
         />
       </div>
       <div className="cards-panel">
