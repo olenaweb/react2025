@@ -4,9 +4,11 @@ import { Response } from "../types/types";
 
 interface SearchInputProps {
   searchValue: string;
+  currentPage: string;
   updateRequestData?: (result: Response) => void;
   updateStoreValue?: (value: string) => void;
   updateErrorMessage?: (message: string) => void;
+  updateCurrentPage?: (value: string) => void;
 }
 
 const SearchInput: React.FC<SearchInputProps> = ({
@@ -14,6 +16,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
   updateRequestData,
   updateStoreValue,
   updateErrorMessage,
+  updateCurrentPage
 }) => {
   const [inputValue, setInputValue] = useState<string>(searchValue);
 
@@ -24,7 +27,8 @@ const SearchInput: React.FC<SearchInputProps> = ({
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const result = await getData(inputValue.trim());
+      const page = "1";
+      const result = await getData(inputValue.trim(), page);
       console.log('"result="', result);
 
       if ("error" in result) {
@@ -34,10 +38,11 @@ const SearchInput: React.FC<SearchInputProps> = ({
         }
       } else {
         localStorage.setItem("olena_01_search", inputValue.trim());
-        if (updateStoreValue && updateRequestData && updateErrorMessage) {
+        if (updateStoreValue && updateRequestData && updateErrorMessage && updateCurrentPage) {
           updateErrorMessage("");
           updateRequestData(result);
           updateStoreValue(inputValue.trim());
+          updateCurrentPage("1");
         }
       }
     } catch {

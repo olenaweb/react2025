@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-const usePersistedSearch = (key: string, initialValue: string) => {
+const useLocalSearch = (key: string, initialValue: string) => {
   const [value, setValue] = useState<string>(() => {
     const savedValue = localStorage.getItem(key);
     return savedValue !== null ? savedValue : initialValue;
@@ -11,10 +11,10 @@ const usePersistedSearch = (key: string, initialValue: string) => {
       localStorage.setItem(key, value);
     };
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener("beforeunload", handleBeforeUnload);
 
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
       localStorage.setItem(key, value);
     };
   }, [key, value]);
@@ -22,4 +22,4 @@ const usePersistedSearch = (key: string, initialValue: string) => {
   return [value, setValue] as const;
 };
 
-export default usePersistedSearch;
+export default useLocalSearch;

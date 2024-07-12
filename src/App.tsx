@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { StateAppPage, Response } from './types/types';
-import './App.css';
-import SearchInput from './components/SearchButton';
-import { getData } from './request/getData';
-import { Container } from './containers/Container';
-import ReloadButton from './components/ReloadButton';
-import ErrorButton from './components/ErrorButton';
-import rickmorty from './assets/rickmorty.jpg';
-import usePersistedSearch from './utils/usePersistedSearch';
+import { useState, useEffect } from "react";
+import { StateAppPage, Response } from "./types/types";
+import "./App.css";
+import SearchInput from "./components/SearchButton";
+import { getData } from "./request/getData";
+import { Container } from "./containers/Container";
+import ReloadButton from "./components/ReloadButton";
+import ErrorButton from "./components/ErrorButton";
+import rickmorty from "./assets/rickmorty.jpg";
+import useLocalSearch from "./utils/useLocalSearch";
+import Pagination from "./components/Pagination";
 
-const App: React.FC = () => {
-  const [storeValue, setStoreValue] = usePersistedSearch('olena_01_search', '');
+const App = () => {
+  const [storeValue, setStoreValue] = useLocalSearch("olena_01_search", "");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [requestData, setRequestData] = useState<StateAppPage['requestData']>({
+  const [requestData, setRequestData] = useState<StateAppPage["requestData"]>({
     info: {
       count: 0,
       pages: 0,
@@ -21,19 +22,21 @@ const App: React.FC = () => {
     },
     results: [],
   });
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<string>("1");
+  const [nextPage, setNextPage] = useState<string | null>(requestData.info.next);
 
   const updateStoreValue = (value: string) => {
     setStoreValue(value);
   };
 
   const updateRequestData = (result: Response) => {
-    if ('error' in result) {
+    if ("error" in result) {
       setErrorMessage(result.error);
       setRequestData({ info: { count: 0, pages: 0, next: null, prev: null }, results: [] });
     } else {
       setRequestData(result);
-      setErrorMessage('');
+      setErrorMessage("");
     }
   };
 
@@ -41,29 +44,38 @@ const App: React.FC = () => {
     setErrorMessage(message);
   };
 
+  const updateCurrentPage = (page: string) => {
+    setCurrentPage(page);
+  };
+  const updateNextPage = (page: string | null) => {
+    setNextPage(page);
+  };
+
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const resultData: Response = await getData(storeValue);
-        if ('error' in resultData) {
+        const resultData: Response = await getData(storeValue, currentPage);
+        if ("error" in resultData) {
           setIsLoading(false);
-          setErrorMessage('**** Sorry, the name is not found. Try another name');
+          setErrorMessage("**** Sorry, the name is not found. Try another name");
           setRequestData({ info: { count: 0, pages: 0, next: null, prev: null }, results: [] });
         } else {
           setRequestData(resultData);
           setIsLoading(false);
-          setErrorMessage('');
+          setErrorMessage("");
+          updateNextPage(resultData.info.next);
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
         setIsLoading(false);
         setErrorMessage("Something's gone wrong :-( ");
       }
     };
 
     fetchData();
-  }, [storeValue]);
+  }, [storeValue, currentPage]);
 
   return (
     <>
@@ -74,16 +86,25 @@ const App: React.FC = () => {
         <h2 className="search-title">Rick and Morty</h2>
         <SearchInput
           searchValue={storeValue}
+          currentPage={currentPage}
           updateRequestData={updateRequestData}
           updateStoreValue={updateStoreValue}
           updateErrorMessage={updateErrorMessage}
+          updateCurrentPage={updateCurrentPage}
         />
         <ErrorButton />
+      </div>
+      <div className='pagination-panel'>
+        <Pagination
+          currentPage={currentPage}
+          updateCurrentPage={updateCurrentPage}
+          nextPage={nextPage}
+        />
       </div>
       <div className="cards-panel">
         {isLoading ? (
           <p>Loading...</p>
-        ) : errorMessage !== '' ? (
+        ) : errorMessage !== "" ? (
           <div className="error-message">
             {errorMessage} <ReloadButton />
           </div>

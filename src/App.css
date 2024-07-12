@@ -1,7 +1,7 @@
 #root {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 200px 1fr;
+  grid-template-rows: 200px 50px 1fr;
   height: 100%;
   min-height: 100vh;
   width: 100%;
@@ -51,8 +51,22 @@ h2.search-title {
   align-self: center;
 }
 
+.pagination-panel {
+  grid-row: 2 / 3;
+  background: rgb(184, 179, 156);
+  color: black;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  height: 100%;
+  gap: 11px;
+}
+
 .cards-panel {
-  grid-row: 2/3;
+  grid-row: 3/4;
   width: 100%;
   background: rgb(169, 142, 3);
   color: white;
