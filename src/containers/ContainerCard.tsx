@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Result } from '../types/types';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Result } from "../types/types";
 
 interface ContainerProps {
   results: Result[];
@@ -9,7 +9,7 @@ interface ContainerProps {
 export const Container: React.FC<ContainerProps> = ({ results }) => {
   return (
     <div className="cards-container">
-      {results.map(result => (
+      {results.map((result) => (
         <Link to={`/react2024/detail/${result.id}`} key={result.id}>
           <div className="card">
             {/* Render card content here */}

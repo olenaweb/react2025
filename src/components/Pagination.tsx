@@ -48,7 +48,7 @@ export default function Pagination({ currentPage, updateCurrentPage, nextPage, l
             First
           </button>
         </Link>
-        <Link to={`/react2024/page/${(parseInt(page) <= 1) ? 0 : parseInt(page) - 1}`}>
+        <Link to={`/react2024/page/${parseInt(page) <= 1 ? 0 : parseInt(page) - 1}`}>
           <button onClick={toPrevPage} disabled={parseInt(page) <= 1}>
             Prev
           </button>

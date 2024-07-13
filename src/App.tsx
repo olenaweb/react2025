@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Outlet } from "react-router-dom";
 
 import { SuccessResponse, Response } from "./types/types";
 import "./App.css";
@@ -119,7 +119,10 @@ const App = () => {
         lastPage={lastPage}
       />
 
-      <div className="cards-panel">{viewContainer}</div>
+      <div className="cards-panel">
+        {viewContainer}
+        <Outlet />
+      </div>
     </>
   );
 };
