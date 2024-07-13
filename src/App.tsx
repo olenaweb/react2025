@@ -1,4 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+
 import { SuccessResponse, Response } from "./types/types";
 import "./App.css";
 import SearchInput from "./components/SearchButton";
@@ -10,6 +12,8 @@ import Pagination from "./components/Pagination";
 import Loader from "./components/Loader";
 
 const App = () => {
+  const navigate = useNavigate();
+  const { pageId } = useParams<{ pageId: string }>();
   const [storeValue, setStoreValue] = useLocalSearch("olena_01_search", "");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [requestData, setRequestData] = useState<SuccessResponse>({
@@ -22,7 +26,8 @@ const App = () => {
     results: [],
   });
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [currentPage, setCurrentPage] = useState<string>("1");
+  const [currentPage, setCurrentPage] = useState<string>(pageId || "1");
+
   const [nextPage, setNextPage] = useState<string | null>(requestData.info.next);
   const [lastPage, setLastPage] = useState<number | null>(requestData.info.pages);
 
@@ -46,6 +51,7 @@ const App = () => {
 
   const updateCurrentPage = (page: string) => {
     setCurrentPage(page);
+    navigate(`/react2024/page/${page}`);
   };
   const updateNextPage = (page: string | null) => {
     setNextPage(page);
@@ -113,9 +119,7 @@ const App = () => {
         lastPage={lastPage}
       />
 
-      <div className="cards-panel">
-        {viewContainer}
-      </div>
+      <div className="cards-panel">{viewContainer}</div>
     </>
   );
 };

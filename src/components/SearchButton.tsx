@@ -5,6 +5,7 @@ import { Response } from "../types/types";
 import ErrorButton from "./ErrorButton";
 import rickmorty from "./../assets/rickmorty.jpg";
 import "./../App.css";
+// import { Link } from "react-router-dom";
 
 interface SearchInputProps {
   searchValue: string;
@@ -41,6 +42,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
           updateStoreValue("");
         }
       } else {
+        console.log('"inputValue.trim()="', inputValue.trim());
         localStorage.setItem("olena_01_search", inputValue.trim());
         if (updateStoreValue && updateRequestData && updateErrorMessage && updateCurrentPage) {
           updateErrorMessage("");
