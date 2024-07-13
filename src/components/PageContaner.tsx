@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 
 const PageContainer = () => {
   return (
-    <div>
+    <div className="detail-page">
       <Outlet />
     </div>
   );

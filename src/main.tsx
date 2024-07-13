@@ -5,7 +5,12 @@ import DetailPage from "./pages/DetailPage.tsx";
 import PageContainer from "./components/PageContaner.tsx";
 import "./index.css";
 import { ErrorBoundary } from "./components/ErrorBoundary.tsx";
-import { RouterProvider, createBrowserRouter, RouteObject, LoaderFunctionArgs } from "react-router-dom";
+import {
+  RouterProvider,
+  createBrowserRouter,
+  RouteObject,
+  LoaderFunctionArgs,
+} from "react-router-dom";
 
 const detailLoader = async ({ params }: LoaderFunctionArgs) => {
   const { id } = params;
@@ -34,6 +39,7 @@ export const routes: RouteObject[] = [
         ],
       },
     ],
+
   },
 ];
 
@@ -44,5 +50,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <ErrorBoundary>
       <RouterProvider router={router} />
     </ErrorBoundary>
-  </React.StrictMode>,
+  </React.StrictMode>
 );
