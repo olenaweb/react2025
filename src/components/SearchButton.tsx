@@ -34,7 +34,6 @@ const SearchInput: React.FC<SearchInputProps> = ({
     try {
       const page = "1";
       const result = await getData(inputValue.trim(), page);
-      console.log('"result="', result);
 
       if ("error" in result) {
         if (updateStoreValue && updateRequestData && updateErrorMessage) {
@@ -42,7 +41,6 @@ const SearchInput: React.FC<SearchInputProps> = ({
           updateStoreValue("");
         }
       } else {
-        console.log('"inputValue.trim()="', inputValue.trim());
         localStorage.setItem("olena_01_search", inputValue.trim());
         if (updateStoreValue && updateRequestData && updateErrorMessage && updateCurrentPage) {
           updateErrorMessage("");

@@ -7,7 +7,7 @@ const DetailPage = () => {
 
   return (
     <>
-      <Link className='detail-page-exit' to={`/react2024`}>
+      <Link className="detail-page-exit" to={`/react2024`}>
         ⨉
       </Link>
       <h2>Detail for ID: {data.id}</h2>

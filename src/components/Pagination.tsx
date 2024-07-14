@@ -11,12 +11,13 @@ interface Props {
 }
 
 export default function Pagination({ currentPage, updateCurrentPage, nextPage, lastPage }: Props) {
-  const [page, setPage] = useState<string>(currentPage);
+  const currentPageValue = (Number(currentPage)) ? currentPage : "1";
+  const [page, setPage] = useState<string>(currentPageValue);
   const nextPageValue = nextPage ? Number(nextPage) : null;
 
   useEffect(() => {
-    setPage(currentPage);
-  }, [currentPage]);
+    setPage(currentPageValue);
+  }, [currentPageValue]);
 
   const toFirstPage = () => {
     const prevPage = (0).toString();
@@ -53,7 +54,7 @@ export default function Pagination({ currentPage, updateCurrentPage, nextPage, l
             Prev
           </button>
         </Link>
-        <span className="current-page">{page}</span>
+        <span className="current-page">{Number(page) ? page : currentPageValue}</span>
         <Link to={`/react2024/page/${parseInt(page) + 1}`}>
           <button onClick={toNextPage} disabled={!isNotNullable(nextPageValue)}>
             Next

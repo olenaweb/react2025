@@ -10,7 +10,6 @@ export async function getData(searchValue: string, choosenPage: string): Promise
       `https://rickandmortyapi.com/api/character/?page=${choosenPage}&name=${searchValue}`
     );
     const data = await response.json();
-    console.log('"data="', data);
     if (!response.ok) {
       throw new Error(data.error || "Something went wrong");
     }

@@ -186,6 +186,8 @@ h2.search-title {
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  width: 100%;
+  background: rgb(169, 142, 3);
 }
 
 @media (max-width: 600px) {

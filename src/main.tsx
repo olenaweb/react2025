@@ -5,6 +5,7 @@ import DetailPage from "./pages/DetailPage.tsx";
 import PageContainer from "./components/PageContaner.tsx";
 import "./index.css";
 import { ErrorBoundary } from "./components/ErrorBoundary.tsx";
+import ErrorPage from "./pages/ErrorPage.tsx";
 import {
   RouterProvider,
   createBrowserRouter,
@@ -15,6 +16,9 @@ import {
 const detailLoader = async ({ params }: LoaderFunctionArgs) => {
   const { id } = params;
   const response = await fetch(`https://rickandmortyapi.com/api/character/${id}`);
+  if (response.status === 404) {
+    throw new Error("Not Found");
+  }
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
@@ -25,7 +29,7 @@ const detailLoader = async ({ params }: LoaderFunctionArgs) => {
 export const routes: RouteObject[] = [
   {
     path: "react2024",
-    element: <App />,
+    element: <App />, errorElement: <ErrorPage />,
     children: [
       {
         path: "page/:pageId",
@@ -39,7 +43,6 @@ export const routes: RouteObject[] = [
         ],
       },
     ],
-
   },
 ];
 
