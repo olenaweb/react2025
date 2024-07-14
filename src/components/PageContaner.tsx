@@ -3,6 +3,7 @@ import Loader from "./Loader";
 
 const PageContainer = () => {
   const navigation = useNavigation();
+  console.log('"navigation="', navigation);
   return (
     <div className="detail-page">
       {navigation.state === "loading" && <Loader />}

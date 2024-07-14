@@ -76,7 +76,6 @@ h2.search-title {
   width: 100%;
   background: rgb(169, 142, 3);
   color: white;
-  /* padding: 0 0 20px; */
   display: flex;
 }
 
@@ -87,7 +86,10 @@ h2.search-title {
   align-items: center;
   justify-content: flex-start;
   background: rgb(184, 179, 156);
-  padding-top: 8%;
+}
+
+.detail-page h2 {
+  padding-top: 14px;
 }
 
 .detail-page p {
@@ -96,7 +98,7 @@ h2.search-title {
 
 .detail-page-exit {
   position: absolute;
-  right: 0;
+  right: 5px;
   top: 0;
   width: 30px;
   height: 30px;
