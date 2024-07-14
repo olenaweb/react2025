@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function Pagination({ currentPage, updateCurrentPage, nextPage, lastPage }: Props) {
-  const currentPageValue = (Number(currentPage)) ? currentPage : "1";
+  const currentPageValue = Number(currentPage) ? currentPage : "1";
   const [page, setPage] = useState<string>(currentPageValue);
   const nextPageValue = nextPage ? Number(nextPage) : null;
 

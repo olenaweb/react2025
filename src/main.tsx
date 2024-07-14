@@ -29,7 +29,8 @@ const detailLoader = async ({ params }: LoaderFunctionArgs) => {
 export const routes: RouteObject[] = [
   {
     path: "react2024",
-    element: <App />, errorElement: <ErrorPage />,
+    element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "page/:pageId",

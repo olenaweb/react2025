@@ -1,6 +1,6 @@
 import { Component, ErrorInfo } from "react";
 import errorImage from "../assets/error.jpg";
-import ExitButton from './ExitButton';
+import ExitButton from "./ExitButton";
 
 interface ErrorProps {
   children: React.ReactNode;
