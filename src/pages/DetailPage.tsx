@@ -2,9 +2,9 @@ import { useLoaderData } from "react-router-dom";
 import { Character } from "../types/types";
 import { Link } from "react-router-dom";
 
+
 const DetailPage = () => {
   const data = useLoaderData() as Character;
-
   return (
     <>
       <Link className="detail-page-exit" to={`/react2024`}>
