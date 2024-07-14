@@ -4,11 +4,13 @@ const PageContainer = () => {
   const navigation = useNavigation();
   return (
     <>
-      {navigation.state === "loading" ?
-        <Outlet /> :
+      {navigation.state === "loading" ? (
+        <Outlet />
+      ) : (
         <div className="detail-page">
           <Outlet />
-        </div>}
+        </div>
+      )}
     </>
   );
 };

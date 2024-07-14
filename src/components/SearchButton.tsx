@@ -1,11 +1,11 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { getData } from "../request/getData";
 import { Response } from "../types/types";
 
 import ErrorButton from "./ErrorButton";
 import rickmorty from "./../assets/rickmorty.jpg";
 import "./../App.css";
-// import { Link } from "react-router-dom";
 
 interface SearchInputProps {
   searchValue: string;

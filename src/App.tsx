@@ -102,8 +102,6 @@ const App = () => {
         <>
           <Container results={requestData.results} />
           <Outlet />
-
-          {/* <PageContainer /> */}
         </>
       );
     }
