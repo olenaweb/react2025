@@ -1,11 +1,14 @@
 import { useLoaderData } from "react-router-dom";
 import { Character } from "../types/types";
-import { Link } from "react-router-dom";
+import { Link, useNavigation } from "react-router-dom";
+import Loader from "./../components/Loader";
+
 
 const DetailPage = () => {
   const data = useLoaderData() as Character;
-  return (
-    <>
+  const navigation = useNavigation();
+  const ContentDetail = () => {
+    return (<>
       <Link className="detail-page-exit" to={`/react2024`}>
         ⨉
       </Link>
@@ -21,6 +24,17 @@ const DetailPage = () => {
       <p>Origin: {data.origin.name}</p>
       <p>Location: {data.location.name}</p>
       <p>Created: {data.created}</p>
+    </>);
+  }
+
+  return (
+    <>
+      {navigation.state === "loading" ?
+        <div className="detail-page">
+          <Loader />
+        </div> :
+        <ContentDetail />
+      }
     </>
   );
 };

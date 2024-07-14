@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Outlet } from "react-router-dom";
 
 import { SuccessResponse, Response } from "./types/types";
 import "./App.css";
@@ -10,7 +10,7 @@ import ReloadButton from "./components/ReloadButton";
 import useLocalSearch from "./utils/useLocalSearch";
 import Pagination from "./components/Pagination";
 import Loader from "./components/Loader";
-import PageContainer from "./components/PageContaner";
+// import PageContainer from "./components/PageContaner";
 
 const App = () => {
   const navigate = useNavigate();
@@ -89,7 +89,6 @@ const App = () => {
   }, [storeValue, currentPage]);
 
   const viewContainer = useMemo(() => {
-
     if (isLoading) {
       return <Loader />;
     } else if (errorMessage !== "") {
@@ -102,7 +101,9 @@ const App = () => {
       return (
         <>
           <Container results={requestData.results} />
-          <PageContainer />
+          <Outlet />
+
+          {/* <PageContainer /> */}
         </>
       );
     }
@@ -128,6 +129,7 @@ const App = () => {
 
       <div className="cards-panel">
         {viewContainer}
+        {/* <Outlet /> */}
       </div>
     </>
   );

@@ -1,14 +1,15 @@
 import { Outlet, useNavigation } from "react-router-dom";
-import Loader from "./Loader";
 
 const PageContainer = () => {
   const navigation = useNavigation();
-  console.log('"navigation="', navigation);
   return (
-    <div className="detail-page">
-      {navigation.state === "loading" && <Loader />}
-      <Outlet />
-    </div>
+    <>
+      {navigation.state === "loading" ?
+        <Outlet /> :
+        <div className="detail-page">
+          <Outlet />
+        </div>}
+    </>
   );
 };
 
