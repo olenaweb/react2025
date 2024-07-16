@@ -6,6 +6,7 @@ export default {
   },
   moduleNameMapper: {
     "\\.(css|less|scss|sass)$": "<rootDir>/test/__mocks__/fileMock.js",
-    "\\.(gif|ttf|eot|svg|png)$": "<rootDir>/test/__mocks__/fileMock.js",
+    "\\.(gif|ttf|eot|svg|png|jpg)$": "<rootDir>/test/__mocks__/fileMock.js",
   },
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
 };

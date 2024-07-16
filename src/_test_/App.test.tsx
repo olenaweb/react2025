@@ -1,12 +1,13 @@
-import "@testing-library/jest-dom";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import App from "../App";
+import '@testing-library/jest-dom';
 
-test("demo", () => {
-  expect(true).toBe(true);
-});
-
-test("Renders the main page", () => {
-  render(<App />);
-  expect(true).toBeTruthy();
+test('renders without crashing', () => {
+  render(
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>
+  );
+  expect(screen.getByText(/Rick and Morty/i)).toBeInTheDocument();
 });

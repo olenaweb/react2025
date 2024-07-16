@@ -10,7 +10,6 @@ import ReloadButton from "./components/ReloadButton";
 import useLocalSearch from "./utils/useLocalSearch";
 import Pagination from "./components/Pagination";
 import Loader from "./components/Loader";
-// import PageContainer from "./components/PageContaner";
 
 const App = () => {
   const navigate = useNavigate();
@@ -69,7 +68,7 @@ const App = () => {
         const resultData: Response = await getData(storeValue, currentPage);
         if ("error" in resultData) {
           setIsLoading(false);
-          setErrorMessage("**** Sorry, the name is not found. Try another name");
+          setErrorMessage("Sorry, the name is not found. Try another name");
           setRequestData({ info: { count: 0, pages: 0, next: null, prev: null }, results: [] });
         } else {
           setRequestData(resultData);
@@ -127,7 +126,6 @@ const App = () => {
 
       <div className="cards-panel">
         {viewContainer}
-        {/* <Outlet /> */}
       </div>
     </>
   );

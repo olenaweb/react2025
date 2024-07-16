@@ -6,11 +6,21 @@ import Loader from "./../components/Loader";
 const DetailPage = () => {
   const data = useLoaderData() as Character;
   const navigation = useNavigation();
+  let name = "";
+  let location = "";
+  if (data.origin) {
+    name = data.origin.name ?? "";
+  }
+  if (data.location) {
+    location = data.location.name ?? "";
+  }
   const ContentDetail = () => {
     return (
       <>
         <Link className="detail-page-exit" to={`/react2024`}>
-          ⨉
+          <span>
+            ⨉
+          </span>
         </Link>
         <h2>Detail for ID: {data.id}</h2>
         <img src={data.image} alt={data.name} />
@@ -21,8 +31,8 @@ const DetailPage = () => {
         <p>Species: {data.species}</p>
         <p>Type: {data.type}</p>
         <p>Gender: {data.gender}</p>
-        <p>Origin: {data.origin.name}</p>
-        <p>Location: {data.location.name}</p>
+        <p>Origin: {name}</p>
+        <p>Location: {location}</p>
         <p>Created: {data.created}</p>
       </>
     );

@@ -26,15 +26,16 @@ export interface Character {
   name: string;
   status: Status;
   species: Species;
-  type: string;
+  type?: string;
   gender: Gender;
-  origin: Location;
-  location: Location;
+  origin?: Location;
+  location?: Location;
   image: string;
-  episode: string[];
-  url: string;
-  created: string;
+  episode?: string[];
+  url?: string;
+  created?: string;
 }
+// id, name, image, gender, species, status 
 export interface Props {
   results: Character[];
 }
@@ -50,12 +51,6 @@ export interface ErrorResponse {
 
 export type Response = SuccessResponse | ErrorResponse;
 
-// export interface StateAppPage {
-//   storeValue: string;
-//   isLoading: boolean;
-//   requestData: SuccessResponse;
-//   errorMessage: string;
-// }
 export function isNotNullable<T>(value: T): value is NonNullable<T> {
   return value != null;
 }
