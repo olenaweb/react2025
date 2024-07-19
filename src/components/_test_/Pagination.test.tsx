@@ -1,10 +1,10 @@
 // src/components/__tests__/Pagination.test.tsx
-import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import Pagination from '../Pagination';
-import { MemoryRouter } from 'react-router-dom';
+import { render, screen, fireEvent } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import Pagination from "../Pagination";
+import { MemoryRouter } from "react-router-dom";
 
-test('updates URL query parameter on page change', () => {
+test("updates URL query parameter on page change", () => {
   const updateCurrentPage = jest.fn();
 
   render(
@@ -15,5 +15,5 @@ test('updates URL query parameter on page change', () => {
 
   const nextButton = screen.getByText(/Next/i);
   fireEvent.click(nextButton);
-  expect(updateCurrentPage).toHaveBeenCalledWith('2');
+  expect(updateCurrentPage).toHaveBeenCalledWith("2");
 });

@@ -1,6 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 import { Character } from "../types/types";
-import { Link, useNavigation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useNavigation } from "react-router-dom";
 import Loader from "./../components/Loader";
 
 const DetailPage = () => {
@@ -18,9 +19,7 @@ const DetailPage = () => {
     return (
       <>
         <Link className="detail-page-exit" to={`/react2024`}>
-          <span>
-            ⨉
-          </span>
+          <span>⨉</span>
         </Link>
         <h2>Detail for ID: {data.id}</h2>
         <img src={data.image} alt={data.name} />

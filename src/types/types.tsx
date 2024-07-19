@@ -35,7 +35,7 @@ export interface Character {
   url?: string;
   created?: string;
 }
-// id, name, image, gender, species, status 
+// id, name, image, gender, species, status
 export interface Props {
   results: Character[];
 }

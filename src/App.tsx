@@ -124,9 +124,7 @@ const App = () => {
         lastPage={lastPage}
       />
 
-      <div className="cards-panel">
-        {viewContainer}
-      </div>
+      <div className="cards-panel">{viewContainer}</div>
     </>
   );
 };
