@@ -1,7 +1,7 @@
 import { useGetCharactersQuery } from "./store/services/characterApi";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "./store/Store";
-
+import { useEffect } from "react";
 import { useState, useMemo } from "react";
 import { Outlet } from "react-router-dom";
 import { setCurrentPage, setLastPage } from "./store/features/paginationSlice";
@@ -18,12 +18,13 @@ const App = () => {
 
   const [storeValue, setStoreValue] = useState<string>("");
   const { data, error, isLoading } = useGetCharactersQuery({ name: storeValue, page: currentPage });
-
+  console.log('"isLoading="', isLoading);
+  console.log('"data="', data);
   const updateStoreValue = (value: string) => {
     setStoreValue(value);
   };
 
-  useMemo(() => {
+  useEffect(() => {
     if (data) {
       dispatch(setLastPage(data.info.pages));
     }
@@ -32,8 +33,6 @@ const App = () => {
   const updateCurrentPage = (page: string) => {
     dispatch(setCurrentPage(page));
   };
-  // await new Promise((resolve) => setTimeout(resolve, 300));
-
   const viewContainer = useMemo(() => {
     if (isLoading) {
       return <Loader />;

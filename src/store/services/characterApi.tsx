@@ -10,7 +10,8 @@ export const characterApi: any = createApi({
   endpoints: (builder) => ({
     getCharacters: builder.query<
       { info: Info; results: Character[] },
-      { name: string; page: string }>
+      { name: string; page: string }
+    >
       ({
         query: ({ name, page }) => `character/?page=${page}&name=${name}`,
       }),

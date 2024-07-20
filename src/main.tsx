@@ -8,11 +8,7 @@ import PageContainer from "./components/PageContaner.tsx";
 import "./index.css";
 import { ErrorBoundary } from "./components/ErrorBoundary.tsx";
 import ErrorPage from "./pages/ErrorPage.tsx";
-import {
-  RouterProvider,
-  createBrowserRouter,
-  RouteObject,
-} from "react-router-dom";
+import { RouterProvider, createBrowserRouter, RouteObject } from "react-router-dom";
 
 export const routes: RouteObject[] = [
   {

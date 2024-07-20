@@ -1,13 +1,13 @@
-import { useParams } from 'react-router-dom';
-import { useGetCharacterByIdQuery } from '../store/services/characterApi';
-import Loader from '../components/Loader';
-import ErrorPage from './ErrorPage';
+import { useParams } from "react-router-dom";
+import { useGetCharacterByIdQuery } from "../store/services/characterApi";
+import Loader from "../components/Loader";
+import ErrorPage from "./ErrorPage";
 import { Link } from "react-router-dom";
-
 
 const DetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const { data, error, isLoading } = useGetCharacterByIdQuery(id!);
+  // console.log('"isLoading="', isLoading);
 
   if (isLoading) {
     return <Loader />;

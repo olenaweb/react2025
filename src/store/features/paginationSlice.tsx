@@ -10,7 +10,6 @@ const initialState: PaginationState = {
   lastPage: null,
 };
 
-
 const paginationSlice = createSlice({
   name: "pagination",
   initialState,
