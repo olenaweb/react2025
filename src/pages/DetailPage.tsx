@@ -1,52 +1,43 @@
-import { useLoaderData } from "react-router-dom";
-import { Character } from "../types/types";
+import { useParams } from 'react-router-dom';
+import { useGetCharacterByIdQuery } from '../store/services/characterApi';
+import Loader from '../components/Loader';
+import ErrorPage from './ErrorPage';
 import { Link } from "react-router-dom";
-import { useNavigation } from "react-router-dom";
-import Loader from "./../components/Loader";
+
 
 const DetailPage = () => {
-  const data = useLoaderData() as Character;
-  const navigation = useNavigation();
-  let name = "";
-  let location = "";
-  if (data.origin) {
-    name = data.origin.name ?? "";
+  const { id } = useParams<{ id: string }>();
+  const { data, error, isLoading } = useGetCharacterByIdQuery(id!);
+
+  if (isLoading) {
+    return <Loader />;
   }
+
+  if (error) {
+    return <ErrorPage />;
+  }
+
+  let location = "";
   if (data.location) {
     location = data.location.name ?? "";
   }
-  const ContentDetail = () => {
-    return (
-      <>
-        <Link className="detail-page-exit" to={`/react2024`}>
-          <span>⨉</span>
-        </Link>
-        <h2>Detail for ID: {data.id}</h2>
-        <img src={data.image} alt={data.name} />
-        <p>
-          <b>Name: {data.name}</b>
-        </p>
-        <p>Status: {data.status}</p>
-        <p>Species: {data.species}</p>
-        <p>Type: {data.type}</p>
-        <p>Gender: {data.gender}</p>
-        <p>Origin: {name}</p>
-        <p>Location: {location}</p>
-        <p>Created: {data.created}</p>
-      </>
-    );
-  };
 
   return (
-    <>
-      {navigation.state === "loading" ? (
-        <div className="detail-page">
-          <Loader />
-        </div>
-      ) : (
-        <ContentDetail />
-      )}
-    </>
+    <div>
+      <Link className="detail-page-exit" to={`/react2024`}>
+        <span>⨉</span>
+      </Link>
+      <h2>Detail for ID: {data.id}</h2>
+      <h2>{data?.name}</h2>
+      <img src={data?.image} alt={data?.name} />
+      <p>Status: {data?.status}</p>
+      <p>Species: {data?.species}</p>
+      <p>Gender: {data?.gender}</p>
+      <p>Species: {data.species}</p>
+      <p>Type: {data.type}</p>
+      <p>Location: {location}</p>
+      <p>Created: {data.created}</p>
+    </div>
   );
 };
 

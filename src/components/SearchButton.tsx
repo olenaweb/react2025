@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import { useDispatch } from 'react-redux';
-import { setCurrentPage } from '../store/features/paginationSlice';
-import { useGetCharactersQuery } from '../store/services/characterApi';
+import { useDispatch } from "react-redux";
+import { setCurrentPage } from "../store/features/paginationSlice";
+import { useGetCharactersQuery } from "../store/services/characterApi";
 import ErrorButton from "./ErrorButton";
 import rickmorty from "./../assets/rickmorty.jpg";
 import "./../App.css";
@@ -15,7 +15,7 @@ interface SearchInputProps {
 const SearchInput: React.FC<SearchInputProps> = ({ searchValue, updateStoreValue }) => {
   const [inputValue, setInputValue] = useState<string>(searchValue);
   const dispatch = useDispatch();
-  const { refetch } = useGetCharactersQuery({ name: inputValue.trim(), page: '1' });
+  const { refetch } = useGetCharactersQuery({ name: inputValue.trim(), page: "1" });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setInputValue(e.target.value);
@@ -27,7 +27,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ searchValue, updateStoreValue
     if (updateStoreValue) {
       updateStoreValue(inputValue.trim());
     }
-    dispatch(setCurrentPage('1'));
+    dispatch(setCurrentPage("1"));
     refetch();
   };
 
