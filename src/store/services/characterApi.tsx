@@ -11,10 +11,9 @@ export const characterApi: any = createApi({
     getCharacters: builder.query<
       { info: Info; results: Character[] },
       { name: string; page: string }
-    >
-      ({
-        query: ({ name, page }) => `character/?page=${page}&name=${name}`,
-      }),
+    >({
+      query: ({ name, page }) => `character/?page=${page}&name=${name}`,
+    }),
     getCharacterById: builder.query<Character, string>({
       query: (id) => `character/${id}`,
     }),

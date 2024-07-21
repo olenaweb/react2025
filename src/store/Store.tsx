@@ -20,3 +20,4 @@ export type RootState = ReturnType<typeof store.getState> & {
   pagination: PaginationState;
 };
 export type AppDispatch = typeof store.dispatch;
+
