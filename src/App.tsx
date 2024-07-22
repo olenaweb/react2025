@@ -2,7 +2,7 @@ import { useGetCharactersQuery } from "./store/services/characterApi";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "./store/Store";
 import { useEffect } from "react";
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { Outlet } from "react-router-dom";
 import { setCurrentPage, setLastPage } from "./store/features/paginationSlice";
 import "./App.css";
@@ -11,15 +11,25 @@ import { Container } from "./containers/Container";
 import ReloadButton from "./components/ReloadButton";
 import Pagination from "./components/Pagination";
 import Loader from "./components/Loader";
+import useLocalSearch from "./utils/useLocalSearch";
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { currentPage, lastPage } = useSelector((state: RootState) => state.pagination);
 
-  const [storeValue, setStoreValue] = useState<string>("");
+  const [storeValue, setStoreValue] = useLocalSearch("olena_01_search", "");
+
   const { data, error, isLoading } = useGetCharactersQuery({ name: storeValue, page: currentPage });
-  console.log('"isLoading="', isLoading);
-  console.log('"data="', data);
+  // delay
+  useEffect(() => {
+    if (isLoading) {
+      <Loader />;
+    }
+    async () => {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    };
+  }, [isLoading]);
+
   const updateStoreValue = (value: string) => {
     setStoreValue(value);
   };
@@ -62,7 +72,7 @@ const App = () => {
 
       <Pagination
         currentPage={currentPage}
-        nextPage={data?.info.next}
+        nextPage={data?.info.next ? data.info.next : ""}
         lastPage={lastPage}
         updateCurrentPage={updateCurrentPage}
       />

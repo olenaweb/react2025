@@ -4,7 +4,7 @@ import "immer";
 import { Character, Info } from "../../types/types";
 
 // API with RTK Query
-export const characterApi: any = createApi({
+export const characterApi = createApi({
   reducerPath: "characterApi",
   baseQuery: fetchBaseQuery({ baseUrl: "https://rickandmortyapi.com/api/" }),
   endpoints: (builder) => ({
