@@ -5,6 +5,7 @@ import { useGetCharactersQuery } from "../store/services/characterApi";
 import ErrorButton from "./ErrorButton";
 import rickmorty from "./../assets/rickmorty.jpg";
 import "./../App.css";
+import { useTheme } from "./../store/useTheme";
 
 interface SearchInputProps {
   searchValue: string;
@@ -13,6 +14,7 @@ interface SearchInputProps {
 }
 
 const SearchInput: React.FC<SearchInputProps> = ({ searchValue, updateStoreValue }) => {
+  const { theme } = useTheme();
   const [inputValue, setInputValue] = useState<string>(searchValue);
   const dispatch = useDispatch();
   const { refetch } = useGetCharactersQuery({ name: inputValue.trim(), page: "1" });
@@ -23,7 +25,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ searchValue, updateStoreValue
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    localStorage.setItem("olena_01_search", inputValue.trim());
+    // localStorage.setItem("olena_01_search", inputValue.trim());
     if (updateStoreValue) {
       updateStoreValue(inputValue.trim());
     }
@@ -32,11 +34,21 @@ const SearchInput: React.FC<SearchInputProps> = ({ searchValue, updateStoreValue
   };
 
   return (
-    <div className="search-panel">
+    <div
+      className={
+        theme === "light" ? "search-panel light-search-panel" : "search-panel dark-search-panel"
+      }
+    >
       <div className="rick-morty">
         <img className="rick-morty-img" src={rickmorty} alt="Rick and Morty" />
       </div>
-      <h2 className="search-title">Rick and Morty</h2>
+      <h2
+        className={
+          theme === "light" ? "search-title light-search-panel" : "search-title dark-search-panel"
+        }
+      >
+        Rick and Morty
+      </h2>
       <form className="search-form" onSubmit={handleSubmit}>
         <input
           className="search-input"

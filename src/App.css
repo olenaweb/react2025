@@ -1,3 +1,13 @@
+:root {
+  --background-color: rgb(184, 179, 156);
+  --background-container-color: rgb(169, 142, 3);
+  --color: rgb(207, 207, 6);
+
+  --background-dark-color: rgb(99, 122, 166);
+  --background-container-dark-color: rgb(3, 41, 118);
+  --dark-color: rgb(240, 249, 252);
+}
+
 #root {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -9,17 +19,32 @@
   margin: 0 auto;
   padding: 0 15px;
   text-align: center;
+  position: relative;
+}
+
+.theme-btn {
+  position: absolute;
+  left: 22px;
+  top: 1vh;
 }
 
 .search-panel {
   grid-row: 1/2;
   width: 100%;
-  background: rgb(184, 179, 156);
-  color: rgb(207, 207, 6);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   justify-items: center;
+}
+
+.light-search-panel {
+  background: var(--background-color);
+  color: var(--color);
+}
+
+.dark-search-panel {
+  background: var(--background-dark-color);
+  color: var(--dark-color);
 }
 
 .current-page {
@@ -34,7 +59,6 @@ h2.search-title {
   grid-row: 1 / 2;
   max-height: 35px;
   align-self: center;
-  color: rgb(245, 245, 13);
   -webkit-text-stroke: 1px #3a3a04;
 }
 
@@ -59,8 +83,6 @@ h2.search-title {
 
 .pagination-panel {
   grid-row: 2 / 3;
-  background: rgb(184, 179, 156);
-  color: black;
   width: 100%;
 
   display: flex;
@@ -69,14 +91,31 @@ h2.search-title {
   margin: 0 auto;
   height: 100%;
   gap: 11px;
+  color: black;
+}
+
+.light-pagination-panel {
+  background: var(--background-color);
+}
+
+.dark-pagination-panel {
+  background-color: var(--background-dark-color);
 }
 
 .cards-panel {
   grid-row: 3 / 4;
   width: 100%;
-  background: rgb(169, 142, 3);
-  color: white;
   display: flex;
+}
+
+.light-cards-panel {
+  color: var(--dark-color);
+  background: var(--background-container-color);
+}
+
+.dark-cards-panel {
+  color: var(--color);
+  background-color: var(--background-container-dark-color);
 }
 
 .detail-page {
@@ -85,8 +124,24 @@ h2.search-title {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background: rgb(184, 179, 156);
   max-width: 230px;
+  padding-top: 36px;
+}
+
+.light-detail-page {
+  background: var(--background-container-color);
+}
+
+.dark-detail-page {
+  background-color: var(--background-container-dark-color);
+}
+
+.light-detail {
+  color: var(--dark-color);
+}
+
+.dark-detail {
+  color: var(--color);
 }
 
 .detail-loader {
@@ -131,7 +186,6 @@ h2.search-title {
   margin: 0 auto;
   padding: 11px 15px;
   gap: 20px;
-  background: rgb(169, 142, 3);
 }
 
 .card {
@@ -149,6 +203,26 @@ h2.search-title {
   box-shadow: 2px 2px 8px 2px rgba(195, 195, 195, 1);
 }
 
+.card-content {
+  padding: 10px 0;
+}
+
+a.light-card-link {
+  color: var(--dark-color);
+}
+
+a.dark-card-link {
+  color: var(--color);
+}
+
+a.light-card-link:hover {
+  color: greenyellow;
+}
+
+a.dark-card-link:hover {
+  color: rgb(17, 240, 218);
+}
+
 .card-image {
   width: 100%;
   height: auto;
@@ -160,11 +234,19 @@ h2.search-title {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background: rgb(169, 142, 3);
-  color: white;
   min-height: 100vh;
   height: 100%;
   width: 100%;
+}
+
+.light-error-page {
+  color: var(--dark-color);
+  background: var(--background-container-color);
+}
+
+.dark-error-page {
+  color: var(--color);
+  background-color: var(--background-container-dark-color);
 }
 
 .error-image-host {

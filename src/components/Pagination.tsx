@@ -2,6 +2,7 @@ import "./../App.css";
 import { useState, useEffect } from "react";
 import { isNotNullable } from "../types/types";
 import { Link } from "react-router-dom";
+import { useTheme } from "./../store/useTheme";
 
 interface Props {
   currentPage: string;
@@ -14,6 +15,7 @@ export default function Pagination({ currentPage, updateCurrentPage, nextPage, l
   const currentPageValue = Number(currentPage) ? currentPage : "1";
   const [page, setPage] = useState<string>(currentPageValue);
   const nextPageValue = nextPage ? Number(nextPage) : null;
+  const { theme } = useTheme();
 
   useEffect(() => {
     setPage(currentPageValue);
@@ -43,7 +45,13 @@ export default function Pagination({ currentPage, updateCurrentPage, nextPage, l
 
   return (
     <>
-      <div className="pagination-panel">
+      <div
+        className={
+          theme === "light"
+            ? "pagination-panel light-pagination-panel"
+            : "pagination-panel dark-pagination-panel"
+        }
+      >
         <Link to={`/react2024/page/1`}>
           <button onClick={toFirstPage} disabled={parseInt(page) == 1}>
             First

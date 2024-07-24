@@ -12,8 +12,11 @@ import ReloadButton from "./components/ReloadButton";
 import Pagination from "./components/Pagination";
 import Loader from "./components/Loader";
 import useLocalSearch from "./utils/useLocalSearch";
+import { useTheme } from "./store/useTheme";
 
 const App = () => {
+  const { theme, toggleTheme } = useTheme();
+
   const dispatch = useDispatch<AppDispatch>();
   const { currentPage, lastPage } = useSelector((state: RootState) => state.pagination);
 
@@ -26,7 +29,7 @@ const App = () => {
       <Loader />;
     }
     async () => {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 5000));
     };
   }, [isLoading]);
 
@@ -64,6 +67,9 @@ const App = () => {
 
   return (
     <>
+      <button className="theme-btn" onClick={toggleTheme}>
+        {theme === "light" ? "Light" : "Dark"}
+      </button>
       <SearchInput
         searchValue={storeValue}
         currentPage={currentPage}
@@ -77,7 +83,13 @@ const App = () => {
         updateCurrentPage={updateCurrentPage}
       />
 
-      <div className="cards-panel">{viewContainer}</div>
+      <div
+        className={
+          theme === "light" ? "cards-panel light-cards-panel" : "cards-panel dark-cards-panel"
+        }
+      >
+        {viewContainer}
+      </div>
     </>
   );
 };
