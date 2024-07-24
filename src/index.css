@@ -73,6 +73,11 @@ button {
   transition: border-color 0.25s;
 }
 
+.btn {
+  display: flex;
+  align-items: center;
+}
+
 button:hover {
   border-color: #85582e;
 }

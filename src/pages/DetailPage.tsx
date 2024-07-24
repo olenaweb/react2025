@@ -7,7 +7,7 @@ import { useTheme } from "./../store/useTheme";
 
 const DetailPage = () => {
   const { id } = useParams<{ id: string }>();
-  const { data, error, isLoading } = useGetCharacterByIdQuery(id!);
+  const { data: characterDataId, error, isLoading } = useGetCharacterByIdQuery(id!);
   const { theme } = useTheme();
 
   if (isLoading) {
@@ -19,8 +19,8 @@ const DetailPage = () => {
   }
 
   let location = "";
-  if (data?.location) {
-    location = data.location.name ?? "";
+  if (characterDataId?.location) {
+    location = characterDataId.location.name ?? "";
   }
 
   return (
@@ -28,16 +28,15 @@ const DetailPage = () => {
       <Link className="detail-page-exit" to={`/react2024`}>
         <span>⨉</span>
       </Link>
-      <h3>Detail for ID: {data?.id}</h3>
-      <h3>{data?.name}</h3>
-      <img src={data?.image} alt={data?.name} />
-      <p>Status: {data?.status}</p>
-      <p>Species: {data?.species}</p>
-      <p>Gender: {data?.gender}</p>
-      <p>Species: {data?.species}</p>
-      <p>Type: {data?.type}</p>
+      <h3>Detail for ID: {characterDataId?.id}</h3>
+      <h3>{characterDataId?.name}</h3>
+      <img src={characterDataId?.image} alt={characterDataId?.name} />
+      <p>Status: {characterDataId?.status}</p>
+      <p>Species: {characterDataId?.species}</p>
+      <p>Gender: {characterDataId?.gender}</p>
+      <p>Type: {characterDataId?.type}</p>
       <p>Location: {location}</p>
-      <p>Created: {data?.created}</p>
+      <p>Created: {characterDataId?.created}</p>
     </div>
   );
 };

@@ -8,6 +8,15 @@ export type Species =
   | "Cronenberg"
   | "Animal";
 
+export type FavoriteItem = {
+  id: number;
+  name: string;
+  image: string;
+  gender: Gender;
+  species: Species;
+  status: Status;
+};
+
 export type Page = string | null;
 export interface Info {
   count: number;

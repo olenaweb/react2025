@@ -7,12 +7,20 @@ import { Character, Info } from "../../types/types";
 export const characterApi = createApi({
   reducerPath: "characterApi",
   baseQuery: fetchBaseQuery({ baseUrl: "https://rickandmortyapi.com/api/" }),
+  refetchOnFocus: true,
   endpoints: (builder) => ({
     getCharacters: builder.query<
       { info: Info; results: Character[] },
       { name: string; page: string }
     >({
-      query: ({ name, page }) => `character/?page=${page}&name=${name}`,
+      // query: ({ name, page }) => `character/?page=${page}&name=${name}`,
+      query: ({ name, page }) => ({
+        url: `character/`,
+        params: {
+          page: page,
+          name: name,
+        },
+      }),
     }),
     getCharacterById: builder.query<Character, string>({
       query: (id) => `character/${id}`,

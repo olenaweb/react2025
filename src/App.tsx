@@ -22,7 +22,16 @@ const App = () => {
 
   const [storeValue, setStoreValue] = useLocalSearch("olena_01_search", "");
 
-  const { data, error, isLoading } = useGetCharactersQuery({ name: storeValue, page: currentPage });
+  const {
+    data: characterData,
+    error,
+    isLoading,
+  } = useGetCharactersQuery(
+    { name: storeValue, page: currentPage },
+    {
+      refetchOnFocus: true,
+    }
+  );
   // delay
   useEffect(() => {
     if (isLoading) {
@@ -38,10 +47,10 @@ const App = () => {
   };
 
   useEffect(() => {
-    if (data) {
-      dispatch(setLastPage(data.info.pages));
+    if (characterData) {
+      dispatch(setLastPage(characterData.info.pages));
     }
-  }, [data, dispatch]);
+  }, [characterData, dispatch]);
 
   const updateCurrentPage = (page: string) => {
     dispatch(setCurrentPage(page));
@@ -58,12 +67,12 @@ const App = () => {
     } else {
       return (
         <>
-          <Container results={data?.results || []} />
+          <Container results={characterData?.results || []} />
           <Outlet />
         </>
       );
     }
-  }, [isLoading, error, data]);
+  }, [isLoading, error, characterData]);
 
   return (
     <>
@@ -78,7 +87,7 @@ const App = () => {
 
       <Pagination
         currentPage={currentPage}
-        nextPage={data?.info.next ? data.info.next : ""}
+        nextPage={characterData?.info.next ? characterData.info.next : ""}
         lastPage={lastPage}
         updateCurrentPage={updateCurrentPage}
       />
