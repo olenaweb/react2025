@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useMemo } from "react";
 import { Outlet, useParams } from "react-router-dom";
+// import { CSVDownload } from "react-csv";
 
 import { RootState, AppDispatch } from "./store/Store";
 import { useGetCharactersQuery } from "./store/services/characterApi";
@@ -63,23 +64,6 @@ const App = () => {
     favorites.forEach((item) => dispatch(removeFavorite(item)));
   };
 
-  const handleDownload = () => {
-    const csvContent =
-      "data:text/csv;charset=utf-8," +
-      favorites
-        .map(
-          (item) =>
-            `${item.id},${item.name},${item.image},${item.gender},${item.species},${item.status}`
-        )
-        .join("\n");
-
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `${favorites.length}_items.csv`);
-    link.click();
-  };
-
   const viewContainer = useMemo(() => {
     if (isLoading) {
       return <Loader />;
@@ -128,7 +112,7 @@ const App = () => {
         <Popup
           itemCount={favorites.length}
           onDeselectAll={handleDeselectAll}
-          onDownload={handleDownload}
+          favorites={favorites}
         />
       )}
     </>

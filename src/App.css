@@ -330,6 +330,16 @@ a.dark-card-link:hover {
   background-color: var(--background-dark-color);
 }
 
+.download-btn {
+  color: black;
+  width: 100%;
+  height: 100%;
+}
+
+.download-btn:hover {
+  color: black;
+}
+
 @media (max-width: 600px) {
   .cards {
     grid-template-columns: repeat(2, 1fr);
