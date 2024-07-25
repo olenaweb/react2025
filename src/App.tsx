@@ -1,9 +1,8 @@
 import { useGetCharactersQuery } from "./store/services/characterApi";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "./store/Store";
-import { useEffect } from "react";
-import { useMemo } from "react";
-import { Outlet } from "react-router-dom";
+import { useEffect, useMemo } from "react";
+import { Outlet, useParams } from "react-router-dom";
 import { setCurrentPage, setLastPage } from "./store/features/paginationSlice";
 import "./App.css";
 import SearchInput from "./components/SearchButton";
@@ -15,11 +14,12 @@ import useLocalSearch from "./utils/useLocalSearch";
 import { useTheme } from "./store/useTheme";
 
 const App = () => {
-  const { theme, toggleTheme } = useTheme();
-
   const dispatch = useDispatch<AppDispatch>();
-  const { currentPage, lastPage } = useSelector((state: RootState) => state.pagination);
 
+  const { theme, toggleTheme } = useTheme();
+  const { pageId } = useParams<{ pageId: string }>(); // Retrieving pageId from URL
+
+  const { currentPage, lastPage } = useSelector((state: RootState) => state.pagination);
   const [storeValue, setStoreValue] = useLocalSearch("olena_01_search", "");
 
   const {
@@ -32,15 +32,13 @@ const App = () => {
       refetchOnFocus: true,
     }
   );
-  // delay
+
+  // Initialize currentPage from URL when loading page
   useEffect(() => {
-    if (isLoading) {
-      <Loader />;
+    if (pageId) {
+      dispatch(setCurrentPage(pageId));
     }
-    async () => {
-      await new Promise((resolve) => setTimeout(resolve, 5000));
-    };
-  }, [isLoading]);
+  }, [pageId, dispatch]);
 
   const updateStoreValue = (value: string) => {
     setStoreValue(value);
@@ -55,6 +53,7 @@ const App = () => {
   const updateCurrentPage = (page: string) => {
     dispatch(setCurrentPage(page));
   };
+
   const viewContainer = useMemo(() => {
     if (isLoading) {
       return <Loader />;
