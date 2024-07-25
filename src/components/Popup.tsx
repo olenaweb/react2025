@@ -1,6 +1,6 @@
 import React from "react";
 import { useTheme } from "../store/useTheme";
-import { CSVLink } from 'react-csv';
+import { CSVLink } from "react-csv";
 import { FavoriteItem } from "types/types";
 
 interface PopupProps {
@@ -29,13 +29,12 @@ const Popup: React.FC<PopupProps> = ({ itemCount, onDeselectAll, favorites }) =>
           className="btn download-btn"
           data={favorites}
           headers={headers}
-          filename={`${favorites.length}_items.csv`}
+          filename={`${favorites.length}_characters.csv`}
           target="_blank"
         >
           Download
         </CSVLink>
       </button>
-
     </div>
   );
 };
