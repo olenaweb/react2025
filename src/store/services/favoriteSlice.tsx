@@ -16,13 +16,6 @@ export const favoriteSlice = createSlice({
   initialState,
   reducers: {
     addFavorite(state, action: PayloadAction<FavoriteItem>) {
-      // const isThere = state.favorites.map((item) => {
-      //   if (item.id == action.payload.id) {
-      //     return true;
-      //   }
-      //   return false;
-      // });
-      // const mayAdd = !isThere.includes(true);
       const isThere = state.favorites.some((item) => item.id === action.payload.id);
       if (!isThere) {
         state.favorites.push(action.payload);
