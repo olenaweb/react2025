@@ -1,17 +1,21 @@
-import { useGetCharactersQuery } from "./store/services/characterApi";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "./store/Store";
 import { useEffect, useMemo } from "react";
 import { Outlet, useParams } from "react-router-dom";
+
+import { RootState, AppDispatch } from "./store/Store";
+import { useGetCharactersQuery } from "./store/services/characterApi";
 import { setCurrentPage, setLastPage } from "./store/features/paginationSlice";
-import "./App.css";
+import { removeFavorite } from "./store/services/favoriteSlice";
+import { useTheme } from "./store/useTheme";
+
+import useLocalSearch from "./utils/useLocalSearch";
 import SearchInput from "./components/SearchButton";
 import { Container } from "./containers/Container";
 import ReloadButton from "./components/ReloadButton";
 import Pagination from "./components/Pagination";
 import Loader from "./components/Loader";
-import useLocalSearch from "./utils/useLocalSearch";
-import { useTheme } from "./store/useTheme";
+import Popup from "./components/Popup";
+import "./App.css";
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -32,6 +36,7 @@ const App = () => {
       refetchOnFocus: true,
     }
   );
+  const { favorites } = useSelector((state: RootState) => state.favorites);
 
   // Initialize currentPage from URL when loading page
   useEffect(() => {
@@ -52,6 +57,27 @@ const App = () => {
 
   const updateCurrentPage = (page: string) => {
     dispatch(setCurrentPage(page));
+  };
+
+  const handleDeselectAll = () => {
+    favorites.forEach((item) => dispatch(removeFavorite(item)));
+  };
+
+  const handleDownload = () => {
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      favorites
+        .map(
+          (item) =>
+            `${item.id},${item.name},${item.image},${item.gender},${item.species},${item.status}`
+        )
+        .join("\n");
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `${favorites.length}_items.csv`);
+    link.click();
   };
 
   const viewContainer = useMemo(() => {
@@ -98,6 +124,13 @@ const App = () => {
       >
         {viewContainer}
       </div>
+      {favorites.length > 0 && (
+        <Popup
+          itemCount={favorites.length}
+          onDeselectAll={handleDeselectAll}
+          onDownload={handleDownload}
+        />
+      )}
     </>
   );
 };
