@@ -6,6 +6,7 @@ const ExitButton = () => {
   };
   return (
     <>
+      <p>Sorry, try back</p>
       <button className="reload-btn btn" onClick={exit}>
         <Link to={`/react2024/page/1`}>Sorry, try again</Link>
       </button>

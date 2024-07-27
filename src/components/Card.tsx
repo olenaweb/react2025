@@ -24,7 +24,6 @@ export const Card: React.FC<Character> = ({ id, name, image, gender, species, st
     }),
     [id, name, image, gender, species, status]
   );
-  // [id, name, image, gender, status]
 
   const { favorites } = useAppSelector((state) => state.favorites);
 

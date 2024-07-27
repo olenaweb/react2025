@@ -66,7 +66,12 @@ const App = () => {
 
   const viewContainer = useMemo(() => {
     if (isLoading) {
-      return <Loader />;
+      return (
+        <>
+          <p>Just a moment...</p>
+          <Loader />;
+        </>
+      );
     } else if (error) {
       return (
         <div className="error-message">

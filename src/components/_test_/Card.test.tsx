@@ -4,6 +4,7 @@ import { Card } from "../Card";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
+import { act } from "react";
 
 const mockStore = configureStore([]);
 
@@ -44,14 +45,15 @@ test("renders the relevant card data", () => {
     },
   };
   const store = mockStore(initialState);
-
-  render(
-    <Provider store={store}>
-      <Router>
-        <Card {...mockData} />
-      </Router>
-    </Provider>
-  );
+  act(() => {
+    render(
+      <Provider store={store}>
+        <Router>
+          <Card {...mockData} />
+        </Router>
+      </Provider>
+    );
+  });
 
   expect(screen.getByText(/Rick/i)).toBeInTheDocument();
   expect(screen.getByAltText(/Rick/i)).toHaveAttribute("src", "rick.png");
