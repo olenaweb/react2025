@@ -24,6 +24,7 @@ export const Card: React.FC<Character> = ({ id, name, image, gender, species, st
     }),
     [id, name, image, gender, species, status]
   );
+  // [id, name, image, gender, status]
 
   const { favorites } = useAppSelector((state) => state.favorites);
 
@@ -47,7 +48,7 @@ export const Card: React.FC<Character> = ({ id, name, image, gender, species, st
   };
 
   return (
-    <li className="card">
+    <li className="card" role="listitem">
       <div className="manager-panel">
         {!isFavorite && (
           <button className="to-favorite btn" onClick={addToFavorite}>
