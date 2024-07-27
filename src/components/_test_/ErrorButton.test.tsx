@@ -10,5 +10,5 @@ test("renders error button", () => {
   });
   const loadingMessage = screen.getByText(/Create Error/i);
   expect(loadingMessage).toBeInTheDocument();
-  expect(screen.getByRole('button')).toHaveTextContent('Create Error');
+  expect(screen.getByRole("button")).toHaveTextContent("Create Error");
 });

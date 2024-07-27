@@ -74,4 +74,17 @@ export const handlers = [
       })
     );
   }),
+  rest.get("/characters/:id", (req, res, ctx) => {
+    const { id } = req.params;
+    return res(
+      ctx.json({
+        id,
+        name: "Rick",
+        image: "rick.png",
+        gender: "Male",
+        status: "Alive",
+        species: "Human",
+      })
+    );
+  }),
 ];

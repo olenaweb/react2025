@@ -13,5 +13,5 @@ test("renders create Error component", () => {
   );
   const errorHead = screen.getByText(/Sorry, try again/i);
   expect(errorHead).toBeInTheDocument();
-  expect(screen.getByRole('button')).toHaveTextContent('Sorry, try again')
+  expect(screen.getByRole("button")).toHaveTextContent("Sorry, try again");
 });

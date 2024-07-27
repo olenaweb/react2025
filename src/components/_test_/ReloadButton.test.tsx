@@ -10,5 +10,5 @@ test("renders reload message", () => {
   });
   const loadingMessage = screen.getByText(/Sorry, try again/i);
   expect(loadingMessage).toBeInTheDocument();
-  expect(screen.getByRole('button')).toHaveTextContent('Sorry, try again');
+  expect(screen.getByRole("button")).toHaveTextContent("Sorry, try again");
 });

@@ -9,7 +9,7 @@ import { useTheme } from "./../store/useTheme";
 
 interface SearchInputProps {
   searchValue: string;
-  currentPage: string;
+  currentPage?: string;
   updateStoreValue?: (value: string) => void;
 }
 
