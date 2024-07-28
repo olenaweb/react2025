@@ -7,6 +7,7 @@
   --background-container-dark-color: rgb(3, 41, 118);
   --dark-color: rgb(240, 249, 252);
   --dark-button: #d7d0d0;
+  --view-background: #01031d;
 }
 
 #root {
@@ -19,7 +20,7 @@
 }
 
 #root:has(.dark-view-app) {
-  background: #01031d;
+  background: var(--view-background);
 }
 
 .view-app {
@@ -283,12 +284,26 @@ a.dark-card-link:hover {
   justify-content: flex-start;
   min-height: 100vh;
   height: 100%;
+  max-width: 1280px;
   width: 100%;
+  margin: 0 auto;
+}
+
+#root:has(.dark-error-page) {
+  background: var(--view-background);
 }
 
 .light-error-page {
   color: var(--dark-color);
   background: var(--background-container-color);
+}
+
+.light-error-page button {
+  background: white;
+}
+
+.dark-error-page button {
+  background: var(--dark-button);
 }
 
 .dark-error-page {
