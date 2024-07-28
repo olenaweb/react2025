@@ -9,6 +9,19 @@
 }
 
 #root {
+  width: 100%;
+  margin: 0 auto;
+}
+
+#root:has(.light-view-app) {
+  background: #ccc;
+}
+
+#root:has(.dark-view-app) {
+  background: #01031d;
+}
+
+.view-app {
   display: grid;
   grid-template-columns: 1fr auto;
   grid-template-rows: 200px 50px 1fr;

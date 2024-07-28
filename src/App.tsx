@@ -90,36 +90,40 @@ const App = () => {
 
   return (
     <>
-      <button className="theme-btn" onClick={toggleTheme}>
-        {theme === "light" ? "Light" : "Dark"}
-      </button>
-      <SearchInput
-        searchValue={storeValue}
-        currentPage={currentPage}
-        updateStoreValue={updateStoreValue}
-      />
+      <div className={theme === 'light' ? 'view-app light-view-app' : 'view-app dark-view-app'}>
 
-      <Pagination
-        currentPage={currentPage}
-        nextPage={characterData?.info.next ? characterData.info.next : ""}
-        lastPage={lastPage}
-        updateCurrentPage={updateCurrentPage}
-      />
-
-      <div
-        className={
-          theme === "light" ? "cards-panel light-cards-panel" : "cards-panel dark-cards-panel"
-        }
-      >
-        {viewContainer}
-      </div>
-      {favorites.length > 0 && (
-        <Popup
-          itemCount={favorites.length}
-          onDeselectAll={handleDeselectAll}
-          favorites={favorites}
+        <button className="theme-btn" onClick={toggleTheme}>
+          {theme === "light" ? "Light" : "Dark"}
+        </button>
+        <SearchInput
+          searchValue={storeValue}
+          currentPage={currentPage}
+          updateStoreValue={updateStoreValue}
         />
-      )}
+
+        <Pagination
+          currentPage={currentPage}
+          nextPage={characterData?.info.next ? characterData.info.next : ""}
+          lastPage={lastPage}
+          updateCurrentPage={updateCurrentPage}
+        />
+
+        <div
+          className={
+            theme === "light" ? "cards-panel light-cards-panel" : "cards-panel dark-cards-panel"
+          }
+        >
+          {viewContainer}
+        </div>
+        {favorites.length > 0 && (
+          <Popup
+            itemCount={favorites.length}
+            onDeselectAll={handleDeselectAll}
+            favorites={favorites}
+          />
+        )}
+
+      </div>
     </>
   );
 };
