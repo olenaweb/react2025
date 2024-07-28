@@ -46,10 +46,6 @@ const App = () => {
     }
   }, [pageId, dispatch]);
 
-  const updateStoreValue = (value: string) => {
-    setStoreValue(value);
-  };
-
   useEffect(() => {
     if (characterData) {
       dispatch(setLastPage(characterData.info.pages));
@@ -58,6 +54,10 @@ const App = () => {
 
   const updateCurrentPage = (page: string) => {
     dispatch(setCurrentPage(page));
+  };
+
+  const updateStoreValue = (value: string) => {
+    setStoreValue(value);
   };
 
   const handleDeselectAll = () => {
@@ -90,8 +90,7 @@ const App = () => {
 
   return (
     <>
-      <div className={theme === 'light' ? 'view-app light-view-app' : 'view-app dark-view-app'}>
-
+      <div className={theme === "light" ? "view-app light-view-app" : "view-app dark-view-app"}>
         <button className="theme-btn" onClick={toggleTheme}>
           {theme === "light" ? "Light" : "Dark"}
         </button>
@@ -122,7 +121,6 @@ const App = () => {
             favorites={favorites}
           />
         )}
-
       </div>
     </>
   );

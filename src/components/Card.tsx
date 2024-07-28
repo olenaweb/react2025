@@ -50,7 +50,7 @@ export const Card: React.FC<Character> = ({ id, name, image, gender, species, st
     <li className="card" role="listitem">
       <div className="manager-panel">
         {!isFavorite && (
-          <button className="to-favorite btn" onClick={addToFavorite}>
+          <button className={theme === "light" ? "light-to-favorite btn" : "dark-to-favorite btn"} onClick={addToFavorite}>
             Add
           </button>
         )}

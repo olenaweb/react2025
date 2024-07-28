@@ -6,6 +6,7 @@
   --background-dark-color: rgb(99, 122, 166);
   --background-container-dark-color: rgb(3, 41, 118);
   --dark-color: rgb(240, 249, 252);
+  --dark-button: #d7d0d0;
 }
 
 #root {
@@ -93,6 +94,12 @@ h2.search-title {
   align-self: center;
 }
 
+.dark-search-panel .search-input,
+.dark-search-panel .search-error-button,
+.dark-search-panel button {
+  background: var(--dark-button);
+}
+
 .pagination-panel {
   grid-row: 2 / 3;
   width: 100%;
@@ -112,6 +119,10 @@ h2.search-title {
 
 .dark-pagination-panel {
   background-color: var(--background-dark-color);
+}
+
+.dark-pagination-panel button {
+  background: var(--dark-button);
 }
 
 .cards-panel {
@@ -221,6 +232,14 @@ h2.search-title {
 .manager-panel {
   display: flex;
   height: 30px;
+}
+
+.light-to-favorite {
+  background: white;
+}
+
+.dark-to-favorite {
+  background: var(--dark-button);
 }
 
 .light-from-favorite {
@@ -342,6 +361,16 @@ a.dark-card-link:hover {
 .dark-popup {
   color: white;
   background-color: var(--background-dark-color);
+}
+
+.light-popup .download-btn,
+.light-popup button {
+  background: white;
+}
+
+.dark-popup .download-btn,
+.dark-popup button {
+  background: var(--dark-button);
 }
 
 .download-btn {
