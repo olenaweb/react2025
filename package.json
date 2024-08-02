@@ -13,7 +13,7 @@
     "fix": "npm-run-all --parallel --continue-on-error format:fix lint",
     "preview": "vite preview",
     "prepare": "cd .. && husky react2024/.husky",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "dependencies": {
     "@reduxjs/toolkit": "https://pkg.csb.dev/reduxjs/redux-toolkit/commit/28afb060/@reduxjs/toolkit",
