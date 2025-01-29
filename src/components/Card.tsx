@@ -1,10 +1,10 @@
-import { Component } from "react";
-import { Character } from "../types/types";
+import { Component } from 'react';
+import { Character } from '../types/types';
 
 export class Card extends Component<Character> {
-  constructor(props: Character) {
-    super(props);
-  }
+  // constructor(props: Character) {
+  //   super(props);
+  // }
   render() {
     return (
       <li className="card">
