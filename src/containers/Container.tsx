@@ -1,11 +1,8 @@
 import { Component } from 'react';
 import { Card } from '../components/Card';
-import { Props } from '../types/types';
+import { CharacterArr } from '../types/types';
 
-export class Container extends Component<Props> {
-  // constructor(props: Props) {
-  //   super(props);
-  // }
+export class Container extends Component<CharacterArr> {
   render() {
     return (
       <ul className="cards">

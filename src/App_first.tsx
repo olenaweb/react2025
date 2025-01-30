@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { StateAppPage, Response } from './types/types';
+import { StateAppPage, Response, SuccessResponse } from './types/types';
 import './App.css';
 import SearchInput from './components/SearchInput';
 import { getData } from './request/getData';
@@ -57,8 +57,8 @@ class App extends Component<object, StateAppPage> {
       });
     } else {
       this.setState({
+        requestData: result as SuccessResponse,
         errorMessage: '',
-        requestData: result,
         isLoading: false,
       });
     }
@@ -68,11 +68,7 @@ class App extends Component<object, StateAppPage> {
     this.setState({ errorMessage: message });
   };
 
-  updateBeginLoad = (beginLoad: boolean) => {
-    this.setState({ isLoading: beginLoad });
-  };
-
-  fetchData = async () => {
+  async componentDidMount() {
     this.setState({ isLoading: true });
     try {
       const resultData: Response = await getData(this.state.storeValue);
@@ -83,25 +79,22 @@ class App extends Component<object, StateAppPage> {
           requestData: { info: { count: 0, pages: 0, next: null, prev: null }, results: [] },
         });
       } else {
-        this.setState({ isLoading: false, errorMessage: '', requestData: resultData });
+        this.setState({
+          requestData: resultData as SuccessResponse,
+          isLoading: false,
+          errorMessage: '',
+        });
       }
     } catch (error) {
       console.error('Error fetching data:', error);
-      this.setState({
-        isLoading: false,
-        errorMessage: "Something's gone wrong :-( ",
-        requestData: { info: { count: 0, pages: 0, next: null, prev: null }, results: [] },
-      });
+      this.setState({ isLoading: false, errorMessage: "Something's gone wrong :-( " });
     }
-  };
-
-  async componentDidMount() {
-    await this.fetchData();
   }
 
   render() {
     const cardPanel = () => {
       if (this.state.isLoading) {
+        console.log('this.state.isLoading = ', this.state.isLoading);
         return <Loader />;
       } else if (this.state.errorMessage !== '') {
         return (
@@ -130,7 +123,6 @@ class App extends Component<object, StateAppPage> {
             updateRequestData={this.updateRequestData}
             updateStoreValue={this.updateStoreValue}
             updateErrorMessage={this.updateErrorMessage}
-            updateBeginLoad={this.updateBeginLoad}
           />
           <ErrorButton />
         </div>

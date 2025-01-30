@@ -7,6 +7,7 @@ interface SearchInputProps {
   updateRequestData?: (result: Response) => void;
   updateStoreValue?: (value: string) => void;
   updateErrorMessage?: (message: string) => void;
+  updateBeginLoad?: (beginLoad: boolean) => void;
 }
 
 export default class SearchInput extends Component<SearchInputProps> {
@@ -28,6 +29,9 @@ export default class SearchInput extends Component<SearchInputProps> {
   handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      if (this.props.updateBeginLoad) {
+        this.props.updateBeginLoad(true);
+      }
       const result = await getData(this.state.searchValue.trim());
       console.log('"result="', result);
 
@@ -35,10 +39,12 @@ export default class SearchInput extends Component<SearchInputProps> {
         if (
           this.props.updateStoreValue &&
           this.props.updateRequestData &&
-          this.props.updateErrorMessage
+          this.props.updateErrorMessage &&
+          this.props.updateBeginLoad
         ) {
           this.props.updateErrorMessage('*** Sorry, the name is not found. Try another name');
           this.props.updateStoreValue('');
+          this.props.updateBeginLoad(false);
           localStorage.removeItem('olena_01_search');
         }
       } else {
@@ -46,10 +52,12 @@ export default class SearchInput extends Component<SearchInputProps> {
         if (
           this.props.updateStoreValue &&
           this.props.updateRequestData &&
-          this.props.updateErrorMessage
+          this.props.updateErrorMessage &&
+          this.props.updateBeginLoad
         ) {
           this.props.updateErrorMessage('');
           this.props.updateRequestData(result);
+          this.props.updateBeginLoad(false);
           this.props.updateStoreValue(this.state.searchValue.trim());
         }
       }
