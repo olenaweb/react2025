@@ -4,10 +4,10 @@ import './App.css';
 import SearchInput from './components/SearchInput';
 import { getData } from './request/getData';
 import { Container } from './containers/Container';
-import { ReloadButton } from './components/ReloadButton';
 import { ErrorButton } from './components/ErrorButton';
 import rickmorty from './assets/rickmorty.jpg';
 import Loader from './components/Loader';
+import { ErrorFetch } from './components/ErrorFetch';
 
 class App extends Component<object, StateAppPage> {
   state: StateAppPage = {
@@ -82,8 +82,13 @@ class App extends Component<object, StateAppPage> {
           errorMessage: '**** Sorry, the name is not found. Try another name',
           requestData: { info: { count: 0, pages: 0, next: null, prev: null }, results: [] },
         });
+        console.error('Error fetching data:', resultData.error);
       } else {
-        this.setState({ isLoading: false, errorMessage: '', requestData: resultData });
+        this.setState({
+          isLoading: false,
+          errorMessage: '',
+          requestData: resultData,
+        });
       }
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -100,13 +105,16 @@ class App extends Component<object, StateAppPage> {
   }
 
   render() {
+    const yearTemplate = <p className="bold">RS School 2025</p>;
+
     const cardPanel = () => {
       if (this.state.isLoading) {
         return <Loader />;
       } else if (this.state.errorMessage !== '') {
         return (
           <div className="error-message">
-            {this.state.errorMessage} <ReloadButton />
+            {this.state.errorMessage}
+            <ErrorFetch />
           </div>
         );
       } else {
@@ -117,7 +125,6 @@ class App extends Component<object, StateAppPage> {
         );
       }
     };
-
     return (
       <>
         <div className="search-panel">
@@ -135,6 +142,7 @@ class App extends Component<object, StateAppPage> {
           <ErrorButton />
         </div>
         <div className="cards-panel">{cardPanel()}</div>
+        {yearTemplate}
       </>
     );
   }

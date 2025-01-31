@@ -36,14 +36,16 @@ export default class SearchInput extends Component<SearchInputProps> {
       console.log('"result="', result);
 
       if ('error' in result) {
+        console.error('Error fetching data:', result.error);
+
         if (
           this.props.updateStoreValue &&
           this.props.updateRequestData &&
           this.props.updateErrorMessage &&
           this.props.updateBeginLoad
         ) {
-          this.props.updateErrorMessage('*** Sorry, the name is not found. Try another name');
           this.props.updateStoreValue('');
+          this.props.updateErrorMessage('*** Sorry, the name is not found. Try another name');
           this.props.updateBeginLoad(false);
           localStorage.removeItem('olena_01_search');
         }
@@ -55,10 +57,10 @@ export default class SearchInput extends Component<SearchInputProps> {
           this.props.updateErrorMessage &&
           this.props.updateBeginLoad
         ) {
-          this.props.updateErrorMessage('');
-          this.props.updateRequestData(result);
-          this.props.updateBeginLoad(false);
           this.props.updateStoreValue(this.state.searchValue.trim());
+          this.props.updateRequestData(result);
+          this.props.updateErrorMessage('');
+          this.props.updateBeginLoad(false);
         }
       }
     } catch {
