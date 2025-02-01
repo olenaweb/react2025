@@ -10,7 +10,7 @@ export async function getData(searchValue: string): Promise<Response> {
     const response = await fetch(`https://rickandmortyapi.com/api/character/?name=${searchValue}`);
     const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.error || 'Something went wrong');
+      throw new Error(data.error || 'Something went wrong!');
     }
     return data as SuccessResponse;
   } catch (error) {

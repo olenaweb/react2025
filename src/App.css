@@ -45,18 +45,21 @@ h2.search-title {
 }
 
 .search-error-button {
-  grid-column: 3/4;
-  grid-row: 2/3;
   height: fit-content;
-  align-self: center;
+  align-self: self-end;
+  margin: 10px 10px 0 auto;
+  position: relative;
 }
 
 .cards-panel {
-  grid-row: 2/3;
+  grid-row: 2 / 3;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   background: rgb(169, 142, 3);
   color: white;
   padding: 0 0 20px;
+  min-height: 67vh;
 }
 
 .cards {
@@ -150,11 +153,6 @@ h2.search-title {
   .search-form {
     grid-column: 1/2;
     grid-row: 2/3;
-  }
-
-  .search-error-button {
-    grid-column: 1/2;
-    grid-row: 3/4;
   }
 
   .rick-morty {

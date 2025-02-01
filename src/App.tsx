@@ -8,6 +8,7 @@ import { ErrorButton } from './components/ErrorButton';
 import rickmorty from './assets/rickmorty.jpg';
 import Loader from './components/Loader';
 import { ErrorFetch } from './components/ErrorFetch';
+import { ErrorBoundary } from './components/ErrorBoundary';
 
 class App extends Component<object, StateAppPage> {
   state: StateAppPage = {
@@ -113,15 +114,18 @@ class App extends Component<object, StateAppPage> {
       }
       if (this.state.errorMessage !== '') {
         return (
-          <div className="error-message">
-            {this.state.errorMessage}
+          <div className="error-title">
+            <h2> {this.state.errorMessage}</h2>
             <ErrorFetch />
           </div>
         );
       }
       return (
         <>
-          <Container results={this.state.requestData.results} />
+          <ErrorBoundary>
+            <Container results={this.state.requestData.results} />
+            <ErrorButton />
+          </ErrorBoundary>
         </>
       );
     };
@@ -140,7 +144,6 @@ class App extends Component<object, StateAppPage> {
             updateErrorMessage={this.updateErrorMessage}
             updateBeginLoad={this.updateBeginLoad}
           />
-          <ErrorButton />
         </div>
         <div className="cards-panel">{cardPanel()}</div>
         {yearTemplate}
