@@ -1,4 +1,6 @@
 import { Component, ChangeEvent, FormEvent } from 'react';
+import { createRef, RefObject } from 'react';
+
 import { getData } from '../request/getData';
 import { Response } from '../types/types';
 
@@ -14,12 +16,19 @@ export default class SearchInput extends Component<SearchInputProps> {
   state: SearchInputProps = {
     searchValue: '',
   };
+  private input: RefObject<HTMLInputElement>;
 
   constructor(props: SearchInputProps) {
     super(props);
     this.state = {
       searchValue: props.searchValue,
     };
+    this.input = createRef<HTMLInputElement>();
+  }
+  componentDidMount() {
+    if (this.input.current) {
+      this.input.current.focus();
+    }
   }
 
   handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -33,7 +42,6 @@ export default class SearchInput extends Component<SearchInputProps> {
         this.props.updateBeginLoad(true);
       }
       const result = await getData(this.state.searchValue.trim());
-      console.log('"result="', result);
 
       if ('error' in result) {
         console.error('Error fetching data:', result.error);
@@ -79,6 +87,7 @@ export default class SearchInput extends Component<SearchInputProps> {
             value={this.state.searchValue}
             onChange={this.handleChange}
             placeholder="Enter the name"
+            ref={this.input}
           />
           <button className="search-button btn" type="submit">
             🔍

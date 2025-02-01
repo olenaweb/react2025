@@ -110,21 +110,22 @@ class App extends Component<object, StateAppPage> {
     const cardPanel = () => {
       if (this.state.isLoading) {
         return <Loader />;
-      } else if (this.state.errorMessage !== '') {
+      }
+      if (this.state.errorMessage !== '') {
         return (
           <div className="error-message">
             {this.state.errorMessage}
             <ErrorFetch />
           </div>
         );
-      } else {
-        return (
-          <>
-            <Container results={this.state.requestData.results} />
-          </>
-        );
       }
+      return (
+        <>
+          <Container results={this.state.requestData.results} />
+        </>
+      );
     };
+
     return (
       <>
         <div className="search-panel">
