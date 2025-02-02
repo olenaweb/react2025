@@ -8,7 +8,6 @@ import { ErrorButton } from './components/ErrorButton';
 import rickmorty from './assets/rickmorty.jpg';
 import Loader from './components/Loader';
 import { ErrorFetch } from './components/ErrorFetch';
-import { ErrorBoundary } from './components/ErrorBoundary';
 
 class App extends Component<object, StateAppPage> {
   state: StateAppPage = {
@@ -122,10 +121,8 @@ class App extends Component<object, StateAppPage> {
       }
       return (
         <>
-          <ErrorBoundary>
-            <Container results={this.state.requestData.results} />
-            <ErrorButton />
-          </ErrorBoundary>
+          <Container results={this.state.requestData.results} />
+          <ErrorButton />
         </>
       );
     };
