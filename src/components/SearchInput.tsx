@@ -42,6 +42,7 @@ export default class SearchInput extends Component<SearchInputProps> {
         this.props.updateBeginLoad(true);
       }
       const result = await getData(this.state.searchValue.trim());
+      localStorage.setItem("olena_01_search", this.state.searchValue.trim());
 
       if ("error" in result) {
         console.error("Error fetching data:", result.error);
@@ -55,10 +56,8 @@ export default class SearchInput extends Component<SearchInputProps> {
           this.props.updateStoreValue("");
           this.props.updateErrorMessage("*** Sorry, the name is not found. Try another name");
           this.props.updateBeginLoad(false);
-          localStorage.removeItem("olena_01_search");
         }
       } else {
-        localStorage.setItem("olena_01_search", this.state.searchValue.trim());
         if (
           this.props.updateStoreValue &&
           this.props.updateRequestData &&
