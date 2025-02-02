@@ -1,17 +1,17 @@
-import { Component } from 'react';
-import { StateAppPage, Response } from './types/types';
-import './App.css';
-import SearchInput from './components/SearchInput';
-import { getData } from './request/getData';
-import { Container } from './containers/Container';
-import { ErrorButton } from './components/ErrorButton';
-import rickmorty from './assets/rickmorty.jpg';
-import Loader from './components/Loader';
-import { ErrorFetch } from './components/ErrorFetch';
+import { Component } from "react";
+import { StateAppPage, Response } from "./types/types";
+import "./App.css";
+import SearchInput from "./components/SearchInput";
+import { getData } from "./request/getData";
+import { Container } from "./containers/Container";
+import { ErrorButton } from "./components/ErrorButton";
+import rickmorty from "./assets/rickmorty.jpg";
+import { Loader } from "./components/Loader";
+import { ErrorFetch } from "./components/ErrorFetch";
 
 class App extends Component<object, StateAppPage> {
   state: StateAppPage = {
-    storeValue: '',
+    storeValue: "",
     isLoading: false,
     requestData: {
       info: {
@@ -22,14 +22,14 @@ class App extends Component<object, StateAppPage> {
       },
       results: [],
     },
-    errorMessage: '',
+    errorMessage: "",
   };
 
   constructor(props: object) {
     super(props);
-    const localStore: string | null = localStorage.getItem('olena_01_search');
+    const localStore: string | null = localStorage.getItem("olena_01_search");
     this.state = {
-      storeValue: localStore || '',
+      storeValue: localStore || "",
       isLoading: false,
       requestData: {
         info: {
@@ -40,7 +40,7 @@ class App extends Component<object, StateAppPage> {
         },
         results: [],
       },
-      errorMessage: '',
+      errorMessage: "",
     };
   }
 
@@ -49,7 +49,7 @@ class App extends Component<object, StateAppPage> {
   };
 
   updateRequestData = (result: Response) => {
-    if ('error' in result) {
+    if ("error" in result) {
       this.setState({
         errorMessage: result.error,
         requestData: { info: { count: 0, pages: 0, next: null, prev: null }, results: [] },
@@ -57,7 +57,7 @@ class App extends Component<object, StateAppPage> {
       });
     } else {
       this.setState({
-        errorMessage: '',
+        errorMessage: "",
         requestData: result,
         isLoading: false,
       });
@@ -76,22 +76,22 @@ class App extends Component<object, StateAppPage> {
     this.setState({ isLoading: true });
     try {
       const resultData: Response = await getData(this.state.storeValue);
-      if ('error' in resultData) {
+      if ("error" in resultData) {
         this.setState({
           isLoading: false,
-          errorMessage: '**** Sorry, the name is not found. Try another name',
+          errorMessage: "**** Sorry, the name is not found. Try another name",
           requestData: { info: { count: 0, pages: 0, next: null, prev: null }, results: [] },
         });
-        console.error('Error fetching data:', resultData.error);
+        console.error("Error fetching data:", resultData.error);
       } else {
         this.setState({
           isLoading: false,
-          errorMessage: '',
+          errorMessage: "",
           requestData: resultData,
         });
       }
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
       this.setState({
         isLoading: false,
         errorMessage: "Something's gone wrong :-( ",
@@ -111,7 +111,7 @@ class App extends Component<object, StateAppPage> {
       if (this.state.isLoading) {
         return <Loader />;
       }
-      if (this.state.errorMessage !== '') {
+      if (this.state.errorMessage !== "") {
         return (
           <div className="error-title">
             <h2> {this.state.errorMessage}</h2>
@@ -122,7 +122,6 @@ class App extends Component<object, StateAppPage> {
       return (
         <>
           <Container results={this.state.requestData.results} />
-          <ErrorButton />
         </>
       );
     };
@@ -135,12 +134,13 @@ class App extends Component<object, StateAppPage> {
           </div>
           <h2 className="search-title">Rick and Morty</h2>
           <SearchInput
-            searchValue={this.state.storeValue ? this.state.storeValue : ''}
+            searchValue={this.state.storeValue ? this.state.storeValue : ""}
             updateRequestData={this.updateRequestData}
             updateStoreValue={this.updateStoreValue}
             updateErrorMessage={this.updateErrorMessage}
             updateBeginLoad={this.updateBeginLoad}
           />
+          <ErrorButton />
         </div>
         <div className="cards-panel">{cardPanel()}</div>
         {yearTemplate}

@@ -1,6 +1,6 @@
-import { Component, ErrorInfo } from 'react';
-import errorImage from '../assets/error.jpg';
-import { ReloadButton } from './ReloadButton';
+import { Component, ErrorInfo } from "react";
+import errorImage from "../assets/error.jpg";
+import { ReloadButton } from "./ReloadButton";
 
 interface ErrorProps {
   children: React.ReactNode;
@@ -21,12 +21,12 @@ export class ErrorBoundary extends Component<ErrorProps, ErrorState> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Caught an error by ErrorBoundary:', error, errorInfo);
+    console.error("Caught an error by ErrorBoundary:", error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
-      localStorage.removeItem('olena_01_search');
+      localStorage.removeItem("olena_01_search");
       return (
         <>
           <div className="error-page">

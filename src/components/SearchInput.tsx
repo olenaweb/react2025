@@ -1,8 +1,8 @@
-import { Component, ChangeEvent, FormEvent } from 'react';
-import { createRef, RefObject } from 'react';
+import { Component, ChangeEvent, FormEvent } from "react";
+import { createRef, RefObject } from "react";
 
-import { getData } from '../request/getData';
-import { Response } from '../types/types';
+import { getData } from "../request/getData";
+import { Response } from "../types/types";
 
 interface SearchInputProps {
   searchValue: string;
@@ -14,7 +14,7 @@ interface SearchInputProps {
 
 export default class SearchInput extends Component<SearchInputProps> {
   state: SearchInputProps = {
-    searchValue: '',
+    searchValue: "",
   };
   private input: RefObject<HTMLInputElement>;
 
@@ -43,8 +43,8 @@ export default class SearchInput extends Component<SearchInputProps> {
       }
       const result = await getData(this.state.searchValue.trim());
 
-      if ('error' in result) {
-        console.error('Error fetching data:', result.error);
+      if ("error" in result) {
+        console.error("Error fetching data:", result.error);
 
         if (
           this.props.updateStoreValue &&
@@ -52,13 +52,13 @@ export default class SearchInput extends Component<SearchInputProps> {
           this.props.updateErrorMessage &&
           this.props.updateBeginLoad
         ) {
-          this.props.updateStoreValue('');
-          this.props.updateErrorMessage('*** Sorry, the name is not found. Try another name');
+          this.props.updateStoreValue("");
+          this.props.updateErrorMessage("*** Sorry, the name is not found. Try another name");
           this.props.updateBeginLoad(false);
-          localStorage.removeItem('olena_01_search');
+          localStorage.removeItem("olena_01_search");
         }
       } else {
-        localStorage.setItem('olena_01_search', this.state.searchValue.trim());
+        localStorage.setItem("olena_01_search", this.state.searchValue.trim());
         if (
           this.props.updateStoreValue &&
           this.props.updateRequestData &&
@@ -67,7 +67,7 @@ export default class SearchInput extends Component<SearchInputProps> {
         ) {
           this.props.updateStoreValue(this.state.searchValue.trim());
           this.props.updateRequestData(result);
-          this.props.updateErrorMessage('');
+          this.props.updateErrorMessage("");
           this.props.updateBeginLoad(false);
         }
       }

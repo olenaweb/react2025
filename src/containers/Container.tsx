@@ -1,6 +1,6 @@
-import { Component } from 'react';
-import { Card } from '../components/Card';
-import { CharacterArr } from '../types/types';
+import { Component } from "react";
+import { Card } from "../components/Card";
+import { CharacterArr } from "../types/types";
 
 export class Container extends Component<CharacterArr> {
   render() {

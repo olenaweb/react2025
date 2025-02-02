@@ -1,5 +1,5 @@
-export type Gender = 'Male' | 'Female' | 'unknown';
-export type Status = 'Alive' | 'Dead' | 'unknown';
+export type Gender = "Male" | "Female" | "unknown";
+export type Status = "Alive" | "Dead" | "unknown";
 
 export type Page = string | null;
 

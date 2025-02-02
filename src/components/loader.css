@@ -1,6 +1,6 @@
 .loader-image {
   animation: rotate 5s infinite;
-  background-image: url('../assets/circles.svg');
+  background-image: url("../assets/circles.svg");
   background-repeat: no-repeat;
   width: 140px;
   height: 140px;

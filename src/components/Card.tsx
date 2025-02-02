@@ -1,5 +1,5 @@
-import { Component } from 'react';
-import { Character } from '../types/types';
+import { Component } from "react";
+import { Character } from "../types/types";
 
 export class Card extends Component<Character> {
   render() {

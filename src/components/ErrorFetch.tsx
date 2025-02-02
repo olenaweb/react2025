@@ -1,5 +1,5 @@
-import { Component } from 'react';
-import errorImage from '../assets/error.jpg';
+import { Component } from "react";
+import errorImage from "../assets/error.jpg";
 export class ErrorFetch extends Component {
   render() {
     return (

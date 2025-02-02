@@ -1,4 +1,4 @@
-import { Response, SuccessResponse, ErrorResponse } from '../types/types';
+import { Response, SuccessResponse, ErrorResponse } from "../types/types";
 
 interface FetchError extends Error {
   message: string;
@@ -10,7 +10,7 @@ export async function getData(searchValue: string): Promise<Response> {
     const response = await fetch(`https://rickandmortyapi.com/api/character/?name=${searchValue}`);
     const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.error || 'Something went wrong!');
+      throw new Error(data.error || "Something went wrong!");
     }
     return data as SuccessResponse;
   } catch (error) {
@@ -22,7 +22,7 @@ export async function getData(searchValue: string): Promise<Response> {
       };
       return { error: fetchError.message } as ErrorResponse;
     } else {
-      return { error: 'An unknown error occurred' } as ErrorResponse;
+      return { error: "An unknown error occurred" } as ErrorResponse;
     }
   }
 }
