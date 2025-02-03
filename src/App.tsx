@@ -10,21 +10,6 @@ import { Loader } from "./components/Loader";
 import { ErrorFetch } from "./components/ErrorFetch";
 
 class App extends Component<object, StateAppPage> {
-  state: StateAppPage = {
-    storeValue: "",
-    isLoading: false,
-    requestData: {
-      info: {
-        count: 0,
-        pages: 0,
-        next: null,
-        prev: null,
-      },
-      results: [],
-    },
-    errorMessage: "",
-  };
-
   constructor(props: object) {
     super(props);
     const localStore: string | null = localStorage.getItem("olena_01_search");
