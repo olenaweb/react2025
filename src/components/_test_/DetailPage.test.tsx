@@ -1,9 +1,6 @@
-// src/components/__tests__/DetailPage.test.tsx
-// import { render, screen, fireEvent } from '@testing-library/react';
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
+import { MemoryRouter } from "react-router-dom";
 import DetailPage from "../../pages/DetailPage";
-import { createMemoryRouter, RouterProvider } from "react-router-dom";
 import { Character } from "../../types/types";
 
 const mockCharacter: Character = {
@@ -22,47 +19,50 @@ const mockCharacter: Character = {
 };
 
 jest.mock("react-router-dom", () => {
-  const originalModule = jest.requireActual("react-router-dom");
+  const actual = jest.requireActual("react-router-dom");
   return {
-    ...originalModule,
+    ...actual,
     useLoaderData: () => mockCharacter,
+    useNavigation: () => ({ state: "idle" }),
   };
 });
 
-test("displays detailed card information correctly", async () => {
-  const routes = [
-    {
-      path: "/react2024/detail/:id",
-      element: <DetailPage />,
-    },
-  ];
-  const router = createMemoryRouter(routes, {
-    initialEntries: ["/react2024/detail/1"],
-  });
-  render(<RouterProvider router={router} />);
+describe("DetailPage (idle state)", () => {
+  it("renders detailed card information correctly", async () => {
+    render(
+      <MemoryRouter>
+        <DetailPage />
+      </MemoryRouter>
+    );
 
-  const nameElement = await screen.findByText((content) => content.includes("Rick Sanchez"));
-  expect(nameElement).toBeInTheDocument();
-  expect(screen.getByText(/Status: Alive/i)).toBeInTheDocument();
-  expect(screen.getByText(/Species: Human/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Detail for ID: 1/i)).toBeInTheDocument();
+    expect(screen.getByText(/Name: Rick Sanchez/i)).toBeInTheDocument();
+    expect(screen.getByText(/Status: Alive/i)).toBeInTheDocument();
+    expect(screen.getByText(/Species: Human/i)).toBeInTheDocument();
+    expect(screen.getByText("⨉")).toBeInTheDocument();
+  });
 });
 
-test("hides component on close button click", async () => {
-  const routes = [
-    {
-      path: "/react2024/detail/:id",
-      element: <DetailPage />,
-    },
-  ];
-
-  const router = createMemoryRouter(routes, {
-    initialEntries: ["/react2024/detail/1"],
+describe("DetailPage (loading state)", () => {
+  beforeAll(() => {
+    jest.resetModules();
+    jest.doMock("react-router-dom", () => {
+      const actual = jest.requireActual("react-router-dom");
+      return {
+        ...actual,
+        useLoaderData: () => mockCharacter,
+        useNavigation: () => ({ state: "loading" }),
+      };
+    });
   });
 
-  render(<RouterProvider router={router} />);
-
-  screen.debug();
-
-  const closeButton = await screen.findByText((content) => content.includes("⨉"));
-  expect(closeButton).toBeInTheDocument();
+  it("renders Loader component when navigation state is loading", async () => {
+    const { default: DetailPageLoading } = await import("../../pages/DetailPage");
+    render(
+      <MemoryRouter>
+        <DetailPageLoading />
+      </MemoryRouter>
+    );
+    expect(screen.getByText(/Loading.../i)).toBeInTheDocument();
+  });
 });

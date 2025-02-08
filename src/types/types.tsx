@@ -30,12 +30,11 @@ export interface Character {
   gender: Gender;
   origin?: Location;
   location?: Location;
-  image: string;
+  image?: string;
   episode?: string[];
   url?: string;
   created?: string;
 }
-// id, name, image, gender, species, status
 export interface Props {
   results: Character[];
 }

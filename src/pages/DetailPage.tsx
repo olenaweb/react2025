@@ -7,6 +7,7 @@ import Loader from "./../components/Loader";
 const DetailPage = () => {
   const data = useLoaderData() as Character;
   const navigation = useNavigation();
+
   let name = "";
   let location = "";
   if (data.origin) {
@@ -18,7 +19,7 @@ const DetailPage = () => {
   const ContentDetail = () => {
     return (
       <>
-        <Link className="detail-page-exit" to={`/react2024`}>
+        <Link className="detail-page-exit" to={`/react2025`}>
           <span>⨉</span>
         </Link>
         <h2>Detail for ID: {data.id}</h2>

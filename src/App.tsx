@@ -3,7 +3,7 @@ import { useParams, useNavigate, Outlet } from "react-router-dom";
 
 import { SuccessResponse, Response } from "./types/types";
 import "./App.css";
-import SearchInput from "./components/SearchButton";
+import SearchInput from "./components/SearchInput";
 import { getData } from "./request/getData";
 import { Container } from "./containers/Container";
 import ReloadButton from "./components/ReloadButton";
@@ -51,7 +51,7 @@ const App = () => {
 
   const updateCurrentPage = (page: string) => {
     setCurrentPage(page);
-    navigate(`/react2024/page/${page}`);
+    navigate(`/react2025/page/${page}`);
   };
   const updateNextPage = (page: string | null) => {
     setNextPage(page);
@@ -67,20 +67,19 @@ const App = () => {
         await new Promise((resolve) => setTimeout(resolve, 300));
         const resultData: Response = await getData(storeValue, currentPage);
         if ("error" in resultData) {
-          setIsLoading(false);
           setErrorMessage("Sorry, the name is not found. Try another name");
           setRequestData({ info: { count: 0, pages: 0, next: null, prev: null }, results: [] });
         } else {
           setRequestData(resultData);
-          setIsLoading(false);
           setErrorMessage("");
           updateNextPage(resultData.info.next);
           updateLastPage(resultData.info.pages);
         }
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
-        setIsLoading(false);
         setErrorMessage("Something's gone wrong :-( ");
+        setIsLoading(false);
       }
     };
 

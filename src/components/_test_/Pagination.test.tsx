@@ -1,4 +1,3 @@
-// src/components/__tests__/Pagination.test.tsx
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Pagination from "../Pagination";

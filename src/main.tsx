@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import DetailPage from "./pages/DetailPage.tsx";
-import PageContainer from "./components/PageContaner.tsx";
+import PageContainer from "./components/PageContainer.tsx";
 import "./index.css";
 import { ErrorBoundary } from "./components/ErrorBoundary.tsx";
 import ErrorPage from "./pages/ErrorPage.tsx";
@@ -29,7 +29,7 @@ const detailLoader = async ({ params }: LoaderFunctionArgs) => {
 
 export const routes: RouteObject[] = [
   {
-    path: "react2024",
+    path: "react2025",
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
@@ -50,7 +50,12 @@ export const routes: RouteObject[] = [
 
 const router = createBrowserRouter(routes);
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+const rootApp = document.getElementById("root");
+if (!rootApp) {
+  throw new Error("Root element not found");
+}
+
+ReactDOM.createRoot(rootApp).render(
   <React.StrictMode>
     <ErrorBoundary>
       <RouterProvider router={router} />
