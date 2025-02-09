@@ -18,16 +18,31 @@ const mockCharacter: Character = {
   created: "2017-11-04T18:48:46.250Z",
 };
 
+let navigationState: "idle" | "loading" | "submitting" = "idle";
+
 jest.mock("react-router-dom", () => {
   const actual = jest.requireActual("react-router-dom");
   return {
     ...actual,
     useLoaderData: () => mockCharacter,
-    useNavigation: () => ({ state: "idle" }),
+    useNavigation: () => ({
+      state: navigationState,
+      location: { pathname: "/", search: "", hash: "", state: null, key: "default" },
+      formMethod: undefined,
+      formAction: undefined,
+      formEncType: undefined,
+      formData: undefined,
+      json: undefined,
+      text: undefined,
+    }),
   };
 });
 
 describe("DetailPage (idle state)", () => {
+  beforeEach(() => {
+    navigationState = "idle";
+  });
+
   it("renders detailed card information correctly", async () => {
     render(
       <MemoryRouter>
@@ -44,23 +59,14 @@ describe("DetailPage (idle state)", () => {
 });
 
 describe("DetailPage (loading state)", () => {
-  beforeAll(() => {
-    jest.resetModules();
-    jest.doMock("react-router-dom", () => {
-      const actual = jest.requireActual("react-router-dom");
-      return {
-        ...actual,
-        useLoaderData: () => mockCharacter,
-        useNavigation: () => ({ state: "loading" }),
-      };
-    });
+  beforeEach(() => {
+    navigationState = "loading";
   });
 
-  it("renders Loader component when navigation state is loading", async () => {
-    const { default: DetailPageLoading } = await import("../../pages/DetailPage");
+  it("renders Loader component when navigation state is loading", () => {
     render(
       <MemoryRouter>
-        <DetailPageLoading />
+        <DetailPage />
       </MemoryRouter>
     );
     expect(screen.getByText(/Loading.../i)).toBeInTheDocument();
