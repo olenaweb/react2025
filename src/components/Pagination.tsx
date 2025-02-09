@@ -19,9 +19,10 @@ export default function Pagination({ currentPage, updateCurrentPage, nextPage, l
     setPage(currentPageValue);
   }, [currentPageValue]);
 
+  const isOutOfRange = lastPage !== null && parseInt(page) > lastPage;
+
   const toFirstPage = () => {
-    const prevPage = (0).toString();
-    setPage(prevPage);
+    setPage("1");
     updateCurrentPage("1");
   };
   const toPrevPage = () => {
@@ -29,43 +30,45 @@ export default function Pagination({ currentPage, updateCurrentPage, nextPage, l
     setPage(prevPage);
     updateCurrentPage(prevPage);
   };
-
   const toNextPage = () => {
-    const nextPage = (parseInt(page) + 1).toString();
-    setPage(nextPage);
-    updateCurrentPage(nextPage);
+    const nextPageNum = (parseInt(page) + 1).toString();
+    setPage(nextPageNum);
+    updateCurrentPage(nextPageNum);
   };
   const toLastPage = () => {
     if (lastPage) {
+      setPage(lastPage.toString());
       updateCurrentPage(lastPage.toString());
     }
   };
 
   return (
-    <>
-      <div className="pagination-panel">
-        <Link to={`/react2025/page/1`}>
-          <button onClick={toFirstPage} disabled={parseInt(page) == 1}>
-            First
-          </button>
-        </Link>
-        <Link to={`/react2025/page/${parseInt(page) <= 1 ? 0 : parseInt(page) - 1}`}>
-          <button onClick={toPrevPage} disabled={parseInt(page) <= 1}>
-            Prev
-          </button>
-        </Link>
-        <span className="current-page">{Number(page) ? page : currentPageValue}</span>
-        <Link to={`/react2025/page/${parseInt(page) + 1}`}>
-          <button onClick={toNextPage} disabled={!isNotNullable(nextPageValue)}>
-            Next
-          </button>
-        </Link>
-        <Link to={`/react2025/page/${lastPage}`}>
-          <button onClick={toLastPage} disabled={parseInt(page) == lastPage}>
-            Last
-          </button>
-        </Link>
-      </div>
-    </>
+    <div className="pagination-panel">
+      <Link to={`/react2025/page/1`}>
+        <button onClick={toFirstPage} disabled={parseInt(page) === 1}>
+          First
+        </button>
+      </Link>
+
+      <Link to={`/react2025/page/${parseInt(page) <= 1 ? 0 : parseInt(page) - 1}`}>
+        <button onClick={toPrevPage} disabled={isOutOfRange || parseInt(page) <= 1}>
+          Prev
+        </button>
+      </Link>
+
+      <span className="current-page">{page}</span>
+
+      <Link to={`/react2025/page/${parseInt(page) + 1}`}>
+        <button onClick={toNextPage} disabled={isOutOfRange || !isNotNullable(nextPageValue)}>
+          Next
+        </button>
+      </Link>
+
+      <Link to={`/react2025/page/${lastPage}`}>
+        <button onClick={toLastPage} disabled={isOutOfRange || (lastPage !== null && parseInt(page) === lastPage)}>
+          Last
+        </button>
+      </Link>
+    </div>
   );
 }
