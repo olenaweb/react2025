@@ -1,12 +1,24 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigation, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Character } from "../types/types";
-import { Link } from "react-router-dom";
-import { useNavigation } from "react-router-dom";
 import Loader from "./../components/Loader";
 
 const DetailPage = () => {
   const data = useLoaderData() as Character;
   const navigation = useNavigation();
+
+  const [showLoader, setShowLoader] = useState(true);
+
+  useEffect(() => {
+    if (navigation.state === "loading") {
+      setShowLoader(true);
+    } else {
+      const timer = setTimeout(() => {
+        setShowLoader(false);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [navigation.state]);
 
   let name = "";
   let location = "";
@@ -16,6 +28,7 @@ const DetailPage = () => {
   if (data.location) {
     location = data.location.name ?? "";
   }
+
   const ContentDetail = () => {
     return (
       <>
@@ -40,7 +53,7 @@ const DetailPage = () => {
 
   return (
     <>
-      {navigation.state === "loading" ? (
+      {showLoader ? (
         <div className="detail-page">
           <Loader />
         </div>

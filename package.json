@@ -13,7 +13,8 @@
     "fix": "npm-run-all --parallel --continue-on-error format:fix lint",
     "preview": "vite preview",
     "prepare": "husky",
-    "test": "jest"
+    "test": "jest",
+    "cover": "jest --coverage"
   },
   "dependencies": {
     "@testing-library/user-event": "^14.6.1",
