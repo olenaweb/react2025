@@ -79,7 +79,7 @@ h2.search-title {
   display: flex;
 }
 
-.detail-page {
+/* .detail-page {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -87,6 +87,25 @@ h2.search-title {
   justify-content: flex-start;
   background: rgb(184, 179, 156);
   max-width: 230px;
+} */
+
+.detail-page {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: rgb(152 136 65);
+  max-width: 330px;
+  width: 100%;
+  justify-self: center;
+  top: 17%;
+  margin: 0 0 41px;
+}
+
+.detail-page-load-host {
+  background: transparent;
+  border: none;
 }
 
 .detail-loader {
@@ -94,7 +113,6 @@ h2.search-title {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background: rgb(184, 179, 156);
 }
 
 .detail-page h2 {

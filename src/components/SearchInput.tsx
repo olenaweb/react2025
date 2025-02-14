@@ -37,7 +37,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
 
       if ("error" in result) {
         if (updateStoreValue && updateRequestData && updateErrorMessage) {
-          updateErrorMessage(result.error + ". Sorry, the name is not found. Try another name");
+          updateErrorMessage(result.error + ". Sorry , nothing to find, try again");
           updateStoreValue("");
         }
       } else {

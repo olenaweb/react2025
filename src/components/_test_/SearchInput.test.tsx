@@ -93,7 +93,7 @@ test("handles API error and updates error message", async () => {
   await waitFor(() => expect(getData).toHaveBeenCalledWith("UnknownName", "1"));
 
   expect(mockUpdateErrorMessage).toHaveBeenCalledWith(
-    "Character not found. Sorry, the name is not found. Try another name"
+    "Character not found. Sorry , nothing to find, try again"
   );
   expect(mockUpdateStoreValue).toHaveBeenCalledWith("");
 });

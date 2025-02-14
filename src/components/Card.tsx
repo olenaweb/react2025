@@ -3,7 +3,9 @@ import { Character } from "../types/types";
 import { Link, useParams } from "react-router-dom";
 
 export const Card: React.FC<Character> = ({ id, name, image, gender, species, status }) => {
+  // Берется из URL
   const { pageId } = useParams<{ pageId: string }>();
+
   return (
     <li className="card">
       <Link to={`/react2025/page/${pageId}/detail/${id}`}>
