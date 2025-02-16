@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { useParams, useNavigate, Outlet } from "react-router-dom";
+import { useParams, useNavigate, useLocation, Outlet } from "react-router-dom";
 
 import { SuccessResponse, Response } from "./types/types";
 import "./App.css";
@@ -13,7 +13,9 @@ import Loader from "./components/Loader";
 
 const App = () => {
   const navigate = useNavigate();
-  const { pageId } = useParams<{ pageId: string }>();
+  const location = useLocation();
+
+  const { pageId = "1" } = useParams<{ pageId: string }>();
   const [storeValue, setStoreValue] = useLocalSearch("olena_01_search", "");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [requestData, setRequestData] = useState<SuccessResponse>({
@@ -34,6 +36,12 @@ const App = () => {
   const updateStoreValue = (value: string) => {
     setStoreValue(value);
   };
+
+  useEffect(() => {
+    if (location.pathname === "/react2025") {
+      navigate("/react2025/page/1", { replace: true });
+    }
+  }, [pageId, location.pathname, navigate]);
 
   const updateRequestData = (result: Response) => {
     if ("error" in result) {
@@ -59,6 +67,7 @@ const App = () => {
   const updateLastPage = (page: number | null) => {
     setLastPage(page);
   };
+
 
   useEffect(() => {
     const fetchData = async () => {
