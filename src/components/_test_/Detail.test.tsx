@@ -45,7 +45,6 @@ describe("DetailPage", () => {
   //     </MemoryRouter>
   //   );
 
-
   //   expect(screen.getByText(/error/i)).toBeInTheDocument();
   // });
 
@@ -73,7 +72,6 @@ describe("DetailPage", () => {
         </MockThemeProvider>
       </MemoryRouter>
     );
-
 
     expect(screen.getByText(/Detail for ID: 1/i)).toBeInTheDocument();
     expect(screen.getByText(/Rick Sanchez/i)).toBeInTheDocument();

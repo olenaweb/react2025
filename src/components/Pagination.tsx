@@ -71,8 +71,10 @@ export default function Pagination({ currentPage, updateCurrentPage, nextPage, l
           </button>
         </Link>
         <Link to={`/react2025/page/${lastPage}`}>
-          <button onClick={toLastPage}
-            disabled={isOutOfRange || (lastPage !== null && parseInt(page) === lastPage)}>
+          <button
+            onClick={toLastPage}
+            disabled={isOutOfRange || (lastPage !== null && parseInt(page) === lastPage)}
+          >
             Last
           </button>
         </Link>

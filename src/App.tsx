@@ -27,7 +27,11 @@ const App = () => {
 
   const { currentPage, lastPage } = useSelector((state: RootState) => state.pagination);
   const [storeValue, setStoreValue] = useLocalSearch("olena_01_search", "");
-  const { data: characterData, error, isLoading, } = useGetCharactersQuery(
+  const {
+    data: characterData,
+    error,
+    isLoading,
+  } = useGetCharactersQuery(
     { name: storeValue, page: currentPage },
     {
       refetchOnFocus: true,
