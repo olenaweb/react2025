@@ -1,7 +1,7 @@
-import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import { Container } from '../../containers/Container';
-import { Character } from '../../types/types';
+import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import { Container } from "../../containers/Container";
+import { Character } from "../../types/types";
 
 const dummyResults: Character[] = [
   {
@@ -34,15 +34,15 @@ const dummyResults: Character[] = [
   },
 ];
 
-describe('Container component', () => {
-  it('renders the correct number of Card components', () => {
+describe("Container component", () => {
+  it("renders the correct number of Card components", () => {
     render(
       <MemoryRouter>
         <Container results={dummyResults} />
       </MemoryRouter>
     );
 
-    const cardItems = screen.getAllByRole('listitem');
+    const cardItems = screen.getAllByRole("listitem");
     expect(cardItems).toHaveLength(dummyResults.length);
   });
 });

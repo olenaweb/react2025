@@ -7,12 +7,22 @@ import DetailPage from "./pages/DetailPage.tsx";
 import "./index.css";
 import { ErrorBoundary } from "./components/ErrorBoundary.tsx";
 import ErrorPage from "./pages/ErrorPage.tsx";
-import { detailLoader } from "./pages/DetailPage.tsx";
-import {
-  RouterProvider,
-  createBrowserRouter,
-  RouteObject,
-} from "react-router-dom";
+import { RouterProvider, createBrowserRouter, RouteObject } from "react-router-dom";
+import { LoaderFunctionArgs } from "react-router-dom";
+
+export const detailLoader = async ({ params }: LoaderFunctionArgs) => {
+  await new Promise((resolve) => setTimeout(resolve, 200));
+  const { id } = params;
+  const response = await fetch(`https://rickandmortyapi.com/api/character/${id}`);
+  if (response.status === 404) {
+    throw new Error("Not Found");
+  }
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  const data = await response.json();
+  return data;
+};
 
 export const routes: RouteObject[] = [
   {
@@ -23,10 +33,11 @@ export const routes: RouteObject[] = [
       {
         path: "page/:pageId",
         // element: <PageContainer />,
-        element:
+        element: (
           <div className="detail-page">
             <Outlet />
-          </div>,
+          </div>
+        ),
         children: [
           {
             path: "detail/:id",

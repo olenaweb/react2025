@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { useParams, useNavigate, Outlet, useLocation } from "react-router-dom";
+import { useParams, useNavigate, Outlet } from "react-router-dom";
 
 import { SuccessResponse, Response } from "./types/types";
 import "./App.css";
@@ -13,8 +13,7 @@ import Loader from "./components/Loader";
 
 const App = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const { pageId = "1" } = useParams<{ pageId: string }>();
+  const { pageId } = useParams<{ pageId: string }>();
   const [storeValue, setStoreValue] = useLocalSearch("olena_01_search", "");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [requestData, setRequestData] = useState<SuccessResponse>({
@@ -62,21 +61,14 @@ const App = () => {
   };
 
   useEffect(() => {
-    if (location.pathname === "/react2025") {
-      navigate("/react2025/page/1", { replace: true });
-    }
-  }, [pageId, location.pathname, navigate]);
-
-  useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
         await new Promise((resolve) => setTimeout(resolve, 300));
         const resultData: Response = await getData(storeValue, currentPage);
         if ("error" in resultData) {
-          setErrorMessage("Sorry , nothing to find, try again");
+          setErrorMessage("Sorry, the name is not found. Try another name");
           setRequestData({ info: { count: 0, pages: 0, next: null, prev: null }, results: [] });
-          updateStoreValue("");
         } else {
           setRequestData(resultData);
           setErrorMessage("");
