@@ -21,6 +21,8 @@ export default function Pagination({ currentPage, updateCurrentPage, nextPage, l
     setPage(currentPageValue);
   }, [currentPageValue]);
 
+  const isOutOfRange = lastPage == null;
+
   const toFirstPage = () => {
     const prevPage = (0).toString();
     setPage(prevPage);
@@ -52,24 +54,25 @@ export default function Pagination({ currentPage, updateCurrentPage, nextPage, l
             : "pagination-panel dark-pagination-panel"
         }
       >
-        <Link to={`/react2024/page/1`}>
+        <Link to={`/react2025/page/1`}>
           <button onClick={toFirstPage} disabled={parseInt(page) == 1}>
             First
           </button>
         </Link>
-        <Link to={`/react2024/page/${parseInt(page) <= 1 ? 0 : parseInt(page) - 1}`}>
-          <button onClick={toPrevPage} disabled={parseInt(page) <= 1}>
+        <Link to={`/react2025/page/${parseInt(page) <= 1 ? 0 : parseInt(page) - 1}`}>
+          <button onClick={toPrevPage} disabled={isOutOfRange || parseInt(page) <= 1}>
             Prev
           </button>
         </Link>
         <span className="current-page">{Number(page) ? page : currentPageValue}</span>
-        <Link to={`/react2024/page/${parseInt(page) + 1}`}>
-          <button onClick={toNextPage} disabled={!isNotNullable(nextPageValue)}>
+        <Link to={`/react2025/page/${parseInt(page) + 1}`}>
+          <button onClick={toNextPage} disabled={isOutOfRange || !isNotNullable(nextPageValue)}>
             Next
           </button>
         </Link>
-        <Link to={`/react2024/page/${lastPage}`}>
-          <button onClick={toLastPage} disabled={parseInt(page) == lastPage}>
+        <Link to={`/react2025/page/${lastPage}`}>
+          <button onClick={toLastPage}
+            disabled={isOutOfRange || (lastPage !== null && parseInt(page) === lastPage)}>
             Last
           </button>
         </Link>

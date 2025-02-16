@@ -69,7 +69,7 @@ export const Card: React.FC<Character> = ({ id, name, image, gender, species, st
       </div>
       <Link
         className={theme === "light" ? "light-card-link" : "dark-card-link"}
-        to={`/react2024/page/${pageId}/detail/${id}`}
+        to={`/react2025/page/${pageId}/detail/${id}`}
       >
         <div className="card-content">
           <p className="card-name">

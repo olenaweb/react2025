@@ -15,7 +15,7 @@ import "./index.css";
 
 export const routes: RouteObject[] = [
   {
-    path: "react2024",
+    path: "react2025",
     element: <App />,
     errorElement: <ErrorPage />,
     children: [

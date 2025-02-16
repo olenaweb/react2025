@@ -25,7 +25,7 @@ const DetailPage = () => {
 
   return (
     <div className={theme === "light" ? "light-detail" : "dark-detail"}>
-      <Link className="detail-page-exit" to={`/react2024`}>
+      <Link className="detail-page-exit" to={`/react2025`}>
         <span>⨉</span>
       </Link>
       <h3>Detail for ID: {characterDataId?.id}</h3>

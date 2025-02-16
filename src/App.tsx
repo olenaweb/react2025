@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useMemo } from "react";
 import { Outlet, useParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 // import { CSVDownload } from "react-csv";
 
 import { RootState, AppDispatch } from "./store/Store";
@@ -22,22 +23,25 @@ const App = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const { theme, toggleTheme } = useTheme();
-  const { pageId } = useParams<{ pageId: string }>(); // Retrieving pageId from URL
+  const { pageId = "1" } = useParams<{ pageId: string }>(); // Retrieving pageId from URL
 
   const { currentPage, lastPage } = useSelector((state: RootState) => state.pagination);
   const [storeValue, setStoreValue] = useLocalSearch("olena_01_search", "");
-
-  const {
-    data: characterData,
-    error,
-    isLoading,
-  } = useGetCharactersQuery(
+  const { data: characterData, error, isLoading, } = useGetCharactersQuery(
     { name: storeValue, page: currentPage },
     {
       refetchOnFocus: true,
     }
   );
   const { favorites } = useSelector((state: RootState) => state.favorites);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (location.pathname === "/react2025") {
+      navigate("/react2025/page/1", { replace: true });
+    }
+  }, [pageId, location.pathname, navigate]);
 
   // Initialize currentPage from URL when loading page
   useEffect(() => {
