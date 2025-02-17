@@ -2,7 +2,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useMemo } from "react";
 import { Outlet, useParams } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
-// import { CSVDownload } from "react-csv";
 
 import { RootState, AppDispatch } from "./store/Store";
 import { useGetCharactersQuery } from "./store/services/characterApi";

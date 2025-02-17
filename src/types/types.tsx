@@ -1,13 +1,3 @@
-// export type Gender = "Male" | "Female" | "unknown";
-// export type Status = "Alive" | "Dead" | "unknown";
-// export type Species =
-//   | "Human"
-//   | "Alien"
-//   | "Mythological Creature"
-//   | "Humanoid"
-//   | "Cronenberg"
-//   | "Animal";
-
 export type FavoriteItem = {
   id: number;
   name: string;
@@ -44,7 +34,6 @@ export interface Character {
   url?: string;
   created?: string;
 }
-// id, name, image, gender, species, status
 export interface Props {
   results: Character[];
 }

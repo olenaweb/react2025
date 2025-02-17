@@ -1,14 +1,9 @@
 import { fireEvent, screen } from "@testing-library/react";
-// import { screen } from '@testing-library/react';
 import { render } from "../../test-render";
 import Popup from "../Popup";
 import { FavoriteItem } from "../../types/types";
 
-// Мокируем CSVLink
-jest.mock("react-csv", () => ({
-  CSVLink: jest.fn(({ children }) => <a href="/fake-csv-link">{children}</a>),
-}));
-
+// Мокируем useTheme
 const mockUseTheme = {
   theme: "light",
 };
@@ -35,9 +30,11 @@ describe("Popup component", () => {
     expect(mockDeselectAll).toHaveBeenCalledTimes(1);
   });
 
-  test("renders a download link with correct data", () => {
+  test('renders "ExportCSVButton" with correct image', () => {
     render(<Popup itemCount={2} onDeselectAll={mockDeselectAll} favorites={mockFavorites} />);
-    const downloadLink = screen.getByText(/Download/i).closest("a");
-    expect(downloadLink).toHaveAttribute("href", "/fake-csv-link");
+    const exportButton = screen.getByRole("button", { name: /Download/i });
+    const image = screen.getByRole("img", { name: /Download/i });
+    expect(exportButton).toBeInTheDocument();
+    expect(image).toHaveAttribute("src", "/react2025/src/assets/load.png");
   });
 });

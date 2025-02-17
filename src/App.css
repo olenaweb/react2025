@@ -355,7 +355,7 @@ a.dark-card-link:hover {
   justify-self: center;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 23px;
 
   height: 63px;
   max-width: 1280px;
@@ -396,6 +396,12 @@ a.dark-card-link:hover {
 
 .download-btn:hover {
   color: black;
+}
+
+.load {
+  max-width: 18px;
+  width: 100%;
+  height: auto;
 }
 
 @media (max-width: 600px) {
