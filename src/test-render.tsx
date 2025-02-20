@@ -10,5 +10,4 @@ type Options = RenderOptions<
 const customRender = (ui: React.ReactElement, options?: Options) =>
   render(ui, { wrapper: AllProviders, ...options });
 
-// export * from "@testing-library/react";
 export { customRender as render };

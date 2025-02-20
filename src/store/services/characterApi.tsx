@@ -27,5 +27,4 @@ export const characterApi = createApi({
   }),
 });
 
-
 export const { useGetCharactersQuery, useGetCharacterByIdQuery } = characterApi;
