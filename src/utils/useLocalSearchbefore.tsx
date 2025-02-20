@@ -5,9 +5,20 @@ const useLocalSearch = (key: string, initialValue: string) => {
     const savedValue = localStorage.getItem(key);
     return savedValue !== null ? savedValue : initialValue;
   });
+
   useEffect(() => {
-    localStorage.setItem(key, value);
+    const handleBeforeUnload = () => {
+      localStorage.setItem(key, value);
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      localStorage.setItem(key, value);
+    };
   }, [key, value]);
+
   return [value, setValue] as const;
 };
 

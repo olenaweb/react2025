@@ -14,14 +14,7 @@ export const Card: React.FC<Character> = ({ id, name, image, gender, species, st
   const { theme } = useTheme();
 
   const favoriteItem: FavoriteItem = useMemo(
-    () => ({
-      id,
-      name,
-      image,
-      gender,
-      species,
-      status,
-    }),
+    () => ({ id, name, image, gender, species, status }),
     [id, name, image, gender, species, status]
   );
 

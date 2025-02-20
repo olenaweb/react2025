@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import "immer";
+// import "immer";
 
 import { Character, Info } from "../../types/types";
 
 // API with RTK Query
+// https://rickandmortyapi.com/api/character/?page=1&name=san
 export const characterApi = createApi({
   reducerPath: "characterApi",
   baseQuery: fetchBaseQuery({ baseUrl: "https://rickandmortyapi.com/api/" }),

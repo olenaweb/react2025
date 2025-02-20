@@ -1,11 +1,13 @@
 import React from "react";
 import { FavoriteItem } from "types/types";
+import { createRef } from "react";
 
 interface ExportCSVButtonProps {
   favorites: FavoriteItem[];
 }
 
 const ExportCSVButton: React.FC<ExportCSVButtonProps> = ({ favorites }) => {
+  const upload = createRef<HTMLAnchorElement>();
   const handlePrepareCSV = () => {
     let url: string | null = null;
 
@@ -18,10 +20,12 @@ const ExportCSVButton: React.FC<ExportCSVButtonProps> = ({ favorites }) => {
       const csvContent = [csvHeader, ...csvRows].join("\n");
       const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
       url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `${favorites.length}_items.csv`;
-      link.click();
+      const link = upload.current;
+      if (link) {
+        link.href = url;
+        link.download = `${favorites.length}_items.csv`;
+        link.click();
+      }
     } finally {
       if (url) {
         URL.revokeObjectURL(url);
@@ -34,6 +38,7 @@ const ExportCSVButton: React.FC<ExportCSVButtonProps> = ({ favorites }) => {
       <button onClick={handlePrepareCSV}>
         <img className="load" src="/react2025/src/assets/load.png" alt="Download" />
       </button>
+      <a ref={upload} href=""></a>
     </>
   );
 };
