@@ -1,5 +1,3 @@
-// src/components/__tests__/ExitButton.test.tsx
-// https://medium.com/@ibraheemosule/tackling-the-navlink-error-in-jest-e57679eab16f
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom";

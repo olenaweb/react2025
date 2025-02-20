@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { RouterProvider, createBrowserRouter, RouteObject } from "react-router-dom";
-
 import { ThemeProvider } from "./store/ThemeContext.tsx";
 
 import { store } from "./store/Store";

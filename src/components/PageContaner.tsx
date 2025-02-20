@@ -9,11 +9,7 @@ const PageContainer = () => {
       {navigation.state === "loading" ? (
         <Outlet />
       ) : (
-        <div
-          className={
-            theme === "light" ? "detail-page light-detail-page" : "detail-page dark-detail-page"
-          }
-        >
+        <div className={theme === "light" ? "detail-page light-detail-page" : "detail-page dark-detail-page"}>
           <Outlet />
         </div>
       )}

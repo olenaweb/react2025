@@ -3,7 +3,6 @@ import { render } from "../../test-render";
 import Popup from "../Popup";
 import { FavoriteItem } from "../../types/types";
 
-// Мокируем useTheme
 const mockUseTheme = {
   theme: "light",
 };

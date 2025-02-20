@@ -1,4 +1,3 @@
-// Card.test.tsx
 import { render, screen } from "@testing-library/react";
 import { Card } from "../Card";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -29,14 +28,12 @@ test("renders the relevant card data", () => {
     image: "rick.png",
   };
 
-  // Мокируем результат работы хука useGetCharacterByIdQuery
   (useGetCharacterByIdQuery as jest.Mock).mockReturnValue({
     data: mockData,
     error: null,
     isLoading: false,
   });
 
-  // Мокируем результат работы хука useTheme
   (useTheme as jest.Mock).mockReturnValue({ theme: "light" });
 
   const initialState = {

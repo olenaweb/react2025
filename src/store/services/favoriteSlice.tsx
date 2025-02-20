@@ -33,7 +33,5 @@ export const favoriteSlice = createSlice({
     },
   },
 });
-
-// export const githubActions = favoriteSlice.actions
 export const { addFavorite, removeFavorite } = favoriteSlice.actions;
 export const favoriteReducer = favoriteSlice.reducer;

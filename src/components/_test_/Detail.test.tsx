@@ -5,12 +5,10 @@ import DetailPage from "../../pages/DetailPage";
 import { useGetCharacterByIdQuery } from "../../store/services/characterApi";
 import { ThemeProvider } from "../../store/ThemeContext";
 
-// Мокируем хук useGetCharacterByIdQuery
 jest.mock("../../store/services/characterApi", () => ({
   useGetCharacterByIdQuery: jest.fn(),
 }));
 
-// Мокируем ThemeProvider
 const MockThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <ThemeProvider>{children}</ThemeProvider>
 );
@@ -31,22 +29,6 @@ describe("DetailPage", () => {
 
     expect(screen.getByText(/loading/i)).toBeInTheDocument();
   });
-
-  // it("renders error state", () => {
-  //   (useGetCharacterByIdQuery as jest.Mock).mockReturnValue({
-  //     error: true,
-  //   });
-
-  //   render(
-  //     <MemoryRouter initialEntries={["/detail/1"]}>
-  //       <MockThemeProvider>
-  //         <DetailPage />
-  //       </MockThemeProvider>
-  //     </MemoryRouter>
-  //   );
-
-  //   expect(screen.getByText(/error/i)).toBeInTheDocument();
-  // });
 
   it("renders character details", () => {
     (useGetCharacterByIdQuery as jest.Mock).mockReturnValue({

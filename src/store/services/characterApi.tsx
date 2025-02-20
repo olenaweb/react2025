@@ -3,7 +3,6 @@ import "immer";
 
 import { Character, Info } from "../../types/types";
 
-// API with RTK Query
 export const characterApi = createApi({
   reducerPath: "characterApi",
   baseQuery: fetchBaseQuery({ baseUrl: "https://rickandmortyapi.com/api/" }),
@@ -28,7 +27,5 @@ export const characterApi = createApi({
   }),
 });
 
-// export const useGetCharactersQuery = characterApi.endpoints.getCharacters.useQuery;
-// export const useGetCharacterByIdQuery = characterApi.endpoints.getCharacterById.useQuery;
 
 export const { useGetCharactersQuery, useGetCharacterByIdQuery } = characterApi;

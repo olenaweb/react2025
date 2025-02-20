@@ -37,7 +37,6 @@ a:hover {
 }
 
 a:-webkit-any-link {
-  /* color: white; */
   cursor: pointer;
 }
 
@@ -68,7 +67,6 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  /* background-color: #1a1a1a; */
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -88,10 +86,6 @@ button:focus-visible {
 }
 
 @media (prefers-color-scheme: light) {
-  /* a:hover {
-    color: #85582e;
-  } */
-
   button {
     background-color: #f9f9f9;
   }

@@ -24,7 +24,7 @@ const DetailPage = () => {
   }
 
   return (
-    <div className={theme === "light" ? "light-detail" : "dark-detail"}>
+    <div className={theme === "light" ? "detail-page light-detail" : "detail-page dark-detail"}>
       <Link className="detail-page-exit" to="..">
         <span>⨉</span>
       </Link>

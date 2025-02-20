@@ -1,4 +1,3 @@
-// src/components/__tests__/ReloadButton.test.tsx
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import ErrorButton from "../ReloadButton";
