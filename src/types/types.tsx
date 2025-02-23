@@ -34,7 +34,7 @@ export interface Character {
   url?: string;
   created?: string;
 }
-export interface Props {
+export interface CharacterArr {
   results: Character[];
 }
 

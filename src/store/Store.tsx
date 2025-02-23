@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query/react";
 
 import { characterApi } from "./services/characterApi";
-import paginationSliceReducer from "./features/paginationSlice";
+import { paginationSliceReducer } from "./features/paginationSlice";
 
 import { favoriteReducer } from "./services/favoriteSlice";
 

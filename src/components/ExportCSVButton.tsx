@@ -38,7 +38,7 @@ const ExportCSVButton: React.FC<ExportCSVButtonProps> = ({ favorites }) => {
       <button onClick={handlePrepareCSV}>
         <img className="load" src="/react2025/src/assets/load.png" alt="Download" />
       </button>
-      <a ref={upload} href=""></a>
+      <a ref={upload} href="" />
     </>
   );
 };

@@ -1,8 +1,8 @@
 import React from "react";
 import { Card } from "../components/Card";
-import { Props } from "../types/types";
+import { CharacterArr } from "../types/types";
 
-export const Container: React.FC<Props> = ({ results }) => {
+export const Container: React.FC<CharacterArr> = ({ results }) => {
   return (
     <ul className="cards">
       {results.map((item) => (

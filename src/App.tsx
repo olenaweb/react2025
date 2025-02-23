@@ -1,13 +1,15 @@
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useMemo } from "react";
-import { Outlet, useParams } from "react-router-dom";
-import { useNavigate, useLocation } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "./store/redux";
 import { RootState, AppDispatch } from "./store/Store";
 import { useGetCharactersQuery } from "./store/services/characterApi";
+
 import { setCurrentPage, setLastPage } from "./store/features/paginationSlice";
 import { removeFavorite } from "./store/services/favoriteSlice";
 import { useTheme } from "./store/useTheme";
+
+import { useEffect, useMemo } from "react";
+import { Outlet, useParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import useLocalSearch from "./utils/useLocalSearch";
 import SearchInput from "./components/SearchButton";
@@ -24,16 +26,16 @@ const App = () => {
   const { theme, toggleTheme } = useTheme();
   const { pageId = "1" } = useParams<{ pageId: string }>();
 
-  const { currentPage, lastPage } = useSelector((state: RootState) => state.pagination);
+  const { currentPage, lastPage } = useAppSelector((state: RootState) => state.pagination);
   const [storeValue, setStoreValue] = useLocalSearch("olena_01_search", "");
 
   const {
     data: characterData,
     error,
-    isLoading,
+    isFetching
   } = useGetCharactersQuery({ name: storeValue, page: currentPage }, { refetchOnFocus: true });
 
-  const { favorites } = useSelector((state: RootState) => state.favorites);
+  const { favorites } = useAppSelector((state: RootState) => state.favorites);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -68,10 +70,9 @@ const App = () => {
   };
 
   const viewContainer = useMemo(() => {
-    if (isLoading) {
+    if (isFetching) {
       return (
         <>
-          <p>Just a moment...</p>
           <Loader />;
         </>
       );
@@ -89,7 +90,7 @@ const App = () => {
         </>
       );
     }
-  }, [isLoading, error, characterData]);
+  }, [isFetching, error, characterData]);
 
   return (
     <>

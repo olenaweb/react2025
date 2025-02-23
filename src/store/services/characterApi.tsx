@@ -12,7 +12,6 @@ export const characterApi = createApi({
       { info: Info; results: Character[] },
       { name: string; page: string }
     >({
-      // query: ({ name, page }) => `character/?page=${page}&name=${name}`,
       query: ({ name, page }) => ({
         url: `character/`,
         params: {

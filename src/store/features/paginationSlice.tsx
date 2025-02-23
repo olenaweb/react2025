@@ -15,12 +15,14 @@ const paginationSlice = createSlice({
   initialState,
   reducers: {
     setCurrentPage(state, action: PayloadAction<string>) {
+      console.log('"setCurrentPage action.payload="', action.payload);
       state.currentPage = action.payload;
     },
     setLastPage(state, action: PayloadAction<number | null>) {
+      console.log('"setLastPage action.payload="', action.payload);
       state.lastPage = action.payload;
     },
   },
 });
 export const { setCurrentPage, setLastPage } = paginationSlice.actions;
-export default paginationSlice.reducer;
+export const paginationSliceReducer = paginationSlice.reducer;
