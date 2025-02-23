@@ -1,6 +1,7 @@
 import React from "react";
 import { FavoriteItem } from "types/types";
 import { createRef } from "react";
+import load from "./../assets/load.png";
 
 interface ExportCSVButtonProps {
   favorites: FavoriteItem[];
@@ -36,7 +37,7 @@ const ExportCSVButton: React.FC<ExportCSVButtonProps> = ({ favorites }) => {
   return (
     <>
       <button onClick={handlePrepareCSV}>
-        <img className="load" src="/react2025/src/assets/load.png" alt="Download" />
+        <img className="load" src={load} alt="Download" />
       </button>
       <a ref={upload} href="" />
     </>
