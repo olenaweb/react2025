@@ -34,6 +34,6 @@ describe("Popup component", () => {
     const exportButton = screen.getByRole("button", { name: /Download/i });
     const image = screen.getByRole("img", { name: /Download/i });
     expect(exportButton).toBeInTheDocument();
-    expect(image).toHaveAttribute("src", "/react2025/src/assets/load.png");
+    expect(image).toHaveAttribute("src", "test-file-stub");
   });
 });
