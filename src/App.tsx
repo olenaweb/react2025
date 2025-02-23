@@ -32,7 +32,7 @@ const App = () => {
   const {
     data: characterData,
     error,
-    isFetching
+    isFetching,
   } = useGetCharactersQuery({ name: storeValue, page: currentPage }, { refetchOnFocus: true });
 
   const { favorites } = useAppSelector((state: RootState) => state.favorites);

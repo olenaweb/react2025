@@ -23,7 +23,7 @@ const ExportCSVButton: React.FC<ExportCSVButtonProps> = ({ favorites }) => {
       const link = upload.current;
       if (link) {
         link.href = url;
-        link.download = `${favorites.length}_items.csv`;
+        link.download = `${favorites.length}_characters.csv`;
         link.click();
       }
     } finally {
