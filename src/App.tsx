@@ -37,12 +37,11 @@ const App = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
-
   useEffect(() => {
     if (location.pathname === "/react2025") {
       navigate("/react2025/page/1", { replace: true });
     }
-  }, [pageId, location.pathname, navigate]);
+  }, [pageId, location.pathname]);
 
   // Initialize currentPage from URL when loading page
   useEffect(() => {
