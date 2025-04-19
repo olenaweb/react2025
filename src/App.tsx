@@ -87,7 +87,7 @@ const App = () => {
       return (
         <>
           <Container results={characterData?.results || []} />
-          <Outlet />
+          {/* <Outlet /> */}
         </>
       );
     }
@@ -117,6 +117,7 @@ const App = () => {
             theme === "light" ? "cards-panel light-cards-panel" : "cards-panel dark-cards-panel"
           }
         >
+          <Outlet />
           {viewContainer}
         </div>
         {favorites.length > 0 && (

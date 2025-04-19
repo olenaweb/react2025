@@ -11,7 +11,9 @@ const PageContainer = () => {
       ) : (
         <div
           className={
-            theme === "light" ? "detail-page light-detail-page" : "detail-page dark-detail-page"
+            theme === "light"
+              ? "detail-page animate light-detail-page"
+              : "detail-page animate dark-detail-page"
           }
         >
           <Outlet />

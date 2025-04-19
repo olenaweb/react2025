@@ -1,10 +1,12 @@
 :root {
   --background-color: rgb(184, 179, 156);
   --background-container-color: rgb(169, 142, 3);
+  --background-detail-container-color: rgb(24 69 10);
   --color: rgb(207, 207, 6);
 
   --background-dark-color: rgb(99, 122, 166);
   --background-container-dark-color: rgb(3, 41, 118);
+  --background-detail-container-dark-color: rgb(114 112 101);
   --dark-color: rgb(240, 249, 252);
   --dark-button: #d7d0d0;
   --view-background: #01031d;
@@ -129,8 +131,12 @@ h2.search-title {
 .cards-panel {
   grid-row: 3 / 4;
   width: 100%;
-  display: flex;
   padding: 0 0 85px;
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .light-cards-panel {
@@ -144,21 +150,25 @@ h2.search-title {
 }
 
 .detail-page {
-  position: relative;
+  position: fixed;
+  top: 31%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  max-width: 230px;
-  padding-top: 36px;
+  max-width: 330px;
+  width: 100%;
+  justify-self: center;
+  margin: 0;
+  transition: all 500ms ease-in-out;
 }
 
 .light-detail-page {
-  background: var(--background-container-color);
+  background: var(--background-detail-container-color);
 }
 
 .dark-detail-page {
-  background-color: var(--background-container-dark-color);
+  background-color: var(--background-detail-container-dark-color);
 }
 
 .light-detail {
@@ -167,6 +177,31 @@ h2.search-title {
 
 .dark-detail {
   color: var(--color);
+}
+
+.detail-page.animate {
+  -webkit-animation: animatezoom 1s;
+  animation: animatezoom 1s;
+}
+
+@-webkit-keyframes animatezoom {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes animatezoom {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .detail-loader {
