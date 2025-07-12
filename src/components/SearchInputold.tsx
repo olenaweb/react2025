@@ -1,8 +1,14 @@
 import { Component, ChangeEvent, FormEvent, createRef, RefObject } from "react";
 
+import { getData } from "../request/getData";
+import { Response } from "../types/types";
+
 interface SearchInputProps {
   searchValue: string;
-  fetchData?: (searchName: string) => void;
+  updateRequestData?: (result: Response) => void;
+  updateStoreValue?: (value: string) => void;
+  updateErrorMessage?: (message: string) => void;
+  updateBeginLoad?: (beginLoad: boolean) => void;
 }
 
 interface SearchInputState {
@@ -32,9 +38,33 @@ export default class SearchInput extends Component<SearchInputProps, SearchInput
 
   handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { fetchData } = this.props;
-    const searchName = this.state.searchValue.trim();
-    fetchData?.(searchName);
+
+    const { updateBeginLoad, updateRequestData, updateStoreValue, updateErrorMessage } = this.props;
+
+    const searhName = this.state.searchValue.trim();
+
+    try {
+      updateBeginLoad?.(true);
+
+      const result = await getData(searhName);
+      localStorage.setItem("olena_01_search", searhName);
+
+      if ("error" in result) {
+        console.error("Error fetching data:", result.error);
+        updateStoreValue?.("");
+        updateErrorMessage?.("*** Sorry, the name is not found. Try another name");
+        updateBeginLoad?.(false);
+      } else {
+        updateStoreValue?.(searhName);
+        updateRequestData?.(result);
+        updateErrorMessage?.("");
+        updateBeginLoad?.(false);
+      }
+    } catch (error) {
+      console.error("Unexpected error:", error);
+      updateErrorMessage?.("Something's gone wrong :-(");
+      updateBeginLoad?.(false);
+    }
   };
 
   render() {

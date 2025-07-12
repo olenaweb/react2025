@@ -29,41 +29,69 @@ class App extends Component<object, StateAppPage> {
     };
   }
 
-  fetchData = async (searchName: string) => {
+  updateStoreValue = (value: string) => {
+    this.setState({ storeValue: value });
+  };
+
+  updateRequestData = (result: Response) => {
+    if ("error" in result) {
+      this.setState({
+        errorMessage: result.error,
+        requestData: { info: { count: 0, pages: 0, next: null, prev: null }, results: [] },
+        isLoading: false,
+      });
+    } else {
+      this.setState({
+        errorMessage: "",
+        requestData: result,
+        isLoading: false,
+      });
+    }
+  };
+
+  updateErrorMessage = (message: string) => {
+    this.setState({ errorMessage: message });
+  };
+
+  updateBeginLoad = (beginLoad: boolean) => {
+    this.setState({ isLoading: beginLoad });
+  };
+
+  fetchData = async () => {
     this.setState({ isLoading: true });
     try {
-      const resultData: Response = await getData(searchName);
+      const resultData: Response = await getData(this.state.storeValue);
       if ("error" in resultData) {
         this.setState({
           isLoading: false,
-          requestData: { info: { count: 0, pages: 0, next: null, prev: null }, results: [] },
           errorMessage: "**** Sorry, the name is not found. Try another name",
+          requestData: { info: { count: 0, pages: 0, next: null, prev: null }, results: [] },
         });
         console.error("Error fetching data:", resultData.error);
       } else {
         this.setState({
           isLoading: false,
-          requestData: resultData,
           errorMessage: "",
+          requestData: resultData,
         });
-        localStorage.setItem("olena_01_search", searchName);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
       this.setState({
         isLoading: false,
-        requestData: { info: { count: 0, pages: 0, next: null, prev: null }, results: [] },
         errorMessage: "Something's gone wrong :-( ",
+        requestData: { info: { count: 0, pages: 0, next: null, prev: null }, results: [] },
       });
     }
   };
 
   async componentDidMount() {
-    await this.fetchData(this.state.storeValue);
+    await this.fetchData();
   }
 
   render() {
     const yearTemplate = <p className="bold">RS School 2025</p>;
+
     const cardPanel = () => {
       if (this.state.isLoading) {
         return <Loader />;
@@ -76,7 +104,11 @@ class App extends Component<object, StateAppPage> {
           </div>
         );
       }
-      return <Container results={this.state.requestData.results} />;
+      return (
+        <>
+          <Container results={this.state.requestData.results} />
+        </>
+      );
     };
 
     return (
@@ -88,7 +120,10 @@ class App extends Component<object, StateAppPage> {
           <h2 className="search-title">Rick and Morty</h2>
           <SearchInput
             searchValue={this.state.storeValue ? this.state.storeValue : ""}
-            fetchData={this.fetchData}
+            updateRequestData={this.updateRequestData}
+            updateStoreValue={this.updateStoreValue}
+            updateErrorMessage={this.updateErrorMessage}
+            updateBeginLoad={this.updateBeginLoad}
           />
           <ErrorButton />
         </div>

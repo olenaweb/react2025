@@ -29,7 +29,7 @@ export interface Character {
   url: string;
   created: string;
 }
-export interface CharacterArr {
+export interface AllCharacter {
   results: Character[];
 }
 

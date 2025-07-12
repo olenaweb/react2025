@@ -1,8 +1,8 @@
 import { Component } from "react";
 import { Card } from "../components/Card";
-import { CharacterArr } from "../types/types";
+import { AllCharacter } from "../types/types";
 
-export class Container extends Component<CharacterArr> {
+export class Container extends Component<AllCharacter> {
   render() {
     return (
       <ul className="cards">
