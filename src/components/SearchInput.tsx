@@ -21,9 +21,7 @@ export default class SearchInput extends Component<SearchInputProps, SearchInput
   }
 
   componentDidMount() {
-    if (this.input.current) {
-      this.input.current.focus();
-    }
+    this.input.current?.focus();
   }
 
   handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -35,6 +33,7 @@ export default class SearchInput extends Component<SearchInputProps, SearchInput
     const { fetchData } = this.props;
     const searchName = this.state.searchValue.trim();
     fetchData?.(searchName);
+    this.input.current?.focus();
   };
 
   render() {

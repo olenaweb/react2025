@@ -1,11 +1,11 @@
 import { Component } from "react";
 import { StateAppPage, Response } from "./types/types";
 import "./App.css";
+import rickmorty from "./assets/rickmorty.jpg";
 import SearchInput from "./components/SearchInput";
 import { getData } from "./request/getData";
 import { Container } from "./containers/Container";
 import { ErrorButton } from "./components/ErrorButton";
-import rickmorty from "./assets/rickmorty.jpg";
 import { Loader } from "./components/Loader";
 import { ErrorFetch } from "./components/ErrorFetch";
 
