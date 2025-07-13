@@ -46,6 +46,7 @@ export default class SearchInput extends Component<SearchInputProps, SearchInput
           value={this.state.searchValue}
           onChange={this.handleChange}
           placeholder="Enter the name"
+          autoComplete="off"
           ref={this.input}
         />
         <button className="search-button btn" type="submit">
