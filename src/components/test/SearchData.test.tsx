@@ -22,7 +22,6 @@ jest.mock("../../request/getData", () => ({
 }));
 
 test("renders cards when data is available", async () => {
-
   render(
     <MemoryRouter>
       <App />
@@ -30,7 +29,5 @@ test("renders cards when data is available", async () => {
   );
 
   const cardElements = await screen.findAllByRole("listitem");
-  // const cardElements = await screen.getByTestId("card");
   expect(cardElements.length).toBeGreaterThan(0);
-  // expect(cardElements).toBeInTheDocument;
 });
