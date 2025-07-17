@@ -6,7 +6,7 @@ export class Card extends Component<Character> {
     const { name, image, gender, species, status } = this.props;
 
     return (
-      <li className="card">
+      <li className="card" data-testid="card" >
         <p className="card-name">
           <b>{name}</b>
         </p>

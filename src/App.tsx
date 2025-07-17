@@ -39,7 +39,6 @@ class App extends Component<object, StateAppPage> {
           requestData: { info: { count: 0, pages: 0, next: null, prev: null }, results: [] },
           errorMessage: "**** Sorry, the name is not found. Try another name",
         });
-        console.error("Error fetching data:", resultData.error);
       } else {
         this.setState({
           isLoading: false,
