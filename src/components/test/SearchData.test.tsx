@@ -14,7 +14,7 @@ jest.mock("../../request/getData", () => ({
           gender: "Male",
           species: "Human",
           status: "Alive",
-          image: "url",
+          image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
         },
       ],
     })
@@ -27,7 +27,8 @@ test("renders cards when data is available", async () => {
       <App />
     </MemoryRouter>
   );
-
+  // screen.debug();
   const cardElements = await screen.findAllByRole("listitem");
   expect(cardElements.length).toBeGreaterThan(0);
+  // screen.debug();
 });

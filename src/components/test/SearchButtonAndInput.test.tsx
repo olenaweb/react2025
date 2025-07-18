@@ -1,7 +1,7 @@
 import { fireEvent, screen, render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import SearchInput from "../SearchInput";
-describe('Input and SearchButton', () => {
+describe("Input and SearchButton", () => {
   test("is there SearchButton", () => {
     render(<SearchInput searchValue="" />);
     const search = screen.getByText("🔍");
@@ -13,6 +13,6 @@ describe('Input and SearchButton', () => {
     const input = screen.getByPlaceholderText("Enter the name");
     fireEvent.change(input, { target: { value: "Rick" } });
     fireEvent.click(screen.getByText("🔍"));
-    expect(input).toContainHTML('Rick');
+    expect(input).toContainHTML("Rick");
   });
-})
+});
