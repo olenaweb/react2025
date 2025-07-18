@@ -18,4 +18,4 @@ describe("LocalStorage: save and get value", () => {
     const inputElement = screen.getByDisplayValue(/Rick Sanchez/i);
     expect(inputElement).toBeInTheDocument();
   });
-})
+});

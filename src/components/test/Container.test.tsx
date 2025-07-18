@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { Container } from "../../containers/Container";
-import { SuccessResponse } from "../../types/types";
+import { CharactersOnly } from "../../types/types";
 
 test("renders the number of cards greater than 0", () => {
-  const mockResults: SuccessResponse = {
+  const mockResults: CharactersOnly = {
     results: [
       {
         "id": 1,
@@ -27,4 +27,8 @@ test("renders the number of cards greater than 0", () => {
   render(<Container results={mockResults.results} />);
   const cards = screen.getAllByRole("listitem");
   expect(cards.length).toBeGreaterThan(0);
+  const name = screen.getByText(/Morty Smith/i);
+  expect(name).toBeInTheDocument();
+  const [status] = screen.getAllByText(/Alive/i);
+  expect(status).toBeInTheDocument();
 });

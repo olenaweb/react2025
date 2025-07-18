@@ -20,9 +20,8 @@ test("shows message when no cards are found", async () => {
 
   const errorMessage = await screen.findByText(/Sorry, the name is not found. Try another name/i);
   expect(errorMessage).toBeInTheDocument();
-
 });
 
 afterEach(() => {
-  jest.clearAllMocks()
-})
+  jest.clearAllMocks();
+});
