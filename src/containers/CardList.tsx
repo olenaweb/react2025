@@ -2,7 +2,7 @@ import { Component } from "react";
 import { Card } from "../components/Card";
 import { AllCharacter } from "../types/types";
 
-export class Container extends Component<AllCharacter> {
+export class CardList extends Component<AllCharacter> {
   render() {
     return (
       <ul className="cards">

@@ -8,7 +8,6 @@ interface ErrorProps {
 
 interface ErrorState {
   hasError: boolean;
-
 }
 
 export class ErrorBoundary extends Component<ErrorProps, ErrorState> {

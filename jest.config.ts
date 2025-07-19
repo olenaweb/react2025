@@ -8,7 +8,9 @@ export default {
   moduleNameMapper: {
     "\\.(jpg|jpeg|png|gif|svg|woff|woff2|ttf|eot)$": "<rootDir>/test/__mocks__/fileMock.js",
     "\\.(css|less|scss|sass)$": "identity-obj-proxy",
+    '^(\\.{1,2}/.*)\\.js$': '$1',
   },
+  extensionsToTreatAsEsm: ['.ts', '.tsx'],
   collectCoverageFrom: [
     "src/**/*.{js,jsx,ts,tsx}",
     '!src/**/*.test.{js,jsx,ts,tsx}',
@@ -29,5 +31,6 @@ export default {
   },
   coverageReporters: [
     "text"
-  ]
+  ],
+
 };

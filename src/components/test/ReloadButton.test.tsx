@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ReloadButton } from "../ReloadButton";
-import userEvent from '@testing-library/user-event';
+import userEvent from "@testing-library/user-event";
 import { act } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import App from "../../App";
@@ -26,6 +26,4 @@ test("press reload button", () => {
     );
   });
   expect(screen.getByText(/Rick and Morty/i)).toBeInTheDocument();
-
 });
-
