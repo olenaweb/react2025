@@ -15,7 +15,7 @@ class ThrowError extends Component {
 
 describe("ErrorBoundary Component", () => {
   beforeEach(() => {
-    jest.spyOn(console, "error").mockImplementation(() => { });
+    jest.spyOn(console, "error").mockImplementation(() => {});
   });
 
   afterEach(() => {
@@ -93,7 +93,7 @@ describe("ErrorBoundary Component", () => {
         <WorkingComponent />
       </ErrorBoundary>
     );
-    await userEvent.click(screen.getByRole('button', { name: /Sorry, try again/i }))
+    await userEvent.click(screen.getByRole("button", { name: /Sorry, try again/i }));
     expect(screen.getByText(/Rick and Morty/i)).toBeInTheDocument();
   });
 });
