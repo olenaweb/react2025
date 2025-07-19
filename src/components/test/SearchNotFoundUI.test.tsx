@@ -21,11 +21,9 @@ test("shows message when no cards are found", async () => {
   );
   const errorMessage = await screen.findByText(/Sorry, the name is not found. Try another name/i);
   expect(errorMessage).toBeInTheDocument();
-  consoleErrorMock.mockRestore(); // вернуть оригинальное поведение
-
+  consoleErrorMock.mockRestore();
 });
 
 afterEach(() => {
   jest.clearAllMocks();
 });
-

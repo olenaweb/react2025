@@ -27,8 +27,6 @@ test("renders cards when data is available", async () => {
       <App />
     </MemoryRouter>
   );
-  // screen.debug();
   const cardElements = await screen.findAllByRole("listitem");
   expect(cardElements.length).toBeGreaterThan(0);
-  // screen.debug();
 });
