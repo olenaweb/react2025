@@ -1,14 +1,14 @@
 import { rest, RestRequest, ResponseComposition, RestContext } from "msw";
-import { SuccessResponse } from "../types/types";
+import { Response } from "../types/types";
 
 export const handlers = [
-  rest.get<undefined, SuccessResponse[]>(
+  rest.get<undefined, Response>(
     `https://rickandmortyapi.com/api/character`,
     (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       const name = req.url.searchParams.get("name");
 
       if (name === "unknown-name") {
-        return res(ctx.status(404), ctx.json({ error: "Character not found" }));
+        return res(ctx.status(404), ctx.json({ error: "There is nothing here" }));
       }
 
       if (name === "error") {

@@ -14,7 +14,7 @@
     "preview": "vite preview",
     "prepare": "husky",
     "test": "jest",
-    "coverage": "npx jest --coverage"
+    "test:coverage": "npx jest --coverage"
   },
   "dependencies": {
     "@types/eslint": "^9.6.1",
