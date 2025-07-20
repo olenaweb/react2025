@@ -1,6 +1,8 @@
 1. Task: https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/tasks/tests.md
 
 2. Screenshot:
+<img width="947" height="755" alt="image" src="https://github.com/user-attachments/assets/929f934d-995b-49d6-9d19-c5565395813a" />
+
 
 3. Deployment: https://github.com/olenaweb/react2025/pull/6
 
@@ -13,7 +15,7 @@ Jest configured with RTL, coverage reporting works
 [+] Search Component Tests (
 localStorage - LocalStorage.test.tsx,
 user input - SearchButtonAndInput.test.tsx 
-search functionality - SearchData.test.tsx
+search functionality - SearchButtonAndInput.test.tsx SearchData.test.tsx
 ) - 20 points
 [+] Results/CardList Component Tests (
 rendering - CardList.test.tsx,
@@ -29,7 +31,7 @@ fallback UI - SearchNotFoundUI.test.tsx ReloadButton.test.tsx,
 test error button - ErrorBoundary.test.tsx
 ) - 15 points
 [+] API Integration Tests (
-mocked API - calls-handlers.ts GetData.test.tsx,
+mocked API-calls - handlers.ts GetData.test.tsx,
 success/error handling - GetData.test.tsx,NetError.test.tsx
 ) - 15 points
 [+] Husky Pre-push Hook (
