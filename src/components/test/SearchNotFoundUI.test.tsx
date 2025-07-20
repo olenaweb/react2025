@@ -12,7 +12,7 @@ jest.mock("../../request/getData", () => ({
 
 import App from "../../App";
 test("shows message when no cards are found", async () => {
-  const consoleErrorMock = jest.spyOn(console, "error").mockImplementation(() => {}); // подавление
+  const consoleErrorMock = jest.spyOn(console, "error").mockImplementation(() => { });
 
   render(
     <MemoryRouter>
