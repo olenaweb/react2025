@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import App from "../../App";
 
 test("shows error message when network fails", async () => {
-  const consoleErrorMock = jest.spyOn(console, "error").mockImplementation(() => { });
+  const consoleErrorMock = jest.spyOn(console, "error").mockImplementation(() => {});
   jest.spyOn(global, "fetch").mockRejectedValueOnce(new Error("Network failure"));
 
   render(<App />);

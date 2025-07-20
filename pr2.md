@@ -12,7 +12,7 @@
 [+] Results/CardList Component Tests (rendering-CardList.test.tsx, data display-SearchData.test.tsx, loading states-Loader.test.tsx) - 15 points
 [+] Card Component Tests (rendering-Card.test.tsx - 15 points
 [+] Error Boundary Tests (error catching-ErrorBoundary.test.tsx, fallback UI-SearchNotFoundUI.test.tsx, test error button-ErrorBoundary.test.tsx) - 15 points
-[+] API Integration Tests (mocked API calls-handlers.ts, success/error handling-GetData.test.tsx,NetError.test.tsx) - 15 points
+[+] API Integration Tests (mocked API calls-handlers.ts GetData.test.tsx, success/error handling-GetData.test.tsx,NetError.test.tsx) - 15 points
 [+] Husky Pre-push Hook (tests run automatically before push) - 5 points
 
 6. Checklist:
