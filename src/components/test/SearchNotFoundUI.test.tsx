@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { MemoryRouter } from "react-router-dom";
+import App from "../../App";
 
 jest.mock("../../request/getData", () => ({
   getData: jest.fn(() =>
@@ -10,7 +11,6 @@ jest.mock("../../request/getData", () => ({
   ),
 }));
 
-import App from "../../App";
 test("shows message when no cards are found", async () => {
   const consoleErrorMock = jest.spyOn(console, "error").mockImplementation(() => { });
 

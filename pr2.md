@@ -27,11 +27,11 @@ rendering - Card.test.tsx
 )- 15 points
 [+] Error Boundary Tests (
 error catching - ErrorBoundary.test.tsx, 
-fallback UI - SearchNotFoundUI.test.tsx ReloadButton.test.tsx,
+fallback UI - SearchNotFoundUI.test.tsx ReloadButton.test.tsx ErrorBoundary.test.tsx,
 test error button - ErrorBoundary.test.tsx
 ) - 15 points
 [+] API Integration Tests (
-mocked API-calls - handlers.ts GetData.test.tsx,
+mocked API-calls - handlers.ts SearchData.test.tsx SearchNotFoundUI  GetData.test.tsx,
 success/error handling - GetData.test.tsx,NetError.test.tsx
 ) - 15 points
 [+] Husky Pre-push Hook (

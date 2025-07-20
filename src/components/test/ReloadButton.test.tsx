@@ -17,7 +17,6 @@ test("press reload button", () => {
   render(<ReloadButton />);
   const buttonReload = screen.getByRole("button");
   userEvent.type(buttonReload, "");
-
   act(() => {
     render(
       <MemoryRouter>
