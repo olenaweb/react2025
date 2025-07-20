@@ -1,13 +1,14 @@
 import { Component } from "react";
-
-export class ReloadButton extends Component {
+interface ReloadButtonState {
+  handle?: () => void;
+}
+export class ReloadButton extends Component<ReloadButtonState> {
   render() {
+    const { handle } = this.props;
     return (
-      <>
-        <button className="reload-btn btn" onClick={() => window.location.reload()}>
-          Sorry, try again
-        </button>
-      </>
+      <button className="reload-btn btn" onClick={handle}>
+        Sorry, try again
+      </button>
     );
   }
 }

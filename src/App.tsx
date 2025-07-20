@@ -4,7 +4,7 @@ import "./App.css";
 import rickmorty from "./assets/rickmorty.jpg";
 import SearchInput from "./components/SearchInput";
 import { getData } from "./request/getData";
-import { Container } from "./containers/Container";
+import { CardList } from "./containers/CardList";
 import { ErrorButton } from "./components/ErrorButton";
 import { Loader } from "./components/Loader";
 import { ErrorFetch } from "./components/ErrorFetch";
@@ -76,7 +76,7 @@ class App extends Component<object, StateAppPage> {
           </div>
         );
       }
-      return <Container results={this.state.requestData.results} />;
+      return <CardList results={this.state.requestData.results} />;
     };
 
     return (
