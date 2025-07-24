@@ -6,7 +6,7 @@ import SearchInput from "./components/SearchInput";
 import { getData } from "./request/getData";
 import { CardList } from "./containers/CardList";
 import { ErrorButton } from "./components/ErrorButton";
-import { Loader } from "./components/Loader";
+import Loader from "./components/Loader";
 import { ErrorFetch } from "./components/ErrorFetch";
 
 class App extends Component<object, StateAppPage> {
