@@ -7,7 +7,8 @@ const ExitButton = () => {
   return (
     <>
       <button className="reload-btn btn" onClick={exit}>
-        <Link to={`/react2025/page/1`}>Sorry, try again</Link>
+        {/* <Link to={`/react2025/page/1`}>Back to main</Link> */}
+        <Link to={`/react2025/`}>Back to main</Link>
       </button>
     </>
   );

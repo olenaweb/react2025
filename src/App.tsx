@@ -1,4 +1,6 @@
 import { Component } from "react";
+import { Link } from "react-router-dom";
+
 import { StateAppPage, Response } from "./types/types";
 import "./App.css";
 import rickmorty from "./assets/rickmorty.jpg";
@@ -91,6 +93,9 @@ class App extends Component<object, StateAppPage> {
             fetchData={this.fetchData}
           />
           <ErrorButton />
+          <div className="search-about-link">
+            <Link to={`/react2025/about`}>About</Link>
+          </div>
         </div>
         <div className="cards-panel">{cardPanel()}</div>
         {yearTemplate}

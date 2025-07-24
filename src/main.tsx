@@ -2,6 +2,7 @@ import React from "react";
 
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
+import AboutPage from "./app-pages/AboutPage";
 import DetailPage from "./app-pages/DetailPage";
 import PageContainer from "./components/PageContainer";
 import "./index.css";
@@ -47,6 +48,11 @@ export const routes: RouteObject[] = [
       },
     ],
   },
+  {
+    path: "react2025/about",
+    element: <AboutPage />,
+    errorElement: <ErrorPage />,
+  }
 ];
 
 const router = createBrowserRouter(routes);

@@ -51,6 +51,18 @@ h2.search-title {
   align-self: center;
 }
 
+.search-about-link {
+  grid-column: 3 / 4;
+  grid-row: 1 / 2;
+  align-self: center;
+  color: rgb(245, 245, 13);
+  -webkit-text-stroke: 1px #3a3a04;
+  font-size: clamp(0.875rem, 0.7357rem + 0.5714vw, 1.25rem);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
 .cards-panel {
   grid-row: 2 / 3;
   display: flex;
