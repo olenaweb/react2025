@@ -65,7 +65,6 @@ class App extends Component<object, StateAppPage> {
   }
 
   render() {
-    const yearTemplate = <p className="bold">RS School 2025</p>;
     const cardPanel = () => {
       if (this.state.isLoading) {
         return <Loader />;
@@ -98,7 +97,6 @@ class App extends Component<object, StateAppPage> {
           </div>
         </div>
         <div className="cards-panel">{cardPanel()}</div>
-        {yearTemplate}
       </>
     );
   }

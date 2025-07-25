@@ -1,22 +1,25 @@
-import { Component } from "react";
+import React from "react";
 import { Character } from "../types/types";
+import { Link, useParams } from "react-router-dom";
 
-export class Card extends Component<Character> {
-  render() {
-    const { name, image, gender, species, status } = this.props;
-
-    return (
-      <li className="card">
-        <p className="card-name">
-          <b>{name}</b>
-        </p>
-        <div>
-          <img className="card-image" src={image} alt={name} />
+export const Card: React.FC<Character> = (propsCharacter) => {
+  const { id, name, image, gender, species, status } = propsCharacter;
+  const { pageId = 1 } = useParams<{ pageId: string }>();
+  return (
+    <li className="card">
+      <Link to={`/react2025/page/${pageId}/detail/${id}`}>
+        <div className="card-content">
+          <p className="card-name">
+            <b>{name}</b>
+          </p>
+          <div>
+            <img className="card-image" src={image} alt={name} />
+          </div>
+          <p>Gender: {gender}</p>
+          <p>Species: {species}</p>
+          <p className="card-status"> {status}</p>
         </div>
-        <p>Gender: {gender}</p>
-        <p>Species: {species}</p>
-        <p className="card-status"> {status}</p>
-      </li>
-    );
-  }
-}
+      </Link>
+    </li>
+  );
+};
