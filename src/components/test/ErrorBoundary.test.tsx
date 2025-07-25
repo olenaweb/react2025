@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ErrorBoundary } from "../../components/ErrorBoundary";
-import { ErrorButton } from "../../components/ErrorButton";
+import ErrorButton from "../../components/ErrorButton";
 import { Component, ReactNode } from "react";
 
 class ThrowError extends Component {
@@ -15,7 +15,7 @@ class ThrowError extends Component {
 
 describe("ErrorBoundary Component", () => {
   beforeEach(() => {
-    jest.spyOn(console, "error").mockImplementation(() => {});
+    jest.spyOn(console, "error").mockImplementation(() => { });
   });
 
   afterEach(() => {
@@ -93,7 +93,7 @@ describe("ErrorBoundary Component", () => {
         <WorkingComponent />
       </ErrorBoundary>
     );
-    await userEvent.click(screen.getByRole("button", { name: /Sorry, try again/i }));
+    await userEvent.click(screen.getByRole("button", { name: /Back to main/i }));
     expect(screen.getByText(/Rick and Morty/i)).toBeInTheDocument();
   });
 });

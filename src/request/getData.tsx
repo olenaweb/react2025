@@ -4,13 +4,15 @@ interface FetchError extends Error {
   message: string;
 }
 
-export async function getData(searchValue: string): Promise<Response> {
+export async function getData(searchValue: string, choosenPage: string): Promise<Response> {
   try {
     await new Promise((resolve) => setTimeout(resolve, 500));
-    const response = await fetch(`https://rickandmortyapi.com/api/character/?name=${searchValue}`);
+    const response = await fetch(
+      `https://rickandmortyapi.com/api/character/?page=${choosenPage}&name=${searchValue}`
+    );
     const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.error || "Something went wrong!");
+      throw new Error(data.error || "Something went wrong");
     }
     return data as SuccessResponse;
   } catch (error) {

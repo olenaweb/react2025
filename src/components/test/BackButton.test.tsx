@@ -1,20 +1,20 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { ReloadButton } from "../ReloadButton";
+import BackButton from "../BackButton";
 import userEvent from "@testing-library/user-event";
 import { act } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import App from "../../App";
 
 test("renders reload message", () => {
-  render(<ReloadButton />);
-  const loadingMessage = screen.getByText(/Sorry, try again/i);
+  render(<BackButton />);
+  const loadingMessage = screen.getByText(/Back to main/i);
   expect(loadingMessage).toBeInTheDocument();
-  expect(screen.getByRole("button")).toHaveTextContent("Sorry, try again");
+  expect(screen.getByRole("button")).toHaveTextContent("Back to main");
 });
 
 test("press reload button", () => {
-  render(<ReloadButton />);
+  render(<BackButton />);
   const buttonReload = screen.getByRole("button");
   userEvent.type(buttonReload, "");
   act(() => {

@@ -1,105 +1,133 @@
-import { Component } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect, useMemo } from "react";
+import { useParams, useNavigate, Outlet } from "react-router-dom";
 
-import { StateAppPage, Response } from "./types/types";
+import { SuccessResponse, Response } from "./types/types";
 import "./App.css";
-import rickmorty from "./assets/rickmorty.jpg";
 import SearchInput from "./components/SearchInput";
 import { getData } from "./request/getData";
 import { CardList } from "./containers/CardList";
-import { ErrorButton } from "./components/ErrorButton";
+import ExitButton from "./components/ExitButton";
+import useLocalStorage from "./utils/useLocalStorage";
+import Pagination from "./components/Pagination";
 import Loader from "./components/Loader";
-import { ErrorFetch } from "./components/ErrorFetch";
 
-class App extends Component<object, StateAppPage> {
-  constructor(props: object) {
-    super(props);
-    const localStore: string | null = localStorage.getItem("olena_01_search");
-    this.state = {
-      storeValue: localStore || "",
-      isLoading: false,
-      requestData: {
-        info: {
-          count: 0,
-          pages: 0,
-          next: null,
-          prev: null,
-        },
-        results: [],
-      },
-      errorMessage: "",
-    };
-  }
+const App = () => {
+  const navigate = useNavigate();
+  const { pageId } = useParams<{ pageId: string }>();
 
-  fetchData = async (searchName: string) => {
-    this.setState({ isLoading: true });
-    try {
-      const resultData: Response = await getData(searchName);
-      if ("error" in resultData) {
-        this.setState({
-          isLoading: false,
-          requestData: { info: { count: 0, pages: 0, next: null, prev: null }, results: [] },
-          errorMessage: "**** Sorry, the name is not found. Try another name",
-        });
-        console.error("Error fetching data:", resultData.error);
-      } else {
-        this.setState({
-          isLoading: false,
-          requestData: resultData,
-          errorMessage: "",
-        });
-        localStorage.setItem("olena_01_search", searchName);
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      this.setState({
-        isLoading: false,
-        requestData: { info: { count: 0, pages: 0, next: null, prev: null }, results: [] },
-        errorMessage: "Something's gone wrong :-( ",
-      });
+  const [storeValue, setStoreValue] = useLocalStorage("olena_01_search", "");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [requestData, setRequestData] = useState<SuccessResponse>({
+    info: {
+      count: 0,
+      pages: 0,
+      next: null,
+      prev: null,
+    },
+    results: [],
+  });
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<string>(pageId || "1");
+
+  const [nextPage, setNextPage] = useState<string | null>(requestData.info.next);
+  const [lastPage, setLastPage] = useState<number | null>(requestData.info.pages);
+
+  const updateStoreValue = (value: string) => {
+    setStoreValue(value);
+  };
+
+  const updateRequestData = (result: Response) => {
+    if ("error" in result) {
+      setErrorMessage(result.error);
+      setRequestData({ info: { count: 0, pages: 0, next: null, prev: null }, results: [] });
+    } else {
+      setRequestData(result);
+      setErrorMessage("");
     }
   };
 
-  async componentDidMount() {
-    await this.fetchData(this.state.storeValue);
-  }
+  const updateErrorMessage = (message: string) => {
+    setErrorMessage(message);
+  };
 
-  render() {
-    const cardPanel = () => {
-      if (this.state.isLoading) {
-        return <Loader />;
+  const updateCurrentPage = (page: string) => {
+    setCurrentPage(page);
+    navigate(`/react2025/page/${page}`);
+  };
+  const updateNextPage = (page: string | null) => {
+    setNextPage(page);
+  };
+  const updateLastPage = (page: number | null) => {
+    setLastPage(page);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 300));
+        const resultData: Response = await getData(storeValue, currentPage);
+        if ("error" in resultData) {
+          setErrorMessage("Sorry, the name is not found. Try another name");
+          setRequestData({ info: { count: 0, pages: 0, next: null, prev: null }, results: [] });
+        } else {
+          setRequestData(resultData);
+          setErrorMessage("");
+          updateNextPage(resultData.info.next);
+          updateLastPage(resultData.info.pages);
+        }
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setErrorMessage("Something's gone wrong :-( ");
+        setIsLoading(false);
       }
-      if (this.state.errorMessage !== "") {
-        return (
-          <div className="error-title">
-            <h2> {this.state.errorMessage}</h2>
-            <ErrorFetch />
-          </div>
-        );
-      }
-      return <CardList results={this.state.requestData.results} />;
     };
 
-    return (
-      <>
-        <div className="search-panel">
-          <div className="rick-morty">
-            <img className="rick-morty-img" src={rickmorty} alt="RickandMorty" />
-          </div>
-          <h2 className="search-title">Rick and Morty</h2>
-          <SearchInput
-            searchValue={this.state.storeValue ? this.state.storeValue : ""}
-            fetchData={this.fetchData}
-          />
-          <ErrorButton />
-          <div className="search-about-link">
-            <Link to={`/react2025/about`}>About</Link>
-          </div>
+    fetchData();
+  }, [storeValue, currentPage]);
+
+  const viewContainer = useMemo(() => {
+    if (isLoading) {
+      return <Loader />;
+    } else if (errorMessage !== "") {
+      return (
+        <div className="error-message">
+          {errorMessage}
+          <ExitButton />
         </div>
-        <div className="cards-panel">{cardPanel()}</div>
-      </>
-    );
-  }
-}
+      );
+    } else {
+      return (
+        <>
+          <CardList results={requestData.results} />
+          <Outlet />
+        </>
+      );
+    }
+  }, [isLoading, errorMessage, requestData]);
+
+  return (
+    <>
+      <SearchInput
+        searchValue={storeValue}
+        currentPage={currentPage}
+        updateRequestData={updateRequestData}
+        updateStoreValue={updateStoreValue}
+        updateErrorMessage={updateErrorMessage}
+        updateCurrentPage={updateCurrentPage}
+      />
+
+      <Pagination
+        currentPage={currentPage}
+        updateCurrentPage={updateCurrentPage}
+        nextPage={nextPage}
+        lastPage={lastPage}
+      />
+
+      <div className="cards-panel">{viewContainer}</div>
+    </>
+  );
+};
 
 export default App;
