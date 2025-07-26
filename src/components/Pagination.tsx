@@ -12,9 +12,7 @@ interface Props {
 
 export default function Pagination(props: Props) {
   const { currentPage, updateCurrentPage, nextPage, lastPage } = props;
-  // if (!currentPage || !updateCurrentPage) {
-  //   throw new Error("Pagination component requires currentPage and updateCurrentPage props");
-  // }
+
   const currentPageValue = Number(currentPage) ? currentPage : "1";
   const [page, setPage] = useState<string>(currentPageValue);
   const nextPageValue = nextPage ? Number(nextPage) : null;
