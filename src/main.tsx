@@ -20,6 +20,7 @@ export const routes: RouteObject[] = [
       {
         path: "page/:pageId",
         element: <PageContainer />,
+        errorElement: <ErrorPage />,
         children: [
           {
             path: "detail/:id",
@@ -36,6 +37,7 @@ export const routes: RouteObject[] = [
     element: <AboutPage />,
     errorElement: <ErrorPage />,
   },
+  { path: "*", element: <ErrorPage /> },
 ];
 
 const router = createBrowserRouter(routes);

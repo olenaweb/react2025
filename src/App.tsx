@@ -1,20 +1,21 @@
 import { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate, Outlet } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { SuccessResponse, Response } from "./types/types";
 import "./App.css";
 import SearchInput from "./components/SearchInput";
 import { getData } from "./request/getData";
 import { CardList } from "./containers/CardList";
-import ExitButton from "./components/ExitButton";
+import BackButton from "./components/BackButton";
 import useLocalStorage from "./utils/useLocalStorage";
 import Pagination from "./components/Pagination";
 import Loader from "./components/Loader";
 
 const App = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { pageId } = useParams<{ pageId: string }>();
-
   const [storeValue, setStoreValue] = useLocalStorage("olena_01_search", "");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [requestData, setRequestData] = useState<SuccessResponse>({
@@ -35,6 +36,25 @@ const App = () => {
   const updateStoreValue = (value: string) => {
     setStoreValue(value);
   };
+
+  useEffect(() => {
+    const { pathname } = location;
+
+    if (pathname === "/react2025" || pathname === "/react2025/") {
+      navigate("/react2025/page/1", { replace: true });
+      return;
+    }
+
+    const pageNumber = Number(pageId);
+    const isInvalidPage = !Number.isInteger(pageNumber) || pageNumber <= 0;
+
+    if (isInvalidPage) {
+      const message = "*** Wrong route! Page not a figure";
+      console.error(message);
+      setErrorMessage(message);
+      throw new Error(message);
+    }
+  }, [pageId, location, navigate]);
 
   const updateRequestData = (result: Response) => {
     if ("error" in result) {
@@ -94,7 +114,7 @@ const App = () => {
       return (
         <div className="error-message">
           {errorMessage}
-          <ExitButton />
+          <BackButton />
         </div>
       );
     } else {

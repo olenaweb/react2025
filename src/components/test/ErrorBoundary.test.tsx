@@ -15,7 +15,7 @@ class ThrowError extends Component {
 
 describe("ErrorBoundary Component", () => {
   beforeEach(() => {
-    jest.spyOn(console, "error").mockImplementation(() => { });
+    jest.spyOn(console, "error").mockImplementation(() => {});
   });
 
   afterEach(() => {

@@ -33,7 +33,6 @@
 h2.search-title {
   grid-column: 1 / 4;
   grid-row: 1 / 2;
-  max-height: 35px;
   align-self: center;
   color: rgb(245, 245, 13);
   -webkit-text-stroke: 1px #3a3a04;
@@ -58,6 +57,19 @@ h2.search-title {
   align-self: center;
 }
 
+.reload-btn {
+  color: rgb(179 179 23);
+}
+
+.reload-btn:hover {
+  color: rgb(18, 19, 19);
+}
+
+.back-btn {
+  padding: 4px 23px;
+  margin-top: 10px;
+}
+
 .search-about-link {
   grid-column: 3 / 4;
   grid-row: 1 / 2;
@@ -70,12 +82,15 @@ h2.search-title {
   transition: color 0.3s ease;
 }
 
-.search-about-link:hover {
-  color: rgb(12, 196, 237);
+a.search-about-link-text {
+  font-weight: 800;
+  color: rgb(245, 245, 13);
+  -webkit-text-stroke: 1px #3a3a04;
 }
 
-.search-about-link:active {
-  color: rgb(23, 8, 235);
+a.search-about-link-text:hover,
+a.search-about-link-text:active {
+  color: rgba(23, 8, 235, 0.751);
 }
 
 .pagination-panel {
@@ -119,7 +134,7 @@ h2.search-title {
 }
 
 .detail-page h2 {
-  padding-top: 14px;
+  padding-top: 47px;
 }
 
 .detail-page p {
@@ -147,6 +162,7 @@ h2.search-title {
   list-style-type: none;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   grid-auto-rows: auto;
   width: 100%;
   margin: 0 auto;
@@ -203,10 +219,19 @@ h2.search-title {
 
 .about-title,
 .error-title {
-  padding: 20px 0;
+  padding: 14px 0;
   font-size: clamp(1.125rem, 0.9047rem + 1.1013vw, 1.75rem);
   color: rgb(245, 245, 13);
   -webkit-text-stroke: 1px #3a3a04;
+}
+
+.about-link {
+  font-size: clamp(0.875rem, 0.5625rem + 1vw, 1.125rem);
+  color: rgb(68, 68, 223);
+}
+
+.about-link:hover {
+  color: rgba(11, 11, 11, 0.979);
 }
 
 .error-image-host {

@@ -25,6 +25,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
   updateCurrentPage,
 }) => {
   const [inputValue, setInputValue] = useState<string>(searchValue);
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setInputValue(e.target.value);
   };
@@ -36,18 +37,13 @@ const SearchInput: React.FC<SearchInputProps> = ({
       const result = await getData(inputValue.trim(), page);
 
       if ("error" in result) {
-        if (updateStoreValue && updateRequestData && updateErrorMessage) {
-          updateErrorMessage(result.error + ". Sorry, the name is not found. Try another name");
-          updateStoreValue("");
-        }
+        updateErrorMessage?.(result.error + ". Sorry, the name is not found. Try another name");
+        updateStoreValue?.("");
       } else {
-        localStorage.setItem("olena_01_search", inputValue.trim());
-        if (updateStoreValue && updateRequestData && updateErrorMessage && updateCurrentPage) {
-          updateErrorMessage("");
-          updateRequestData(result);
-          updateStoreValue(inputValue.trim());
-          updateCurrentPage("1");
-        }
+        updateErrorMessage?.("");
+        updateRequestData?.(result);
+        updateStoreValue?.(inputValue.trim());
+        updateCurrentPage?.("1");
       }
     } catch {
       throw new Error("Something's gone wrong :-( ");
@@ -76,9 +72,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
         </form>
         <ErrorButton />
         <div className="search-about-link">
-          <Link to="/react2025/about" className="search-about-link-text">
-            About
-          </Link>
+          <Link to={`/react2025/about`}>About</Link>
         </div>
       </div>
     </>
