@@ -44,16 +44,15 @@ const App = () => {
       navigate("/react2025/page/1", { replace: true });
       return;
     }
+    if (!pageId) return;
 
     const pageNumber = Number(pageId);
     const isInvalidPage = !Number.isInteger(pageNumber) || pageNumber <= 0;
-
     if (isInvalidPage) {
-      const message = "*** Wrong route! Page not a figure";
-      console.error(message);
-      setErrorMessage(message);
-      throw new Error(message);
+      setErrorMessage("*** Wrong route! Page not a figure");
+      navigate("/react2025/error", { replace: true });
     }
+
   }, [pageId, location, navigate]);
 
   const updateRequestData = (result: Response) => {

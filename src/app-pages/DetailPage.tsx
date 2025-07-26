@@ -32,7 +32,7 @@ const DetailPage = () => {
   const ContentDetail = () => {
     return (
       <>
-        <Link className="detail-page-exit" to={`/react2025`}>
+        <Link to=".." className="detail-page-exit">
           <span>⨉</span>
         </Link>
         <h2>Detail for ID: {data.id}</h2>
