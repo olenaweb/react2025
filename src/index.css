@@ -60,7 +60,7 @@ h1 {
 
 h2 {
   text-shadow: 0 0 3px #696557;
-  font-size: clamp(1rem, 0.6476rem + 1.7621vw, 2rem);
+  font-size: clamp(0.8rem, 0.6476rem + 1.7621vw, 1.5rem);
 }
 
 button {
@@ -75,8 +75,10 @@ button {
   transition: border-color 0.25s;
 }
 
-button:hover {
+button:hover,
+button:active {
   border-color: #85582e;
+  /* color: black; */
 }
 
 button:focus,

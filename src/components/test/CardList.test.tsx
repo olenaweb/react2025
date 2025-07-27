@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
 import { CardList } from "../../containers/CardList";
 import { CharactersOnly } from "../../types/types";
@@ -24,7 +25,13 @@ test("renders the number of cards greater than 0", () => {
       },
     ],
   };
-  render(<CardList results={mockResults.results} />);
+
+  render(
+    <MemoryRouter>
+      <CardList results={mockResults.results} />
+    </MemoryRouter>
+  );
+
   const cards = screen.getAllByRole("listitem");
   expect(cards.length).toBeGreaterThan(0);
   const name = screen.getByText(/Morty Smith/i);

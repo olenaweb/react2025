@@ -1,21 +1,35 @@
-import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import SearchInput from "../SearchInput";
-describe("LocalStorage: save and get value", () => {
-  test("saves input value to local storage", () => {
-    localStorage.setItem("olena_01_search", "Rick Sanchez");
-    render(<SearchInput searchValue="Rick Sanchez" />);
-    const inputElement = screen.getByDisplayValue(/Rick Sanchez/i);
-    expect(inputElement).toBeInTheDocument();
-    expect(localStorage.getItem("olena_01_search")).toBe("Rick Sanchez");
+import React from "react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import useLocalStorage from "../../utils/useLocalStorage";
+
+const TestComponent: React.FC<{ keyName: string; initialValue: string }> = ({
+  keyName,
+  initialValue,
+}) => {
+  const [value, setValue] = useLocalStorage(keyName, initialValue);
+  return (
+    <div>
+      <span data-testid="value">{value}</span>
+      <button onClick={() => setValue("changed")}>Change Value</button>
+    </div>
+  );
+};
+
+describe("useLocalStorage hook (via wrapper component)", () => {
+  const key = "test_key";
+  const initialValue = "changed";
+
+  beforeEach(() => {
+    localStorage.clear();
   });
 
-  test("retrieves value from local storage on mount", () => {
-    const localValue = localStorage.getItem("olena_01_search");
-    if (localValue) {
-      render(<SearchInput searchValue={localValue} />);
-    }
-    const inputElement = screen.getByDisplayValue(/Rick Sanchez/i);
-    expect(inputElement).toBeInTheDocument();
+  it("updates state and localStorage when setValue is called", async () => {
+    render(<TestComponent keyName={key} initialValue={initialValue} />);
+    const button = screen.getByText("Change Value");
+    fireEvent.click(button);
+    expect(screen.getByTestId("value")).toHaveTextContent("changed");
+    await waitFor(() => {
+      expect(localStorage.getItem(key)).toBe("changed");
+    });
   });
 });

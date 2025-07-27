@@ -1,6 +1,5 @@
 import { Component, ErrorInfo } from "react";
 import errorImage from "../assets/error.jpg";
-import { ReloadButton } from "./ReloadButton";
 
 interface ErrorProps {
   children: React.ReactNode;
@@ -33,8 +32,12 @@ export class ErrorBoundary extends Component<ErrorProps, ErrorState> {
       return (
         <>
           <div className="error-page">
-            <h2 className="error-title">Something went wrong:-( </h2>
-            <ReloadButton handle={this.handleClick} />
+            <h2 className="error-title">404 There nothing here</h2>
+            <>
+              <button className="reload-btn btn" onClick={this.handleClick}>
+                Back Boundary
+              </button>
+            </>
             <div className="error-image-host">
               <img className="error-image" src={errorImage} alt="error" />
             </div>

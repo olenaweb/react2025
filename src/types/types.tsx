@@ -12,7 +12,7 @@ export interface Info {
 
 export interface Location {
   name: string;
-  url: string;
+  url?: string;
 }
 
 export interface Character {
@@ -53,4 +53,8 @@ export interface StateAppPage {
   isLoading: boolean;
   requestData: SuccessResponse;
   errorMessage: string;
+}
+
+export function isNotNullable<T>(value: T): value is NonNullable<T> {
+  return value != null;
 }

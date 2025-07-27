@@ -1,58 +1,82 @@
-import { Component, ChangeEvent, FormEvent, createRef, RefObject } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
+import { useState, ChangeEvent, FormEvent } from "react";
+import { getData } from "../request/getData";
+import { Response } from "../types/types";
+
+import ErrorButton from "./ErrorButton";
+import rickmorty from "./../assets/rickmorty.jpg";
+import "./../App.css";
 
 interface SearchInputProps {
   searchValue: string;
-  fetchData?: (searchName: string) => void;
+  currentPage?: string;
+  updateRequestData?: (result: Response) => void;
+  updateStoreValue?: (value: string) => void;
+  updateErrorMessage?: (message: string) => void;
+  updateCurrentPage?: (value: string) => void;
 }
 
-interface SearchInputState {
-  searchValue: string;
-}
+const SearchInput: React.FC<SearchInputProps> = ({
+  searchValue,
+  updateRequestData,
+  updateStoreValue,
+  updateErrorMessage,
+  updateCurrentPage,
+}) => {
+  const [inputValue, setInputValue] = useState<string>(searchValue);
 
-export default class SearchInput extends Component<SearchInputProps, SearchInputState> {
-  private input: RefObject<HTMLInputElement>;
-
-  constructor(props: SearchInputProps) {
-    super(props);
-    this.state = {
-      searchValue: props.searchValue,
-    };
-    this.input = createRef<HTMLInputElement>();
-  }
-
-  componentDidMount() {
-    this.input.current?.focus();
-  }
-
-  handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    this.setState({ searchValue: e.currentTarget.value });
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setInputValue(e.target.value);
   };
 
-  handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { fetchData } = this.props;
-    const searchName = this.state.searchValue.trim();
-    fetchData?.(searchName);
-    this.input.current?.focus();
+    try {
+      const page = "1";
+      const result = await getData(inputValue.trim(), page);
+
+      if ("error" in result) {
+        updateErrorMessage?.(result.error + ". Sorry, the name is not found. Try another name");
+        updateStoreValue?.("");
+      } else {
+        updateErrorMessage?.("");
+        updateRequestData?.(result);
+        updateStoreValue?.(inputValue.trim());
+        updateCurrentPage?.("1");
+      }
+    } catch {
+      throw new Error("Something's gone wrong :-( ");
+    }
   };
 
-  render() {
-    return (
-      <form className="search-form" onSubmit={this.handleSubmit}>
-        <input
-          className="search-input"
-          type="search"
-          id="searchValue"
-          value={this.state.searchValue}
-          onChange={this.handleChange}
-          placeholder="Enter the name"
-          autoComplete="off"
-          ref={this.input}
-        />
-        <button className="search-button btn" type="submit">
-          🔍
-        </button>
-      </form>
-    );
-  }
-}
+  return (
+    <>
+      <div className="search-panel">
+        <div className="rick-morty">
+          <img className="rick-morty-img" src={rickmorty} alt="Rick and Morty" />
+        </div>
+        <h2 className="search-title">Rick and Morty</h2>
+        <form className="search-form" onSubmit={handleSubmit}>
+          <input
+            className="search-input"
+            type="search"
+            id="searchValue"
+            value={inputValue}
+            onChange={handleChange}
+            placeholder="Enter the name"
+          />
+          <button className="search-button btn" type="submit">
+            🔍
+          </button>
+        </form>
+        <ErrorButton />
+        <div className="search-about-link">
+          <Link to={`/react2025/about`}>About</Link>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default SearchInput;

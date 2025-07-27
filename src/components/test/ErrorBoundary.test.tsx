@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ErrorBoundary } from "../../components/ErrorBoundary";
-import { ErrorButton } from "../../components/ErrorButton";
 import { Component, ReactNode } from "react";
+import ErrorButton from "../ErrorButton";
 
 class ThrowError extends Component {
   componentDidMount(): void {
@@ -28,7 +28,7 @@ describe("ErrorBoundary Component", () => {
         <ThrowError />
       </ErrorBoundary>
     );
-    expect(screen.getByText(/Something went wrong/i)).toBeInTheDocument();
+    expect(screen.getByText(/404 There nothing here/i)).toBeInTheDocument();
   });
 
   test("displays a backup interface with an error", () => {
@@ -37,8 +37,8 @@ describe("ErrorBoundary Component", () => {
         <ThrowError />
       </ErrorBoundary>
     );
-    expect(screen.getByRole("button", { name: /try again/i })).toBeInTheDocument();
-    expect(screen.getByText(/Something went wrong/i)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Back/i })).toBeInTheDocument();
+    expect(screen.getByText(/404 There nothing here/i)).toBeInTheDocument();
   });
 
   test("drops an error when pressing a button", () => {
@@ -50,7 +50,7 @@ describe("ErrorBoundary Component", () => {
       </ErrorBoundary>
     );
 
-    expect(screen.getByText(/Something went wrong/i)).toBeInTheDocument();
+    expect(screen.getByText(/404 There nothing here/i)).toBeInTheDocument();
 
     rerender(
       <ErrorBoundary>
@@ -58,11 +58,11 @@ describe("ErrorBoundary Component", () => {
       </ErrorBoundary>
     );
 
-    fireEvent.click(screen.getByRole("button", { name: /try again/i }));
+    fireEvent.click(screen.getByRole("button", { name: /Back/i }));
     expect(screen.getByText(/Rick and Morty/i)).toBeInTheDocument();
   });
 
-  test("creates an error when pressing the Errorbutton button", () => {
+  test("creates an error when pressing the ErrorButton button", () => {
     render(
       <ErrorBoundary>
         <ErrorButton />
@@ -71,7 +71,7 @@ describe("ErrorBoundary Component", () => {
 
     fireEvent.click(screen.getByRole("button", { name: /create error/i }));
 
-    expect(screen.getByText(/Something went wrong/i)).toBeInTheDocument();
+    expect(screen.getByText(/404 There nothing here/i)).toBeInTheDocument();
   });
   test("should reset the error and show children after repeated render", async () => {
     const FailingComponent = () => {
@@ -86,14 +86,14 @@ describe("ErrorBoundary Component", () => {
       </ErrorBoundary>
     );
 
-    expect(screen.getByText(/Something went wrong/i)).toBeInTheDocument();
+    expect(screen.getByText(/404 There nothing here/i)).toBeInTheDocument();
 
     rerender(
       <ErrorBoundary>
         <WorkingComponent />
       </ErrorBoundary>
     );
-    await userEvent.click(screen.getByRole("button", { name: /Sorry, try again/i }));
+    await userEvent.click(screen.getByRole("button", { name: /Back/i }));
     expect(screen.getByText(/Rick and Morty/i)).toBeInTheDocument();
   });
 });

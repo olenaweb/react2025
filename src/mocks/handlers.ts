@@ -86,4 +86,38 @@ export const handlers = [
       );
     }
   ),
+  rest.get("https://rickandmortyapi.com/api/character/:id", (req, res, ctx) => {
+    const { id } = req.params;
+
+    if (id === "404") {
+      return res(ctx.status(404), ctx.json({ error: "Not Found" }));
+    }
+
+    if (id === "error") {
+      return res(ctx.status(500), ctx.json({ error: "Network response was not ok" }));
+    }
+
+    return res(
+      ctx.status(200),
+      ctx.json({
+        id: 1,
+        name: "Rick Sanchez",
+        status: "Alive",
+        species: "Human",
+        gender: "Male",
+        image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
+        origin: {
+          name: "Earth (C-137)",
+          url: "https://rickandmortyapi.com/api/location/1",
+        },
+        location: {
+          name: "Earth (Replacement Dimension)",
+          url: "https://rickandmortyapi.com/api/location/20",
+        },
+        episode: ["https://rickandmortyapi.com/api/episode/1"],
+        url: "https://rickandmortyapi.com/api/character/1",
+        created: "2017-11-04T18:48:46.250Z",
+      })
+    );
+  }),
 ];
