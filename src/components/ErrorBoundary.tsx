@@ -32,10 +32,10 @@ export class ErrorBoundary extends Component<ErrorProps, ErrorState> {
       return (
         <>
           <div className="error-page">
-            <h2 className="error-title">Something went wrong:-( </h2>
+            <h2 className="error-title">404 There nothing here</h2>
             <>
               <button className="reload-btn btn" onClick={this.handleClick}>
-                Sorry, try again
+                Back
               </button>
             </>
             <div className="error-image-host">

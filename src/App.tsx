@@ -52,7 +52,6 @@ const App = () => {
       setErrorMessage("*** Wrong route! Page not a figure");
       navigate("/react2025/error", { replace: true });
     }
-
   }, [pageId, location, navigate]);
 
   const updateRequestData = (result: Response) => {
