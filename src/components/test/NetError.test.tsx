@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 
 import App from "../../App";
-import { server } from "../../mocks/server"; // путь к твоему msw серверу
+import { server } from "../../mocks/server";
 import { rest, RestRequest, ResponseComposition, RestContext } from "msw";
 import { Response } from "../../types/types";
 

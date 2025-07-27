@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom"; // <-- импортируем
+import { MemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
 import { CardList } from "../../containers/CardList";
 import { CharactersOnly } from "../../types/types";
