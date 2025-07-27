@@ -35,7 +35,7 @@ export class ErrorBoundary extends Component<ErrorProps, ErrorState> {
             <h2 className="error-title">404 There nothing here</h2>
             <>
               <button className="reload-btn btn" onClick={this.handleClick}>
-                Back
+                Back Boundary
               </button>
             </>
             <div className="error-image-host">

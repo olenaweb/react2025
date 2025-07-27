@@ -1,10 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import "../App.css";
+
 const BackButton = () => {
   const navigate = useNavigate();
 
   const exit = () => {
-    navigate(-1);
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate("/react2025", { replace: true });
+    }
   };
 
   return (
