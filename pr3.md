@@ -3,7 +3,7 @@
 2. Screenshot:<img width="938" height="626" alt="image" src="https://github.com/user-attachments/assets/f7fb876b-e2b9-4c21-b3b9-6443cec0824b" />
 
 
-3. Deployment: https://olenaweb.github.io/react2025/
+3. Deployment:  https://olenaweb-rsapp.web.app/react2025/
 
 4. Done: 2025-07-28 00:00 /	Deadline: 2025-07-28 02:59
 
