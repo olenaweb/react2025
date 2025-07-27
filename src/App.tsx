@@ -7,10 +7,10 @@ import "./App.css";
 import SearchInput from "./components/SearchInput";
 import { getData } from "./request/getData";
 import { CardList } from "./containers/CardList";
-import BackButton from "./components/BackButton";
 import useLocalStorage from "./utils/useLocalStorage";
 import Pagination from "./components/Pagination";
 import Loader from "./components/Loader";
+import errorImage from "./assets/error.jpg";
 
 const App = () => {
   const navigate = useNavigate();
@@ -112,7 +112,9 @@ const App = () => {
       return (
         <div className="error-message">
           {errorMessage}
-          <BackButton />
+          <div className="error-image-host">
+            <img className="error-image" src={errorImage} alt="error" />
+          </div>
         </div>
       );
     } else {
