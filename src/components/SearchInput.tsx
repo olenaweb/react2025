@@ -10,7 +10,7 @@ import "./../App.css";
 
 interface SearchInputProps {
   searchValue: string;
-  currentPage: string;
+  currentPage?: string;
   updateRequestData?: (result: Response) => void;
   updateStoreValue?: (value: string) => void;
   updateErrorMessage?: (message: string) => void;

@@ -5,6 +5,9 @@ const useLocalStorage = (key: string, initialValue: string) => {
     const savedValue = localStorage.getItem(key);
     return savedValue !== null ? savedValue : initialValue;
   });
+  useEffect(() => {
+    localStorage.setItem(key, value);
+  }, [key, value]);
 
   useEffect(() => {
     const handleBeforeUnload = () => {
