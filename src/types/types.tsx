@@ -12,7 +12,7 @@ export interface Info {
 
 export interface Location {
   name: string;
-  url: string;
+  url?: string;
 }
 
 export interface Character {
