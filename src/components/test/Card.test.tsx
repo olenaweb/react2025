@@ -16,9 +16,9 @@ const mockProps: CardProps = {
 
 test("Card displays character info", () => {
   render(
-    <MemoryRouter initialEntries={["/react2025/page/1"]}>
+    <MemoryRouter initialEntries={["/page/1"]}>
       <Routes>
-        <Route path="/react2025/page/:pageId" element={<Card {...mockProps} />} />
+        <Route path="/page/:pageId" element={<Card {...mockProps} />} />
       </Routes>
     </MemoryRouter>
   );
@@ -29,5 +29,5 @@ test("Card displays character info", () => {
   expect(screen.getByText(/Alive/)).toBeInTheDocument();
 
   const link = screen.getByRole("link");
-  expect(link).toHaveAttribute("href", "/react2025/page/1/detail/1");
+  expect(link).toHaveAttribute("href", "/page/1/detail/1");
 });

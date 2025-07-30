@@ -36,6 +36,6 @@ describe("BackButton", () => {
     const button = screen.getByRole("button", { name: /back/i });
     fireEvent.click(button);
 
-    expect(mockedUsedNavigate).toHaveBeenCalledWith("/react2025", { replace: true });
+    expect(mockedUsedNavigate).toHaveBeenCalledWith("/", { replace: true });
   });
 });

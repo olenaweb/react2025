@@ -71,7 +71,7 @@ const SearchInput = ({
         </form>
         <ErrorButton />
         <div className="search-about-link">
-          <Link to={`/react2025/about`}>About</Link>
+          <Link to={`/about`}>About</Link>
         </div>
       </div>
     </>

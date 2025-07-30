@@ -40,8 +40,8 @@ const App = () => {
   useEffect(() => {
     const { pathname } = location;
 
-    if (pathname === "/react2025" || pathname === "/react2025/") {
-      navigate("/react2025/page/1", { replace: true });
+    if (pathname === "/") {
+      navigate("/page/1", { replace: true });
       return;
     }
     if (!pageId) return;
@@ -50,7 +50,7 @@ const App = () => {
     const isInvalidPage = !Number.isInteger(pageNumber) || pageNumber <= 0;
     if (isInvalidPage) {
       setErrorMessage("*** Wrong route! Page not a figure");
-      navigate("/react2025/error", { replace: true });
+      navigate("/error", { replace: true });
     }
   }, [pageId, location, navigate]);
 
@@ -70,7 +70,7 @@ const App = () => {
 
   const updateCurrentPage = (page: string) => {
     setCurrentPage(page);
-    navigate(`/react2025/page/${page}`);
+    navigate(`/page/${page}`);
   };
   const updateNextPage = (page: string | null) => {
     setNextPage(page);

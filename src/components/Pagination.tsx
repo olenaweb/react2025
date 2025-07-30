@@ -46,13 +46,13 @@ export default function Pagination(props: Props) {
 
   return (
     <div className="pagination-panel">
-      <Link to={`/react2025/page/1`}>
+      <Link to={`/page/1`}>
         <button onClick={toFirstPage} disabled={parseInt(page) === 1}>
           First
         </button>
       </Link>
 
-      <Link to={`/react2025/page/${parseInt(page) <= 1 ? 0 : parseInt(page) - 1}`}>
+      <Link to={`/page/${parseInt(page) <= 1 ? 0 : parseInt(page) - 1}`}>
         <button onClick={toPrevPage} disabled={isOutOfRange || parseInt(page) <= 1}>
           Prev
         </button>
@@ -60,13 +60,13 @@ export default function Pagination(props: Props) {
 
       <span className="current-page">{page}</span>
 
-      <Link to={`/react2025/page/${parseInt(page) + 1}`}>
+      <Link to={`/page/${parseInt(page) + 1}`}>
         <button onClick={toNextPage} disabled={isOutOfRange || !isNotNullable(nextPageValue)}>
           Next
         </button>
       </Link>
 
-      <Link to={`/react2025/page/${lastPage}`}>
+      <Link to={`/page/${lastPage}`}>
         <button
           onClick={toLastPage}
           disabled={isOutOfRange || (lastPage !== null && parseInt(page) === lastPage)}

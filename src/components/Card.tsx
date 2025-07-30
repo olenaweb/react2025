@@ -6,7 +6,7 @@ export const Card = (propsCharacter: Character) => {
   const { pageId = 1 } = useParams<{ pageId: string }>();
   return (
     <li className="card">
-      <Link to={`/react2025/page/${pageId}/detail/${id}`}>
+      <Link to={`/page/${pageId}/detail/${id}`}>
         <div className="card-content">
           <p className="card-name">
             <b>{name}</b>

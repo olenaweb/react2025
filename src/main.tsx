@@ -13,7 +13,7 @@ import { getDetailData } from "./request/getDetailData.tsx";
 
 export const routes: RouteObject[] = [
   {
-    path: "react2025",
+    path: "/",
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
@@ -33,7 +33,7 @@ export const routes: RouteObject[] = [
     ],
   },
   {
-    path: "react2025/about",
+    path: "/about",
     element: <AboutPage />,
     errorElement: <ErrorPage />,
   },

@@ -8,7 +8,7 @@ const BackButton = () => {
     if (window.history.length > 1) {
       navigate(-1);
     } else {
-      navigate("/react2025", { replace: true });
+      navigate("/", { replace: true });
     }
   };
 
