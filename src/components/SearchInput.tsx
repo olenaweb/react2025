@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { getData } from "../request/getData";
@@ -17,13 +16,13 @@ interface SearchInputProps {
   updateCurrentPage?: (value: string) => void;
 }
 
-const SearchInput: React.FC<SearchInputProps> = ({
+const SearchInput = ({
   searchValue,
   updateRequestData,
   updateStoreValue,
   updateErrorMessage,
   updateCurrentPage,
-}) => {
+}: SearchInputProps) => {
   const [inputValue, setInputValue] = useState<string>(searchValue);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {

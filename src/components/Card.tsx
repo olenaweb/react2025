@@ -1,8 +1,7 @@
-import React from "react";
 import { Character } from "../types/types";
 import { Link, useParams } from "react-router-dom";
 
-export const Card: React.FC<Character> = (propsCharacter) => {
+export const Card = (propsCharacter: Character) => {
   const { id, name, image, gender, species, status } = propsCharacter;
   const { pageId = 1 } = useParams<{ pageId: string }>();
   return (
