@@ -6,7 +6,7 @@ import BackButton from "../components/BackButton";
 const AboutPage = () => {
   const yearTemplate = (
     <p className="bold">
-      <a href="https://rs.school/docs/en" target="_blank" rel="noreferrer">
+      <a href="https://rs.school/courses/reactjs" target="_blank" rel="noreferrer">
         <i className="about-link">RS School 2025</i>
       </a>
     </p>
