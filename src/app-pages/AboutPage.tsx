@@ -1,4 +1,5 @@
 import "./../App.css";
+import "./AboutPage.css";
 import rickmorty from "./../assets/Planet.png";
 
 import BackButton from "../components/BackButton";

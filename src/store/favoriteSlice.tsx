@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { FavoriteItem } from "../../types/types";
+import { FavoriteItem } from "../types/types";
 
 const LS_Favorite = "olena_favorite";
 
@@ -16,7 +16,6 @@ export const favoriteSlice = createSlice({
   initialState,
   reducers: {
     addFavorite(state, action: PayloadAction<FavoriteItem>) {
-      console.log('"action="', action);
       const isThere = state.favorites.some((item) => item.id === action.payload.id);
       if (!isThere) {
         state.favorites.push(action.payload);
@@ -25,7 +24,7 @@ export const favoriteSlice = createSlice({
     },
 
     removeFavorite(state, action: PayloadAction<FavoriteItem>) {
-      state.favorites = state.favorites.filter(item => item.id !== action.payload.id)
+      state.favorites = state.favorites.filter((item) => item.id !== action.payload.id);
       localStorage.setItem(LS_Favorite, JSON.stringify(state.favorites));
     },
   },

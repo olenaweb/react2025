@@ -1,5 +1,6 @@
 import errorImage from "./../assets/error.jpg";
 import "./../App.css";
+import "./ErrorPage.css";
 import BackButton from "../components/BackButton";
 
 export default function ErrorPage() {
