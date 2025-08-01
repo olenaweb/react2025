@@ -2,6 +2,9 @@ import { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate, Outlet } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
+import { useAppSelector } from "./store/appHook";
+import Popup from "./components/Popup";
+
 import { SuccessResponse, Response } from "./types/types";
 import "./App.css";
 import SearchInput from "./components/SearchInput";
@@ -13,6 +16,8 @@ import Loader from "./components/Loader";
 import errorImage from "./assets/error.jpg";
 
 const App = () => {
+  const { favorites } = useAppSelector((state) => state.favorites);
+
   const navigate = useNavigate();
   const location = useLocation();
   const { pageId } = useParams<{ pageId: string }>();
@@ -83,7 +88,7 @@ const App = () => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        await new Promise((resolve) => setTimeout(resolve, 300));
+        await new Promise((resolve) => setTimeout(resolve, 100));
         const resultData: Response = await getData(storeValue, currentPage);
         if ("error" in resultData) {
           setErrorMessage("Sorry, the name is not found. Try another name");
@@ -146,6 +151,7 @@ const App = () => {
       />
 
       <div className="cards-panel">{viewContainer}</div>
+      {favorites.length > 0 && <Popup />}
     </>
   );
 };

@@ -1,7 +1,7 @@
 import { LoaderFunctionArgs } from "react-router-dom";
 
 export const getDetailData = async ({ params }: LoaderFunctionArgs) => {
-  await new Promise((resolve) => setTimeout(resolve, 200));
+  await new Promise((resolve) => setTimeout(resolve, 100));
   const { id } = params;
   const response = await fetch(`https://rickandmortyapi.com/api/character/${id}`);
   if (response.status === 404) {

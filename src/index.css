@@ -28,6 +28,20 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+:root {
+  --background-color: rgb(184, 179, 156);
+  --background-container-color: rgb(169, 142, 3);
+  --background-detail-container-color: rgb(24 69 10);
+  --color: rgb(207, 207, 6);
+
+  --background-dark-color: rgb(99, 122, 166);
+  --background-container-dark-color: rgb(3, 41, 118);
+  --background-detail-container-dark-color: rgb(114 112 101);
+  --dark-color: rgb(240, 249, 252);
+  --dark-button: #d7d0d0;
+  --view-background: #01031d;
+}
+
 .bold {
   font-weight: 600;
   color: #1a1a17;
