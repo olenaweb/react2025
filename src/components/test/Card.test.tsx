@@ -2,6 +2,9 @@ import { render, screen } from "@testing-library/react";
 import { Card } from "../Card";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import type { ComponentProps } from "react";
+import { Provider } from "react-redux";
+import { store } from "../../store/Store.tsx";
+import { ThemeProvider } from "../../service/ThemeProvider.tsx";
 
 type CardProps = ComponentProps<typeof Card>;
 
@@ -16,11 +19,15 @@ const mockProps: CardProps = {
 
 test("Card displays character info", () => {
   render(
-    <MemoryRouter initialEntries={["/page/1"]}>
-      <Routes>
-        <Route path="/page/:pageId" element={<Card {...mockProps} />} />
-      </Routes>
-    </MemoryRouter>
+    <Provider store={store}>
+      <ThemeProvider>
+        <MemoryRouter initialEntries={["/page/1"]}>
+          <Routes>
+            <Route path="/page/:pageId" element={<Card {...mockProps} />} />
+          </Routes>
+        </MemoryRouter>
+      </ThemeProvider>
+    </Provider>
   );
 
   expect(screen.getByText(/Rick Sanchez/)).toBeInTheDocument();

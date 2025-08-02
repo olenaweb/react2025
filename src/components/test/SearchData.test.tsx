@@ -2,6 +2,9 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import App from "../../App";
 import { MemoryRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "../../store/Store.tsx";
+import { ThemeProvider } from "../../service/ThemeProvider.tsx";
 
 jest.mock("../../request/getData", () => ({
   getData: jest.fn(() =>
@@ -23,9 +26,13 @@ jest.mock("../../request/getData", () => ({
 
 test("renders cards when data is available", async () => {
   render(
-    <MemoryRouter>
-      <App />
-    </MemoryRouter>
+    <Provider store={store}>
+      <ThemeProvider>
+        <MemoryRouter initialEntries={["/page/1"]}>
+          <App />
+        </MemoryRouter>
+      </ThemeProvider>
+    </Provider>
   );
   const cardElements = await screen.findAllByRole("listitem");
   expect(cardElements.length).toBeGreaterThan(0);

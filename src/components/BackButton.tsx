@@ -9,7 +9,7 @@ const BackButton = () => {
   };
 
   return (
-    <button className="back-btn btn" onClick={exit}>
+    <button className="back-btn reload-btn btn" onClick={exit}>
       Back
     </button>
   );

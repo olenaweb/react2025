@@ -4,7 +4,8 @@ import { addFavorite, removeFavorite } from "./../store/favoriteSlice";
 import React, { useState, useEffect } from "react";
 import { Character, FavoriteItem } from "../types/types";
 
-export const Card = ({ id, name, image, gender, species, status }: Character) => {
+export const Card: React.FC<Character> = (propsCharacter) => {
+  const { id, name, image, gender, species, status } = propsCharacter;
   const { pageId = 1 } = useParams<{ pageId: string }>();
 
   const dispatch = useAppDispatch();

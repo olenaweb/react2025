@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { ErrorBoundary } from "../../components/ErrorBoundary";
 import { Component, ReactNode } from "react";
 import ErrorButton from "../ErrorButton";
+import { waitFor } from "@testing-library/react";
 
 class ThrowError extends Component {
   componentDidMount(): void {
@@ -12,17 +13,22 @@ class ThrowError extends Component {
     return null;
   }
 }
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: () => jest.fn(),
+}));
+
 
 describe("ErrorBoundary Component", () => {
   beforeEach(() => {
-    jest.spyOn(console, "error").mockImplementation(() => {});
+    jest.spyOn(console, "error").mockImplementation(() => { });
   });
 
   afterEach(() => {
     (console.error as jest.Mock).mockRestore();
   });
 
-  test("intercepts and processes TypeScript error in subsidiary components", () => {
+  test("1 intercepts and processes TypeScript error in subsidiary components", () => {
     render(
       <ErrorBoundary>
         <ThrowError />
@@ -31,7 +37,7 @@ describe("ErrorBoundary Component", () => {
     expect(screen.getByText(/404 There nothing here/i)).toBeInTheDocument();
   });
 
-  test("displays a backup interface with an error", () => {
+  test("2 displays a backup interface with an error", () => {
     render(
       <ErrorBoundary>
         <ThrowError />
@@ -41,7 +47,7 @@ describe("ErrorBoundary Component", () => {
     expect(screen.getByText(/404 There nothing here/i)).toBeInTheDocument();
   });
 
-  test("drops an error when pressing a button", () => {
+  test("3 drops an error when pressing a button", () => {
     const WorkingComponent = () => <p>Rick and Morty</p>;
 
     const { rerender } = render(
@@ -62,18 +68,22 @@ describe("ErrorBoundary Component", () => {
     expect(screen.getByText(/Rick and Morty/i)).toBeInTheDocument();
   });
 
-  test("creates an error when pressing the ErrorButton button", () => {
+  test("4 creates an error when pressing the ErrorButton button", async () => {
     render(
       <ErrorBoundary>
         <ErrorButton />
       </ErrorBoundary>
     );
 
-    fireEvent.click(screen.getByRole("button", { name: /create error/i }));
-
-    expect(screen.getByText(/404 There nothing here/i)).toBeInTheDocument();
+    const button = screen.getByRole("button", { name: /Create Error/i });
+    expect(button).toBeInTheDocument();
+    await userEvent.click(button);
+    await waitFor(() => {
+      expect(screen.getByText(/404 There nothing here/i)).toBeInTheDocument();
+    });
   });
-  test("should reset the error and show children after repeated render", async () => {
+
+  test("5 should reset the error and show children after repeated render", async () => {
     const FailingComponent = () => {
       throw new Error("Test error");
     };

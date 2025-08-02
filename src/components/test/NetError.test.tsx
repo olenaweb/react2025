@@ -1,6 +1,9 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "../../store/Store.tsx";
+import { ThemeProvider } from "../../service/ThemeProvider.tsx";
 
 import App from "../../App";
 import { server } from "../../mocks/server";
@@ -18,9 +21,13 @@ test("shows error message when network fails", async () => {
   );
 
   render(
-    <MemoryRouter>
-      <App />
-    </MemoryRouter>
+    <Provider store={store}>
+      <ThemeProvider>
+        <MemoryRouter initialEntries={["/page/1"]}>
+          <App />
+        </MemoryRouter>
+      </ThemeProvider>
+    </Provider>
   );
 
   const input = screen.getByPlaceholderText("Enter the name");
@@ -41,9 +48,13 @@ test("shows error message when server returns 404", async () => {
   );
 
   render(
-    <MemoryRouter>
-      <App />
-    </MemoryRouter>
+    <Provider store={store}>
+      <ThemeProvider>
+        <MemoryRouter initialEntries={["/page/1"]}>
+          <App />
+        </MemoryRouter>
+      </ThemeProvider>
+    </Provider>
   );
 
   const input = screen.getByPlaceholderText("Enter the name");
@@ -64,9 +75,13 @@ test("shows error message when server returns 500", async () => {
   );
 
   render(
-    <MemoryRouter>
-      <App />
-    </MemoryRouter>
+    <Provider store={store}>
+      <ThemeProvider>
+        <MemoryRouter initialEntries={["/page/1"]}>
+          <App />
+        </MemoryRouter>
+      </ThemeProvider>
+    </Provider>
   );
 
   const input = screen.getByPlaceholderText("Enter the name");
