@@ -34,13 +34,13 @@ export const Card = ({ id, name, image, gender, species, status }: Character) =>
     <li className="card">
       <div className="manager-panel">
         {!isFavorite && (
-          <button className="light-to-favorite btn" onClick={addToFavorite}>
-            Add
+          <button className="to-favorite btn" onClick={addToFavorite}>
+            +
           </button>
         )}
         {isFavorite && (
-          <button className="light-from-favorite btn" onClick={removeFromFavorite}>
-            Remove
+          <button className="from-favorite btn" onClick={removeFromFavorite}>
+            ✔
           </button>
         )}
       </div>

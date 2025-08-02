@@ -2,7 +2,7 @@ import { useAppSelector, useAppDispatch } from "../store/appHook";
 import { removeFavorite } from "../store/favoriteSlice";
 
 import ExportButton from "./ExportButton";
-import "./Popup.css"
+import "./Popup.css";
 
 const Popup = () => {
   const dispatch = useAppDispatch();

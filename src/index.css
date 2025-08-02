@@ -33,13 +33,24 @@ html {
   --background-container-color: rgb(169, 142, 3);
   --background-detail-container-color: rgb(24 69 10);
   --color: rgb(207, 207, 6);
-
+  --bright-color: rgb(251, 234, 4);
+  --detail-color: rgb(144 65 92);
   --background-dark-color: rgb(99, 122, 166);
   --background-container-dark-color: rgb(3, 41, 118);
   --background-detail-container-dark-color: rgb(114 112 101);
   --dark-color: rgb(240, 249, 252);
   --dark-button: #d7d0d0;
   --view-background: #01031d;
+}
+
+html.light {
+  background-color: var(--background-color);
+  color: black;
+}
+
+html.dark {
+  background-color: var(--background-dark-color);
+  color: var(--dark-color);
 }
 
 .bold {
@@ -49,12 +60,23 @@ html {
 
 a {
   font-weight: 500;
-  color: #cfba2c;
   text-decoration: inherit;
 }
 
-a:hover {
-  color: #cfba2c;
+html.light a {
+  color: white;
+}
+
+html.light a:hover {
+  color: #03cd03;
+}
+
+html.dark a {
+  color: #dbea0e;
+}
+
+html.dark a:hover {
+  color: #0bd5c1;
 }
 
 body {
@@ -62,19 +84,34 @@ body {
   display: flex;
   place-items: center;
   min-width: 320px;
-  background: gainsboro;
   min-height: 100vh;
   height: 100%;
 }
 
+html.dark body {
+  background: #01031d;
+}
+
+html.light body {
+  background: gainsboro;
+}
+
 h1 {
-  font-size: 3.2em;
+  font-size: clamp(0.8rem, 0.6476rem + 1.7621vw, 1.5rem);
   line-height: 1.1;
 }
 
 h2 {
   text-shadow: 0 0 3px #696557;
   font-size: clamp(0.8rem, 0.6476rem + 1.7621vw, 1.5rem);
+}
+
+html.light h2 {
+  color: var(--color);
+}
+
+html.dark h2 {
+  color: var(--dark-color);
 }
 
 button {
@@ -92,7 +129,6 @@ button {
 button:hover,
 button:active {
   border-color: #85582e;
-  /* color: black; */
 }
 
 button:focus,
@@ -100,17 +136,14 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
+html.light button {
+  background: white;
+}
 
-  a:hover {
-    color: #85582e;
-  }
+html.dark button {
+  background: var(--dark-button);
+}
 
-  button {
-    background-color: #f9f9f9;
-  }
+.button:hover {
+  background-color: #333;
 }

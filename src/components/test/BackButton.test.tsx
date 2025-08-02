@@ -1,4 +1,5 @@
 import "@testing-library/jest-dom";
+
 import { render, screen, fireEvent } from "@testing-library/react";
 import BackButton from "../BackButton";
 
@@ -8,34 +9,11 @@ jest.mock("react-router-dom", () => ({
   useNavigate: () => mockedUsedNavigate,
 }));
 
-describe("BackButton", () => {
-  beforeEach(() => {
-    mockedUsedNavigate.mockClear();
-  });
+test("BackButton calls navigate(-1) on click", () => {
+  render(<BackButton />);
 
-  test("calls navigate(-1) if history length > 1", () => {
-    Object.defineProperty(window.history, "length", {
-      configurable: true,
-      value: 2,
-    });
+  const button = screen.getByRole("button", { name: /back/i });
+  fireEvent.click(button);
 
-    render(<BackButton />);
-    const button = screen.getByRole("button", { name: /back/i });
-    fireEvent.click(button);
-
-    expect(mockedUsedNavigate).toHaveBeenCalledWith(-1);
-  });
-
-  test("calls navigate('/') with replace: true if history length <= 1", () => {
-    Object.defineProperty(window.history, "length", {
-      configurable: true,
-      value: 1,
-    });
-
-    render(<BackButton />);
-    const button = screen.getByRole("button", { name: /back/i });
-    fireEvent.click(button);
-
-    expect(mockedUsedNavigate).toHaveBeenCalledWith("/", { replace: true });
-  });
+  expect(mockedUsedNavigate).toHaveBeenCalledWith(-1);
 });

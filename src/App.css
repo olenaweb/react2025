@@ -1,4 +1,9 @@
 #root {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.view-app {
   display: grid;
   grid-template-columns: 1fr auto;
   grid-template-rows: 200px 50px 1fr;
@@ -8,13 +13,18 @@
   max-width: 1280px;
   margin: 0 auto;
   text-align: center;
+  position: relative;
+}
+
+.theme-btn {
+  position: absolute;
+  left: 22px;
+  top: 1vh;
 }
 
 .search-panel {
   grid-row: 1/2;
   width: 100%;
-  background: rgb(184, 179, 156);
-  color: rgb(207, 207, 6);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
@@ -22,18 +32,40 @@
   padding: 10px;
 }
 
-.current-page {
-  color: rgb(245, 245, 13);
-  -webkit-text-stroke: 1px #3a3a04;
-  font-size: 24px;
-  font-weight: 800;
+html.light .search-panel {
+  background: var(--background-container-color);
+  color: var(--color);
 }
 
-h2.search-title {
+html.dark .search-panel {
+  background: var(--background-container-dark-color);
+  color: var(--dark-color);
+}
+
+.current-page {
+  font-size: 24px;
+  font-weight: 800;
+  -webkit-text-stroke: 1px #3a3a04;
+}
+
+html.light .current-page,
+html.light h1.search-title,
+html.light .search-about-link,
+html.light a.search-about-link-text {
+  color: var(--bright-color);
+}
+
+html.dark .current-page,
+html.dark h1.search-title,
+html.dark .search-about-link,
+html.dark a.search-about-link-text {
+  color: var(--dark-color);
+}
+
+h1.search-title {
   grid-column: 1 / 4;
   grid-row: 1 / 2;
   align-self: center;
-  color: rgb(245, 245, 13);
   -webkit-text-stroke: 1px #3a3a04;
 }
 
@@ -56,12 +88,16 @@ h2.search-title {
   align-self: center;
 }
 
-.reload-btn {
-  color: rgb(179 179 23);
+html.light .search-input,
+html.light .search-error-button,
+html.light {
+  background: white;
 }
 
-.reload-btn:hover {
-  color: rgb(18, 19, 19);
+html.dark .search-input,
+html.dark .search-error-button,
+html.dark {
+  background: var(--dark-button);
 }
 
 .back-btn {
@@ -73,29 +109,20 @@ h2.search-title {
   grid-column: 3 / 4;
   grid-row: 1 / 2;
   align-self: center;
-  color: rgb(245, 245, 13);
-  -webkit-text-stroke: 1px #3a3a04;
-  font-size: clamp(0.875rem, 0.7357rem + 0.5714vw, 1.25rem);
+  font-size: clamp(0.8rem, 0.6476rem + 1.7621vw, 1.5rem);
+
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease;
+  -webkit-text-stroke: 1px #3a3a04;
 }
 
 a.search-about-link-text {
   font-weight: 800;
-  color: rgb(245, 245, 13);
-  -webkit-text-stroke: 1px #3a3a04;
-}
-
-a.search-about-link-text:hover,
-a.search-about-link-text:active {
-  color: rgba(23, 8, 235, 0.751);
 }
 
 .pagination-panel {
   grid-row: 2 / 3;
-  background: rgb(184, 179, 156);
-  color: black;
   width: 100%;
 
   display: flex;
@@ -109,7 +136,6 @@ a.search-about-link-text:active {
 .cards-panel {
   grid-row: 3 / 4;
   width: 100%;
-  background: rgb(169, 142, 3);
   color: white;
   display: flex;
 }
@@ -120,8 +146,29 @@ a.search-about-link-text:active {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background: rgb(184, 179, 156);
   max-width: 230px;
+}
+
+html.light .pagination-panel,
+html.light .detail-page {
+  background: var(--background-color);
+  color: var(--detail-color);
+}
+
+html.light .cards-panel {
+  background: var(--background-container-color);
+  color: var(--color);
+}
+
+html.dark .pagination-panel,
+html.dark .detail-page {
+  background: var(--background-dark-color);
+  color: var(--dark-color);
+}
+
+html.dark .cards-panel {
+  background: var(--background-container-dark-color);
+  color: var(--dark-color);
 }
 
 .detail-loader {
@@ -129,7 +176,6 @@ a.search-about-link-text:active {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background: rgb(184, 179, 156);
 }
 
 .detail-page h2 {
@@ -148,7 +194,6 @@ a.search-about-link-text:active {
   height: 30px;
   font-size: clamp(1.125rem, 0.9047rem + 1.1013vw, 1.75rem);
   font-weight: 800;
-  color: rgb(245, 245, 13);
   -webkit-text-stroke: 1px #3a3a04;
 }
 
@@ -167,7 +212,7 @@ a.search-about-link-text:active {
   margin: 0 auto;
   padding: 11px 15px;
   gap: 20px;
-  background: rgb(169, 142, 3);
+  margin-bottom: 70px;
 }
 
 .card {
@@ -199,19 +244,25 @@ a.search-about-link-text:active {
   margin: 5px;
 }
 
-.light-to-favorite {
+.to-favorite {
+  font-size: 24px;
+  font-weight: 800;
+  -webkit-text-stroke: 1px #3a3a04;
+}
+
+html.light to-favorite {
   background: white;
 }
 
-.dark-to-favorite {
+html.dark to-favorite {
   background: var(--dark-button);
 }
 
-.light-from-favorite {
+html.light .from-favorite {
   background: rgb(179, 103, 103);
 }
 
-.dark-from-favorite {
+html.dark .from-favorite {
   background: #f6ea03fd;
 }
 

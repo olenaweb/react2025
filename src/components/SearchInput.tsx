@@ -55,7 +55,7 @@ const SearchInput = ({
         <div className="rick-morty">
           <img className="rick-morty-img" src={rickmorty} alt="Rick and Morty" />
         </div>
-        <h2 className="search-title">Rick and Morty</h2>
+        <h1 className="search-title">Rick and Morty</h1>
         <form className="search-form" onSubmit={handleSubmit}>
           <input
             className="search-input"

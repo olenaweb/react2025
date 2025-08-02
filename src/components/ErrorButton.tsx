@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import "./../App.css";
+import { useNavigate } from "react-router-dom";
 
 const ErrorButton = () => {
   const [errorState, setErrorState] = useState(false);
+  const navigate = useNavigate();
 
   const createError = () => {
     setErrorState(true);
+    navigate("/error", { replace: true });
   };
 
   useEffect(() => {

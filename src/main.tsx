@@ -3,6 +3,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "./store/Store.tsx";
+
+// import { useThemeToggle } from "./service/useTheme.tsx";
+import { ThemeProvider } from "./service/ThemeProvider.tsx";
+// import { useTheme } from "./service/useTheme.tsx";
+
 import App from "./App.tsx";
 import AboutPage from "./app-pages/AboutPage";
 import DetailPage from "./app-pages/DetailPage";
@@ -51,9 +56,11 @@ if (!rootApp) {
 ReactDOM.createRoot(rootApp).render(
   <React.StrictMode>
     <Provider store={store}>
-      <ErrorBoundary>
-        <RouterProvider router={router} />
-      </ErrorBoundary>
+      <ThemeProvider>
+        <ErrorBoundary>
+          <RouterProvider router={router} />
+        </ErrorBoundary>
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>
 );

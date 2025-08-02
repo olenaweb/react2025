@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 
 import { useAppSelector } from "./store/appHook";
 import Popup from "./components/Popup";
+import { useTheme } from "./service/useTheme.tsx";
 
 import { SuccessResponse, Response } from "./types/types";
 import "./App.css";
@@ -17,7 +18,7 @@ import errorImage from "./assets/error.jpg";
 
 const App = () => {
   const { favorites } = useAppSelector((state) => state.favorites);
-
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
   const { pageId } = useParams<{ pageId: string }>();
@@ -134,24 +135,29 @@ const App = () => {
 
   return (
     <>
-      <SearchInput
-        searchValue={storeValue}
-        currentPage={currentPage}
-        updateRequestData={updateRequestData}
-        updateStoreValue={updateStoreValue}
-        updateErrorMessage={updateErrorMessage}
-        updateCurrentPage={updateCurrentPage}
-      />
+      <div className="view-app">
+        <SearchInput
+          searchValue={storeValue}
+          currentPage={currentPage}
+          updateRequestData={updateRequestData}
+          updateStoreValue={updateStoreValue}
+          updateErrorMessage={updateErrorMessage}
+          updateCurrentPage={updateCurrentPage}
+        ></SearchInput>
+        <button className="theme-btn" onClick={toggleTheme}>
+          {theme === "light" ? "🌙 Dark" : "🌞 Light"}
+        </button>
 
-      <Pagination
-        currentPage={currentPage}
-        updateCurrentPage={updateCurrentPage}
-        nextPage={nextPage}
-        lastPage={lastPage}
-      />
+        <Pagination
+          currentPage={currentPage}
+          updateCurrentPage={updateCurrentPage}
+          nextPage={nextPage}
+          lastPage={lastPage}
+        />
 
-      <div className="cards-panel">{viewContainer}</div>
-      {favorites.length > 0 && <Popup />}
+        <div className="cards-panel">{viewContainer}</div>
+        {favorites.length > 0 && <Popup />}
+      </div>
     </>
   );
 };
