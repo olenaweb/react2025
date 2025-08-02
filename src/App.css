@@ -88,15 +88,11 @@ h1.search-title {
   align-self: center;
 }
 
-html.light .search-input,
-html.light .search-error-button,
-html.light {
+html.light .search-input {
   background: white;
 }
 
-html.dark .search-input,
-html.dark .search-error-button,
-html.dark {
+html.dark .search-input {
   background: var(--dark-button);
 }
 
@@ -244,18 +240,11 @@ html.dark .cards-panel {
   margin: 5px;
 }
 
-.to-favorite {
-  font-size: 24px;
+.to-favorite,
+.from-favorite {
+  font-size: 20px;
   font-weight: 800;
   -webkit-text-stroke: 1px #3a3a04;
-}
-
-html.light to-favorite {
-  background: white;
-}
-
-html.dark to-favorite {
-  background: var(--dark-button);
 }
 
 html.light .from-favorite {
