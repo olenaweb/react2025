@@ -9,10 +9,8 @@
     "rewrites": [
       {
         "source": "**",
-        "destination": "/react2025/index.html"
+        "destination": "/index.html"
       }
-    ],
-    "cleanUrls": false,
-    "trailingSlash": false
+    ]
   }
 }
