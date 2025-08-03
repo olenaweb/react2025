@@ -18,7 +18,7 @@ const Popup = () => {
   return (
     <div className={"popup light-popup"}>
       <p>Selected {itemCount} items</p>
-      <button onClick={DeselectAllHandle}>Unselect all</button>
+      <button onClick={DeselectAllHandle}>Unselect All</button>
       <ExportButton favorites={favorites} />
     </div>
   );

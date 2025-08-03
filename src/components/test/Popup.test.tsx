@@ -54,11 +54,11 @@ describe("Popup component", () => {
     render(<Popup />);
 
     expect(screen.getByText("Selected 2 items")).toBeInTheDocument();
-    expect(screen.getByText("Deselect All")).toBeInTheDocument();
+    expect(screen.getByText("Unselect All")).toBeInTheDocument();
     expect(screen.getByText("ExportButtonMock")).toBeInTheDocument();
   });
 
-  test('should dispatch removeFavorite for each favorite on "Deselect All" click', async () => {
+  test('should dispatch removeFavorite for each favorite on "Unselect All" click', async () => {
     const mockFavorites = [
       { id: 1, name: "Rick" },
       { id: 2, name: "Morty" },
@@ -70,7 +70,7 @@ describe("Popup component", () => {
 
     render(<Popup />);
 
-    const button = screen.getByRole("button", { name: /deselect all/i });
+    const button = screen.getByRole("button", { name: /Unselect All/i });
     await userEvent.click(button);
 
     expect(mockDispatch).toHaveBeenCalledTimes(mockFavorites.length);
