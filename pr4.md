@@ -1,7 +1,7 @@
 1. Task: https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/tasks/state-management.md
 
 2. Screenshot:
-<img width="938" height="626" alt="image" src="https://github.com/user-attachments/assets/f7fb876b-e2b9-4c21-b3b9-6443cec0824b" />
+<img width="1233" height="750" alt="image" src="https://github.com/user-attachments/assets/6db3558c-3602-47b0-a3ae-e97fd6644433" />
 
 3. Deployment: https://olenaweb-react.web.app/
 
