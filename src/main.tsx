@@ -9,7 +9,7 @@ import { ThemeProvider } from "./service/ThemeProvider.tsx";
 import App from "./App.tsx";
 import AboutPage from "./app-pages/AboutPage";
 import DetailPage from "./app-pages/DetailPage";
-import PageContainer from "./components/PageContainer";
+import PageContainer from "./service/pageContainer.tsx";
 import "./index.css";
 import { ErrorBoundary } from "./components/ErrorBoundary.tsx";
 import ErrorPage from "./app-pages/ErrorPage";
