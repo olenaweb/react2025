@@ -1,10 +1,15 @@
 import React from "react";
 
 import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
+import { store } from "./store/Store.tsx";
+
+import { ThemeProvider } from "./service/ThemeProvider.tsx";
+
 import App from "./App.tsx";
 import AboutPage from "./app-pages/AboutPage";
 import DetailPage from "./app-pages/DetailPage";
-import PageContainer from "./components/PageContainer";
+import PageContainer from "./service/pageContainer.tsx";
 import "./index.css";
 import { ErrorBoundary } from "./components/ErrorBoundary.tsx";
 import ErrorPage from "./app-pages/ErrorPage";
@@ -13,7 +18,7 @@ import { getDetailData } from "./request/getDetailData.tsx";
 
 export const routes: RouteObject[] = [
   {
-    path: "react2025",
+    path: "/",
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
@@ -33,7 +38,7 @@ export const routes: RouteObject[] = [
     ],
   },
   {
-    path: "react2025/about",
+    path: "/about",
     element: <AboutPage />,
     errorElement: <ErrorPage />,
   },
@@ -48,8 +53,12 @@ if (!rootApp) {
 
 ReactDOM.createRoot(rootApp).render(
   <React.StrictMode>
-    <ErrorBoundary>
-      <RouterProvider router={router} />
-    </ErrorBoundary>
+    <Provider store={store}>
+      <ThemeProvider>
+        <ErrorBoundary>
+          <RouterProvider router={router} />
+        </ErrorBoundary>
+      </ThemeProvider>
+    </Provider>
   </React.StrictMode>
 );

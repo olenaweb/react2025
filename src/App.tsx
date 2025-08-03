@@ -2,6 +2,10 @@ import { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate, Outlet } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
+import { useAppSelector } from "./store/appHook";
+import Popup from "./components/Popup";
+import { useTheme } from "./service/useTheme.tsx";
+
 import { SuccessResponse, Response } from "./types/types";
 import "./App.css";
 import SearchInput from "./components/SearchInput";
@@ -13,6 +17,8 @@ import Loader from "./components/Loader";
 import errorImage from "./assets/error.jpg";
 
 const App = () => {
+  const { favorites } = useAppSelector((state) => state.favorites);
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
   const { pageId } = useParams<{ pageId: string }>();
@@ -40,8 +46,8 @@ const App = () => {
   useEffect(() => {
     const { pathname } = location;
 
-    if (pathname === "/react2025" || pathname === "/react2025/") {
-      navigate("/react2025/page/1", { replace: true });
+    if (pathname === "/") {
+      navigate("/page/1", { replace: true });
       return;
     }
     if (!pageId) return;
@@ -50,7 +56,7 @@ const App = () => {
     const isInvalidPage = !Number.isInteger(pageNumber) || pageNumber <= 0;
     if (isInvalidPage) {
       setErrorMessage("*** Wrong route! Page not a figure");
-      navigate("/react2025/error", { replace: true });
+      navigate("/error", { replace: true });
     }
   }, [pageId, location, navigate]);
 
@@ -70,7 +76,7 @@ const App = () => {
 
   const updateCurrentPage = (page: string) => {
     setCurrentPage(page);
-    navigate(`/react2025/page/${page}`);
+    navigate(`/page/${page}`);
   };
   const updateNextPage = (page: string | null) => {
     setNextPage(page);
@@ -83,7 +89,7 @@ const App = () => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        await new Promise((resolve) => setTimeout(resolve, 300));
+        await new Promise((resolve) => setTimeout(resolve, 100));
         const resultData: Response = await getData(storeValue, currentPage);
         if ("error" in resultData) {
           setErrorMessage("Sorry, the name is not found. Try another name");
@@ -129,23 +135,29 @@ const App = () => {
 
   return (
     <>
-      <SearchInput
-        searchValue={storeValue}
-        currentPage={currentPage}
-        updateRequestData={updateRequestData}
-        updateStoreValue={updateStoreValue}
-        updateErrorMessage={updateErrorMessage}
-        updateCurrentPage={updateCurrentPage}
-      />
+      <div className="view-app">
+        <SearchInput
+          searchValue={storeValue}
+          currentPage={currentPage}
+          updateRequestData={updateRequestData}
+          updateStoreValue={updateStoreValue}
+          updateErrorMessage={updateErrorMessage}
+          updateCurrentPage={updateCurrentPage}
+        ></SearchInput>
+        <button className="theme-btn" onClick={toggleTheme}>
+          {theme === "light" ? "🌙 Dark" : "🌞 Light"}
+        </button>
 
-      <Pagination
-        currentPage={currentPage}
-        updateCurrentPage={updateCurrentPage}
-        nextPage={nextPage}
-        lastPage={lastPage}
-      />
+        <Pagination
+          currentPage={currentPage}
+          updateCurrentPage={updateCurrentPage}
+          nextPage={nextPage}
+          lastPage={lastPage}
+        />
 
-      <div className="cards-panel">{viewContainer}</div>
+        <div className="cards-panel">{viewContainer}</div>
+        {favorites.length > 0 && <Popup />}
+      </div>
     </>
   );
 };

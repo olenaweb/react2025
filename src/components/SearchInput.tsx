@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { getData } from "../request/getData";
@@ -17,13 +16,13 @@ interface SearchInputProps {
   updateCurrentPage?: (value: string) => void;
 }
 
-const SearchInput: React.FC<SearchInputProps> = ({
+const SearchInput = ({
   searchValue,
   updateRequestData,
   updateStoreValue,
   updateErrorMessage,
   updateCurrentPage,
-}) => {
+}: SearchInputProps) => {
   const [inputValue, setInputValue] = useState<string>(searchValue);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -56,7 +55,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
         <div className="rick-morty">
           <img className="rick-morty-img" src={rickmorty} alt="Rick and Morty" />
         </div>
-        <h2 className="search-title">Rick and Morty</h2>
+        <h1 className="search-title">Rick and Morty</h1>
         <form className="search-form" onSubmit={handleSubmit}>
           <input
             className="search-input"
@@ -72,7 +71,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
         </form>
         <ErrorButton />
         <div className="search-about-link">
-          <Link to={`/react2025/about`}>About</Link>
+          <Link to={`/about`}>About</Link>
         </div>
       </div>
     </>

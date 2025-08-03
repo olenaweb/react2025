@@ -29,7 +29,14 @@ export interface Character {
   url?: string;
   created?: string;
 }
-
+export type FavoriteItem = {
+  id: number;
+  name: string;
+  image?: string;
+  gender?: string;
+  status?: string;
+  species?: string;
+};
 export interface AllCharacter {
   results: Character[];
 }

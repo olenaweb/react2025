@@ -1,5 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
+
+import { Provider } from "react-redux";
+import { store } from "../../store/Store.tsx";
+import { ThemeProvider } from "../../service/ThemeProvider.tsx";
+
 import "@testing-library/jest-dom";
 import { CardList } from "../../containers/CardList";
 import { CharactersOnly } from "../../types/types";
@@ -27,9 +32,13 @@ test("renders the number of cards greater than 0", () => {
   };
 
   render(
-    <MemoryRouter>
-      <CardList results={mockResults.results} />
-    </MemoryRouter>
+    <Provider store={store}>
+      <ThemeProvider>
+        <MemoryRouter initialEntries={["/page/1"]}>
+          <CardList results={mockResults.results} />
+        </MemoryRouter>
+      </ThemeProvider>
+    </Provider>
   );
 
   const cards = screen.getAllByRole("listitem");

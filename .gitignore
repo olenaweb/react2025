@@ -24,5 +24,6 @@ dist-ssr
 *.sw?
 coverage
 .firebaserc
-firebase.json
 .firebase
+firebase.json
+

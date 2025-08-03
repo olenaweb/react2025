@@ -16,7 +16,7 @@ describe("AboutPage", () => {
 
     const rsSchoolLink = screen.getByRole("link", { name: /RS School 2025/i });
     expect(rsSchoolLink).toBeInTheDocument();
-    expect(rsSchoolLink).toHaveAttribute("href", "https://rs.school/docs/en");
+    expect(rsSchoolLink).toHaveAttribute("href", "https://rs.school/courses/reactjs");
     expect(rsSchoolLink).toHaveAttribute("target", "_blank");
     expect(rsSchoolLink).toHaveAttribute("rel", "noreferrer");
 

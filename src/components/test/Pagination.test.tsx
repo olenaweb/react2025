@@ -7,7 +7,7 @@ test("updates URL query parameter when page changes", () => {
   const mockUpdateCurrentPage = jest.fn();
 
   render(
-    <MemoryRouter initialEntries={["/react2025/page/1"]}>
+    <MemoryRouter initialEntries={["/page/1"]}>
       <Pagination
         currentPage="1"
         updateCurrentPage={mockUpdateCurrentPage}

@@ -1,0 +1,49 @@
+.about-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  min-height: 100vh;
+  height: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  overflow-y: auto;
+}
+
+html.light .about-page {
+  background: var(--background-color);
+  color: var(--color);
+}
+
+html.dark .about-page {
+  background: var(--background-dark-color);
+  color: var(--dark-color);
+}
+
+.about-image-host {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+}
+
+.about-image {
+  max-width: 900px;
+  width: 100%;
+  height: auto;
+  padding: 20px 0 0;
+}
+
+.rick-morty {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  align-self: center;
+  justify-self: left;
+  margin: 20px 0 0 20px;
+}
+
+.rick-morty-img {
+  width: 100%;
+  max-width: 149px;
+  height: auto;
+}
