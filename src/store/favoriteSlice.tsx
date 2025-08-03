@@ -1,14 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { FavoriteItem } from "../types/types";
 
-const LS_Favorite = "olena_favorite";
-
 export interface FavoriteState {
   favorites: FavoriteItem[];
 }
 
 const initialState: FavoriteState = {
-  favorites: JSON.parse(localStorage.getItem(LS_Favorite) ?? "[]"),
+  favorites: [],
 };
 
 export const favoriteSlice = createSlice({
@@ -19,13 +17,11 @@ export const favoriteSlice = createSlice({
       const isThere = state.favorites.some((item) => item.id === action.payload.id);
       if (!isThere) {
         state.favorites.push(action.payload);
-        localStorage.setItem(LS_Favorite, JSON.stringify(state.favorites));
       }
     },
 
     removeFavorite(state, action: PayloadAction<FavoriteItem>) {
       state.favorites = state.favorites.filter((item) => item.id !== action.payload.id);
-      localStorage.setItem(LS_Favorite, JSON.stringify(state.favorites));
     },
   },
 });

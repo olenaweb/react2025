@@ -1,6 +1,7 @@
 import { FavoriteItem } from "../types/types";
 import { createRef } from "react";
 import loadPct from "../assets/load.png";
+// import { set } from "msw/lib/types/context";
 
 interface ExportButtonProps {
   favorites: FavoriteItem[];
@@ -25,20 +26,27 @@ const ExportButton = ({ favorites }: ExportButtonProps) => {
         link.href = url;
         link.download = `${favorites.length}_items.csv`;
         link.click();
+        setTimeout((url) => {
+          URL.revokeObjectURL(url);
+        }, 100);
       }
-    } finally {
-      if (url) {
-        URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error generating CSV:", error);
+      if (upload.current) {
+        upload.current.href = "";
+      }
+      if (upload.current) {
+        upload.current.download = "";
       }
     }
   };
 
   return (
     <>
-      <button onClick={handlePrepareCSV}>
+      <button aria-label="download" onClick={handlePrepareCSV}>
         <img className="load" src={loadPct} alt="Download" />
       </button>
-      <a ref={upload} href=""></a>
+      <a ref={upload} href="" aria-label="download-link" role="link" />
     </>
   );
 };

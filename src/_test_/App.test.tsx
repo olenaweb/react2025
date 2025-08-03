@@ -6,7 +6,6 @@ import { Provider } from "react-redux";
 import { store } from "../store/Store.tsx";
 import { ThemeProvider } from "../service/ThemeProvider.tsx";
 
-
 jest.mock("../request/getData", () => ({
   getData: jest.fn(() =>
     Promise.resolve({
@@ -17,7 +16,7 @@ jest.mock("../request/getData", () => ({
 }));
 
 test("renders App without crashing", async () => {
-  const consoleError = jest.spyOn(console, "error").mockImplementation(() => { });
+  const consoleError = jest.spyOn(console, "error").mockImplementation(() => {});
   render(
     <Provider store={store}>
       <ThemeProvider>

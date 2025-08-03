@@ -33,8 +33,8 @@ export type FavoriteItem = {
   id: number;
   name: string;
   image?: string;
-  gender: string;
-  status: string;
+  gender?: string;
+  status?: string;
   species?: string;
 };
 export interface AllCharacter {
