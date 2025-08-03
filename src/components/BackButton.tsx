@@ -5,9 +5,13 @@ const BackButton = () => {
   const navigate = useNavigate();
 
   const exit = () => {
-    navigate(-1);
+    console.log('"window.history.length="', window.history.length);
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate("/", { replace: true });
+    }
   };
-
   return (
     <button className="back-btn reload-btn btn" onClick={exit}>
       Back

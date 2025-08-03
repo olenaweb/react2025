@@ -20,7 +20,7 @@ test("renders App without crashing", async () => {
   render(
     <Provider store={store}>
       <ThemeProvider>
-        <MemoryRouter initialEntries={["/react2025/page/1"]}>
+        <MemoryRouter initialEntries={["/page/1"]}>
           <App />
         </MemoryRouter>
       </ThemeProvider>
