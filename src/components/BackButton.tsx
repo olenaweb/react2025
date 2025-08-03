@@ -5,12 +5,7 @@ const BackButton = () => {
   const navigate = useNavigate();
 
   const exit = () => {
-    console.log('"window.history.length="', window.history.length);
-    if (window.history.length > 1) {
-      navigate(-1);
-    } else {
-      navigate("/", { replace: true });
-    }
+    navigate(-1);
   };
   return (
     <button className="back-btn reload-btn btn" onClick={exit}>
