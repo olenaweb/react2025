@@ -1,7 +1,6 @@
 import { FavoriteItem } from "../types/types";
 import { createRef } from "react";
 import loadPct from "../assets/load.png";
-// import { set } from "msw/lib/types/context";
 
 interface ExportButtonProps {
   favorites: FavoriteItem[];
