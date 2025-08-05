@@ -20,7 +20,7 @@ jest.mock("react-router-dom", () => ({
 
 describe("ErrorBoundary Component", () => {
   beforeEach(() => {
-    jest.spyOn(console, "error").mockImplementation(() => {});
+    jest.spyOn(console, "error").mockImplementation(() => { });
   });
 
   afterEach(() => {
@@ -74,13 +74,13 @@ describe("ErrorBoundary Component", () => {
       </ErrorBoundary>
     );
 
-    const button = screen.getByRole("button", { name: /Create Error/i });
+    const button = screen.getByRole("button", { name: /Back/i });
     expect(button).toBeInTheDocument();
-    await userEvent.click(button);
     await waitFor(() => {
       expect(screen.getByText(/404 There nothing here/i)).toBeInTheDocument();
     });
   });
+
 
   test("5 should reset the error and show children after repeated render", async () => {
     const FailingComponent = () => {

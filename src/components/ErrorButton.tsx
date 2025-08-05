@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import "./../App.css";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const ErrorButton = () => {
   const [errorState, setErrorState] = useState(false);
-  const navigate = useNavigate();
 
   const createError = () => {
     setErrorState(true);
-    navigate("/error", { replace: true });
   };
 
   useEffect(() => {
@@ -16,10 +14,14 @@ const ErrorButton = () => {
       throw new Error('New Error was created by press button "Create Error"');
     }
   }, [errorState]);
-
+  const style = {
+    color: "black",
+    textDecoration: "none",
+    padding: "10px",
+  }
   return (
     <button className="search-error-button btn" onClick={createError}>
-      Create Error
+      <Link to={`/error`} style={style}>Create Error</Link>
     </button>
   );
 };
