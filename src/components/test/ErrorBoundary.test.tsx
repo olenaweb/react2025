@@ -75,8 +75,7 @@ describe("ErrorBoundary Component", () => {
     );
 
     await waitFor(() => {
-      const button = screen.getByRole("button", { name: /Back/i });
-      expect(button).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: /Back/i })).toBeInTheDocument();
       expect(screen.getByText(/404 There nothing here/i)).toBeInTheDocument();
     });
   });
