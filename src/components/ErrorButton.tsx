@@ -16,7 +16,6 @@ const ErrorButton = () => {
   }, [errorState]);
   const style = {
     color: "black",
-    textDecoration: "none",
     padding: "10px",
   };
   return (
