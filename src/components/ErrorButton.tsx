@@ -18,10 +18,12 @@ const ErrorButton = () => {
     color: "black",
     textDecoration: "none",
     padding: "10px",
-  }
+  };
   return (
     <button className="search-error-button btn" onClick={createError}>
-      <Link to={`/error`} style={style}>Create Error</Link>
+      <Link to={`/error`} style={style}>
+        Create Error
+      </Link>
     </button>
   );
 };

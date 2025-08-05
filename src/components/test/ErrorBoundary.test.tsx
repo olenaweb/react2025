@@ -74,13 +74,12 @@ describe("ErrorBoundary Component", () => {
       </ErrorBoundary>
     );
 
-    const button = screen.getByRole("button", { name: /Back/i });
-    expect(button).toBeInTheDocument();
     await waitFor(() => {
+      const button = screen.getByRole("button", { name: /Back/i });
+      expect(button).toBeInTheDocument();
       expect(screen.getByText(/404 There nothing here/i)).toBeInTheDocument();
     });
   });
-
 
   test("5 should reset the error and show children after repeated render", async () => {
     const FailingComponent = () => {
