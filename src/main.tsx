@@ -51,7 +51,7 @@ export const routes: RouteObject[] = [
 ];
 
 const router = createBrowserRouter(routes);
-const rootApp = document.getElementById("root");
+const rootApp = document.getElementById("root") as HTMLElement | null;
 if (!rootApp) {
   throw new Error("Root element not found");
 }

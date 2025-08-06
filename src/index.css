@@ -139,10 +139,12 @@ button:focus-visible {
 
 html.light button {
   background: white;
+  color: black;
 }
 
 html.dark button {
   background: var(--dark-button);
+  color: black;
 }
 
 .button:hover {
