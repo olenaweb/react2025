@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 
 import ErrorButton from "./ErrorButton";
 import rickmorty from "./../assets/rickmorty.jpg";
@@ -14,10 +14,17 @@ interface SearchInputProps {
 
 const SearchInput = ({ searchValue, updateStoreValue, updateCurrentPage }: SearchInputProps) => {
   const [inputValue, setInputValue] = useState<string>(searchValue);
+  const [submitValue, setSubmitValue] = useState<string>(searchValue);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    e.preventDefault();
+    setInputValue(e.target.value.trim());
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    updateStoreValue?.(inputValue.trim());
+    setSubmitValue(inputValue);
+    updateStoreValue?.(submitValue);
     updateCurrentPage?.("1");
   };
 
@@ -29,18 +36,15 @@ const SearchInput = ({ searchValue, updateStoreValue, updateCurrentPage }: Searc
         </div>
         <h1 className="search-title">Rick and Morty</h1>
         <form className="search-form" onSubmit={handleSubmit}>
-          <label htmlFor="searchValue" className="search-label">
-            Search
-          </label>
           <input
             className="search-input"
             type="search"
             id="searchValue"
             value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter the name"
           />
-          <button className="search-button btn" type="submit" aria-label="Search">
+          <button className="search-button btn" type="submit">
             🔍
           </button>
         </form>

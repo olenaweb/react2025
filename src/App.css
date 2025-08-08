@@ -22,6 +22,12 @@
   top: 1vh;
 }
 
+.refresh-btn {
+  position: absolute;
+  left: 22px;
+  top: 164px;
+}
+
 .search-panel {
   grid-row: 1/2;
   width: 100%;
@@ -75,6 +81,10 @@ h1.search-title {
   justify-content: center;
   grid-column: 2/3;
   grid-row: 2/3;
+}
+
+.search-label {
+  margin-right: 10px;
 }
 
 .search-input {

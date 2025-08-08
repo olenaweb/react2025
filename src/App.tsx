@@ -23,15 +23,12 @@ const App = () => {
   const { pageId } = useParams<{ pageId: string }>();
 
   const [storeValue, setStoreValue] = useLocalStorage("olena_01_search", "");
-  // const currentPage = pageId || "1";
-
   const [currentPage, setCurrentPage] = useState<string>(pageId || "1");
 
-  const { data, isLoading, error } = useGetCharactersQuery({ name: storeValue, page: currentPage });
-  // const [nextPage, setNextPage] = useState<string | null>(data?.info.next || null);
-  // const [lastPage, setLastPage] = useState<number | null>(data?.info.pages || null);
-  // const nextPage = data?.info.next || null;
-  // const lastPage = data?.info.pages || null;
+  const { data, isLoading, error, refetch } = useGetCharactersQuery({
+    name: storeValue,
+    page: currentPage,
+  });
 
   const updateStoreValue = (value: string) => {
     setStoreValue(value);
@@ -41,12 +38,6 @@ const App = () => {
     setCurrentPage(page);
     navigate(`/page/${page}`);
   };
-  // const updateNextPage = (page: string | null) => {
-  //   setNextPage(page);
-  // };
-  // const updateLastPage = (page: number | null) => {
-  //   setLastPage(page);
-  // };
 
   useEffect(() => {
     const { pathname } = location;
@@ -87,6 +78,10 @@ const App = () => {
     }
   }, [isLoading, error, data]);
 
+  const handleRefreshClick = () => {
+    refetch();
+  };
+
   return (
     <div className="view-app">
       <SearchInput
@@ -95,9 +90,12 @@ const App = () => {
         updateCurrentPage={updateCurrentPage}
         updateStoreValue={updateStoreValue}
       />
-
       <button className="theme-btn" onClick={toggleTheme}>
         {theme === "light" ? "🌙 Dark" : "🌞 Light"}
+      </button>
+
+      <button className="refresh-btn btn" onClick={handleRefreshClick}>
+        Refresh
       </button>
 
       <Pagination
@@ -108,7 +106,6 @@ const App = () => {
       />
 
       <div className="cards-panel">{viewContainer}</div>
-
       {favorites.length > 0 && <Popup />}
     </div>
   );
