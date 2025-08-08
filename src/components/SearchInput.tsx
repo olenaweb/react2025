@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState, ChangeEvent, FormEvent } from "react";
-import { getData } from "../request/getData";
-import { Response } from "../types/types";
+// import { SuccessResponse } from "../types/types";
+
+import { useGetCharactersQuery } from "../request/characterApi";
 
 import ErrorButton from "./ErrorButton";
 import rickmorty from "./../assets/rickmorty.jpg";
@@ -10,17 +11,17 @@ import "./../App.css";
 interface SearchInputProps {
   searchValue: string;
   currentPage?: string;
-  updateRequestData?: (result: Response) => void;
+  // updateRequestData?: (result: SuccessResponse) => void;
   updateStoreValue?: (value: string) => void;
-  updateErrorMessage?: (message: string) => void;
+  // updateErrorMessage?: (message: string) => void;
   updateCurrentPage?: (value: string) => void;
 }
 
 const SearchInput = ({
   searchValue,
-  updateRequestData,
   updateStoreValue,
-  updateErrorMessage,
+  // updateRequestData,
+  // updateErrorMessage,
   updateCurrentPage,
 }: SearchInputProps) => {
   const [inputValue, setInputValue] = useState<string>(searchValue);
@@ -28,19 +29,14 @@ const SearchInput = ({
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setInputValue(e.target.value);
   };
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const { error, refetch } = useGetCharactersQuery({ name: inputValue.trim(), page: "1" });
+  const getQuery = () => {
     try {
-      const page = "1";
-      const result = await getData(inputValue.trim(), page);
-
-      if ("error" in result) {
-        updateErrorMessage?.(result.error + ". Sorry, the name is not found. Try another name");
+      // const result = data as SuccessResponse;
+      if (error) {
+        // updateErrorMessage?.(" Sorry, the name is not found. Try another name");
         updateStoreValue?.("");
       } else {
-        updateErrorMessage?.("");
-        updateRequestData?.(result);
         updateStoreValue?.(inputValue.trim());
         updateCurrentPage?.("1");
       }
@@ -48,7 +44,14 @@ const SearchInput = ({
       throw new Error("Something's gone wrong :-( ");
     }
   };
-
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    getQuery();
+  };
+  const handleButtonClick = () => {
+    refetch();
+    getQuery();
+  };
   return (
     <>
       <div className="search-panel">
@@ -69,7 +72,12 @@ const SearchInput = ({
             🔍
           </button>
         </form>
-        <ErrorButton />
+        <div className="search-buttons">
+          <button className="btn" onClick={handleButtonClick}>
+            Refresh
+          </button>
+          <ErrorButton />
+        </div>
         <div className="search-about-link">
           <Link to={`/about`}>About</Link>
         </div>

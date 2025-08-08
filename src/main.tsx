@@ -14,7 +14,7 @@ import "./index.css";
 import { ErrorBoundary } from "./components/ErrorBoundary.tsx";
 import ErrorPage from "./app-pages/ErrorPage";
 import { RouterProvider, createBrowserRouter, RouteObject } from "react-router-dom";
-import { getDetailData } from "./request/getDetailData.tsx";
+// import { getDetailData } from "./request/getDetailData.tsx";
 
 export const routes: RouteObject[] = [
   {
@@ -30,7 +30,7 @@ export const routes: RouteObject[] = [
           {
             path: "detail/:id",
             element: <DetailPage />,
-            loader: getDetailData,
+            // loader: getDetailData,
             errorElement: <ErrorPage />,
           },
         ],

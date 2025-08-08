@@ -81,11 +81,13 @@ h1.search-title {
   height: 31px;
 }
 
-.search-error-button {
+.search-buttons {
   grid-column: 3/4;
   grid-row: 2/3;
   align-self: center;
   cursor: auto;
+  display: flex;
+  column-gap: 10px;
 }
 
 html.light .search-input {

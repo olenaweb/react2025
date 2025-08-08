@@ -1,15 +1,14 @@
 import { useState, useEffect, useMemo } from "react";
-import { useParams, useNavigate, Outlet } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+
+import { useParams, useNavigate, Outlet, useLocation } from "react-router-dom";
 
 import { useAppSelector } from "./store/appHook";
 import Popup from "./components/Popup";
 import { useTheme } from "./service/useTheme.tsx";
+import { useGetCharactersQuery } from "./request/characterApi";
 
-import { SuccessResponse, Response } from "./types/types";
 import "./App.css";
 import SearchInput from "./components/SearchInput";
-import { getData } from "./request/getData";
 import { CardList } from "./containers/CardList";
 import useLocalStorage from "./utils/useLocalStorage";
 import Pagination from "./components/Pagination";
@@ -22,26 +21,32 @@ const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { pageId } = useParams<{ pageId: string }>();
+
   const [storeValue, setStoreValue] = useLocalStorage("olena_01_search", "");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [requestData, setRequestData] = useState<SuccessResponse>({
-    info: {
-      count: 0,
-      pages: 0,
-      next: null,
-      prev: null,
-    },
-    results: [],
-  });
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  // const currentPage = pageId || "1";
+
   const [currentPage, setCurrentPage] = useState<string>(pageId || "1");
 
-  const [nextPage, setNextPage] = useState<string | null>(requestData.info.next);
-  const [lastPage, setLastPage] = useState<number | null>(requestData.info.pages);
+  const { data, isLoading, error } = useGetCharactersQuery({ name: storeValue, page: currentPage });
+  // const [nextPage, setNextPage] = useState<string | null>(data?.info.next || null);
+  // const [lastPage, setLastPage] = useState<number | null>(data?.info.pages || null);
+  // const nextPage = data?.info.next || null;
+  // const lastPage = data?.info.pages || null;
 
   const updateStoreValue = (value: string) => {
     setStoreValue(value);
   };
+
+  const updateCurrentPage = (page: string) => {
+    setCurrentPage(page);
+    navigate(`/page/${page}`);
+  };
+  // const updateNextPage = (page: string | null) => {
+  //   setNextPage(page);
+  // };
+  // const updateLastPage = (page: number | null) => {
+  //   setLastPage(page);
+  // };
 
   useEffect(() => {
     const { pathname } = location;
@@ -50,74 +55,23 @@ const App = () => {
       navigate("/page/1", { replace: true });
       return;
     }
+
     if (!pageId) return;
 
     const pageNumber = Number(pageId);
     const isInvalidPage = !Number.isInteger(pageNumber) || pageNumber <= 0;
     if (isInvalidPage) {
-      setErrorMessage("*** Wrong route! Page not a figure");
       navigate("/error", { replace: true });
     }
   }, [pageId, location, navigate]);
 
-  const updateRequestData = (result: Response) => {
-    if ("error" in result) {
-      setErrorMessage(result.error);
-      setRequestData({ info: { count: 0, pages: 0, next: null, prev: null }, results: [] });
-    } else {
-      setRequestData(result);
-      setErrorMessage("");
-    }
-  };
-
-  const updateErrorMessage = (message: string) => {
-    setErrorMessage(message);
-  };
-
-  const updateCurrentPage = (page: string) => {
-    setCurrentPage(page);
-    navigate(`/page/${page}`);
-  };
-  const updateNextPage = (page: string | null) => {
-    setNextPage(page);
-  };
-  const updateLastPage = (page: number | null) => {
-    setLastPage(page);
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        await new Promise((resolve) => setTimeout(resolve, 100));
-        const resultData: Response = await getData(storeValue, currentPage);
-        if ("error" in resultData) {
-          setErrorMessage("Sorry, the name is not found. Try another name");
-          setRequestData({ info: { count: 0, pages: 0, next: null, prev: null }, results: [] });
-        } else {
-          setRequestData(resultData);
-          setErrorMessage("");
-          updateNextPage(resultData.info.next);
-          updateLastPage(resultData.info.pages);
-        }
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setErrorMessage("Something's gone wrong :-( ");
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [storeValue, currentPage]);
-
   const viewContainer = useMemo(() => {
     if (isLoading) {
       return <Loader />;
-    } else if (errorMessage !== "") {
+    } else if (error) {
       return (
         <div className="error-message">
-          {errorMessage}
+          Sorry, the name is not found. Try another name
           <div className="error-image-host">
             <img className="error-image" src={errorImage} alt="error" />
           </div>
@@ -126,39 +80,37 @@ const App = () => {
     } else {
       return (
         <>
-          <CardList results={requestData.results} />
+          <CardList results={data?.results || []} />
           <Outlet />
         </>
       );
     }
-  }, [isLoading, errorMessage, requestData]);
+  }, [isLoading, error, data]);
 
   return (
-    <>
-      <div className="view-app">
-        <SearchInput
-          searchValue={storeValue}
-          currentPage={currentPage}
-          updateRequestData={updateRequestData}
-          updateStoreValue={updateStoreValue}
-          updateErrorMessage={updateErrorMessage}
-          updateCurrentPage={updateCurrentPage}
-        ></SearchInput>
-        <button className="theme-btn" onClick={toggleTheme}>
-          {theme === "light" ? "🌙 Dark" : "🌞 Light"}
-        </button>
+    <div className="view-app">
+      <SearchInput
+        searchValue={storeValue}
+        currentPage={currentPage}
+        updateCurrentPage={updateCurrentPage}
+        updateStoreValue={updateStoreValue}
+      />
 
-        <Pagination
-          currentPage={currentPage}
-          updateCurrentPage={updateCurrentPage}
-          nextPage={nextPage}
-          lastPage={lastPage}
-        />
+      <button className="theme-btn" onClick={toggleTheme}>
+        {theme === "light" ? "🌙 Dark" : "🌞 Light"}
+      </button>
 
-        <div className="cards-panel">{viewContainer}</div>
-        {favorites.length > 0 && <Popup />}
-      </div>
-    </>
+      <Pagination
+        currentPage={currentPage}
+        updateCurrentPage={updateCurrentPage}
+        nextPage={data?.info.next || null}
+        lastPage={data?.info.pages || null}
+      />
+
+      <div className="cards-panel">{viewContainer}</div>
+
+      {favorites.length > 0 && <Popup />}
+    </div>
   );
 };
 

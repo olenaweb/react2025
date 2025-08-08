@@ -64,11 +64,11 @@ a {
   text-decoration: inherit;
 }
 
-html.light a {
+a {
   color: white;
 }
 
-html.light a:hover {
+a:hover {
   color: #03cd03;
 }
 
@@ -89,12 +89,12 @@ body {
   height: 100%;
 }
 
-html.dark body {
-  background: #01031d;
+body {
+  background: gainsboro;
 }
 
-html.light body {
-  background: gainsboro;
+html.dark body {
+  background: #01031d;
 }
 
 h1 {
@@ -107,7 +107,7 @@ h2 {
   font-size: clamp(0.8rem, 0.6476rem + 1.7621vw, 1.5rem);
 }
 
-html.light h2 {
+h2 {
   color: var(--color);
 }
 
@@ -137,7 +137,7 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-html.light button {
+button {
   background: white;
   color: black;
 }
@@ -145,6 +145,13 @@ html.light button {
 html.dark button {
   background: var(--dark-button);
   color: black;
+}
+
+button:disabled,
+html.dark button:disabled {
+  color: grey;
+  cursor: auto;
+  opacity: 0.6;
 }
 
 .button:hover {
