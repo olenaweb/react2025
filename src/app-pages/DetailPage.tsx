@@ -6,13 +6,15 @@ import Loader from "./../components/Loader";
 
 const DetailPage = () => {
   const { id } = useParams<{ id: string }>() ?? "";
-  const { data, error, isLoading, isFetching } = useGetCharacterByIdQuery(id as string);
+  const { data, error, isLoading, isFetching, refetch } = useGetCharacterByIdQuery(id as string);
   if (error) {
     return <ErrorPage />;
   }
   const location = data?.location?.name ?? "";
   const origin = data?.origin?.name ?? "";
-
+  const handleRefreshClick = () => {
+    refetch();
+  };
   const ContentDetail = () => {
     return (
       <>
@@ -31,6 +33,9 @@ const DetailPage = () => {
         <p>Origin: {origin}</p>
         <p>Location: {location}</p>
         <p>Created: {data?.created}</p>
+        <button title="Refresh" className="refresh-detail-btn btn" onClick={handleRefreshClick}>
+          🗘
+        </button>
       </>
     );
   };

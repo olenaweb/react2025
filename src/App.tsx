@@ -103,8 +103,8 @@ const App = () => {
         {theme === "light" ? "🌙 Dark" : "🌞 Light"}
       </button>
 
-      <button className="refresh-btn btn" onClick={handleRefreshClick}>
-        Refresh
+      <button title="Refresh" className="refresh-btn btn" onClick={handleRefreshClick}>
+        🗘
       </button>
 
       <Pagination

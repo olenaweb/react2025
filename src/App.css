@@ -26,6 +26,11 @@
   position: absolute;
   left: 22px;
   top: 164px;
+  font-size: 24px;
+}
+
+.refresh-detail-btn {
+  font-size: 24px;
 }
 
 .search-panel {
