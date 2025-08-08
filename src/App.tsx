@@ -25,10 +25,19 @@ const App = () => {
   const [storeValue, setStoreValue] = useLocalStorage("olena_01_search", "");
   const [currentPage, setCurrentPage] = useState<string>(pageId || "1");
 
-  const { data, isLoading, error, refetch } = useGetCharactersQuery({
+  const { data, isLoading, isFetching, error, refetch } = useGetCharactersQuery({
     name: storeValue,
     page: currentPage,
   });
+  let nextList: string | null;
+  let lastList: number | null;
+  if (!error) {
+    nextList = data?.info.next || null;
+    lastList = data?.info.pages || null;
+  } else {
+    nextList = null;
+    lastList = null;
+  }
 
   const updateStoreValue = (value: string) => {
     setStoreValue(value);
@@ -57,7 +66,7 @@ const App = () => {
   }, [pageId, location, navigate]);
 
   const viewContainer = useMemo(() => {
-    if (isLoading) {
+    if (isLoading || isFetching) {
       return <Loader />;
     } else if (error) {
       return (
@@ -76,7 +85,7 @@ const App = () => {
         </>
       );
     }
-  }, [isLoading, error, data]);
+  }, [isLoading, isFetching, error, data]);
 
   const handleRefreshClick = () => {
     refetch();
@@ -101,8 +110,8 @@ const App = () => {
       <Pagination
         currentPage={currentPage}
         updateCurrentPage={updateCurrentPage}
-        nextPage={data?.info.next || null}
-        lastPage={data?.info.pages || null}
+        nextPage={nextList}
+        lastPage={lastList}
       />
 
       <div className="cards-panel">{viewContainer}</div>
@@ -110,5 +119,4 @@ const App = () => {
     </div>
   );
 };
-
 export default App;

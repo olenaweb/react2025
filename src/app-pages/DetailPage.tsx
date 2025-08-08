@@ -1,33 +1,17 @@
-import { useLoaderData, useNavigation, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { Character } from "../types/types";
+import { Link } from "react-router-dom";
+import { useGetCharacterByIdQuery } from "../request/characterApi";
+import { useParams } from "react-router-dom";
+import ErrorPage from "./ErrorPage";
 import Loader from "./../components/Loader";
 
 const DetailPage = () => {
-  const data = useLoaderData() as Character;
-  const navigation = useNavigation();
-
-  const [showLoader, setShowLoader] = useState(true);
-
-  useEffect(() => {
-    if (navigation.state === "loading") {
-      setShowLoader(true);
-    } else {
-      const timer = setTimeout(() => {
-        setShowLoader(false);
-      }, 500);
-      return () => clearTimeout(timer);
-    }
-  }, [navigation.state]);
-
-  let name = "";
-  let location = "";
-  if (data.origin) {
-    name = data.origin.name ?? "";
+  const { id } = useParams<{ id: string }>() ?? "";
+  const { data, error, isLoading, isFetching } = useGetCharacterByIdQuery(id as string);
+  if (error) {
+    return <ErrorPage />;
   }
-  if (data.location) {
-    location = data.location.name ?? "";
-  }
+  const location = data?.location?.name ?? "";
+  const origin = data?.origin?.name ?? "";
 
   const ContentDetail = () => {
     return (
@@ -35,25 +19,25 @@ const DetailPage = () => {
         <Link to=".." className="detail-page-exit">
           <span>⨉</span>
         </Link>
-        <h2>Detail for ID: {data.id}</h2>
-        <img src={data.image} alt={data.name} />
+        <h2>Detail for ID: {data?.id}</h2>
+        <img src={data?.image} alt={data?.name} />
         <p>
-          <b>Name: {data.name}</b>
+          <b>Name: {data?.name}</b>
         </p>
-        <p>Status: {data.status}</p>
-        <p>Species: {data.species}</p>
-        <p>Type: {data.type}</p>
-        <p>Gender: {data.gender}</p>
-        <p>Origin: {name}</p>
+        <p>Status: {data?.status}</p>
+        <p>Species: {data?.species}</p>
+        <p>Type: {data?.type}</p>
+        <p>Gender: {data?.gender}</p>
+        <p>Origin: {origin}</p>
         <p>Location: {location}</p>
-        <p>Created: {data.created}</p>
+        <p>Created: {data?.created}</p>
       </>
     );
   };
 
   return (
     <>
-      {showLoader ? (
+      {isLoading || isFetching ? (
         <div className="detail-page">
           <Loader />
         </div>
