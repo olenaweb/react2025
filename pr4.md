@@ -1,23 +1,24 @@
-1. Task: https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/tasks/state-management.md
-
+1. https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/tasks/queries.md
 2. Screenshot:
 <img width="1233" height="750" alt="image" src="https://github.com/user-attachments/assets/6db3558c-3602-47b0-a3ae-e97fd6644433" />
 
 3. Deployment: https://olenaweb-react.web.app/
 
-4. Done: 2025-08-04 00:00	/ Deadline 2025-08-04 02:59
+4. Done: 2025-08-11 00:00	2025-08-11 02:59
 
 5. Score: 100 / 100
 
-  - [X]  State management is properly implemented with Redux Toolkit - 35
+  - [X]  Query library (RTK Query or TanStack Query) is properly implemented - 25
 
-  - [X]  Selected items are managed through the state store, selected items are persistent across pages - 25
+  - [X]  All API calls are converted to use the query library - 20
 
-  - [X]  Flyout component is showed/hidden based on the presence of selected items, displays the number of selected items - 15
+  - [X]  Loading states are properly handled and displayed - 15
   
-  - [X]  "Unselect all" button and "Download" button work according to the requirements - 10
+  - [X]  Error states are properly handled and displayed - 10
 
-  - [X]  User can switch the theme of the application using Context API - 15
+  - [X]  Cache invalidation and refetching work correctly - 20
+
+  - [X]  Manual cache invalidation control works as expected - 10
 
 
 6. Checklist:
