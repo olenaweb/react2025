@@ -14,6 +14,8 @@ import useLocalStorage from "./utils/useLocalStorage";
 import Pagination from "./components/Pagination";
 import Loader from "./components/Loader";
 import errorImage from "./assets/error.jpg";
+import { useAppDispatch } from "./store/appHook";
+import { characterApi } from "./request/characterApi";
 
 const App = () => {
   const { favorites } = useAppSelector((state) => state.favorites);
@@ -21,6 +23,7 @@ const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { pageId } = useParams<{ pageId: string }>();
+  const dispatch = useAppDispatch();
 
   const [storeValue, setStoreValue] = useLocalStorage("olena_01_search", "");
   const [currentPage, setCurrentPage] = useState<string>(pageId || "1");
@@ -87,8 +90,9 @@ const App = () => {
     }
   }, [isLoading, isFetching, error, data]);
 
-  const handleRefreshClick = () => {
-    refetch();
+  const handleRefreshClick = async () => {
+    dispatch(characterApi.util.invalidateTags(["Cards"]));
+    await refetch();
   };
 
   return (
@@ -103,7 +107,12 @@ const App = () => {
         {theme === "light" ? "🌙 Dark" : "🌞 Light"}
       </button>
 
-      <button title="Refresh" className="refresh-btn btn" onClick={handleRefreshClick}>
+      <button
+        title="Refresh"
+        className={`refresh-btn btn ${isFetching ? "loading" : ""}`}
+        onClick={handleRefreshClick}
+        disabled={isFetching}
+      >
         🗘
       </button>
 

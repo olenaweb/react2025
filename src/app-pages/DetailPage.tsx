@@ -33,7 +33,12 @@ const DetailPage = () => {
         <p>Origin: {origin}</p>
         <p>Location: {location}</p>
         <p>Created: {data?.created}</p>
-        <button title="Refresh" className="refresh-detail-btn btn" onClick={handleRefreshClick}>
+        <button
+          title="Refresh"
+          onClick={handleRefreshClick}
+          className={`refresh-detail-btn btn ${isFetching ? "loading" : ""}`}
+          disabled={isFetching}
+        >
           🗘
         </button>
       </>
