@@ -3,6 +3,7 @@ import { useGetCharacterByIdQuery } from "../request/characterApi";
 import { useParams } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 import Loader from "./../components/Loader";
+import background from "../assets/backPicture.jpg";
 
 const DetailPage = () => {
   const { id } = useParams<{ id: string }>() ?? "";
@@ -44,11 +45,18 @@ const DetailPage = () => {
       </>
     );
   };
+  const style = {
+    div: {
+      backgroundImage: `url(${background})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+    },
+  };
 
   return (
     <>
       {isLoading || isFetching ? (
-        <div className="detail-page">
+        <div className="detail-page" style={style.div}>
           <Loader />
         </div>
       ) : (
