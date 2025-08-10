@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import { useGetCharacterByIdQuery } from "../request/characterApi";
+
 import { useParams } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 import Loader from "./../components/Loader";
 import background from "../assets/backPicture.jpg";
+
 
 const DetailPage = () => {
   const { id } = useParams<{ id: string }>() ?? "";

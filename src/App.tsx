@@ -28,7 +28,7 @@ const App = () => {
   const [storeValue, setStoreValue] = useLocalStorage("olena_01_search", "");
   const [currentPage, setCurrentPage] = useState<string>(pageId || "1");
 
-  const { data, isLoading, isFetching, error, refetch } = useGetCharactersQuery({
+  const { data, isLoading, isFetching, error } = useGetCharactersQuery({
     name: storeValue,
     page: currentPage,
   });
@@ -90,9 +90,16 @@ const App = () => {
     }
   }, [isLoading, isFetching, error, data]);
 
+
   const handleRefreshClick = async () => {
-    dispatch(characterApi.util.invalidateTags(["Cards"]));
-    await refetch();
+    dispatch(characterApi.util.resetApiState());
+
+    dispatch(
+      characterApi.endpoints.getCharacters.initiate({
+        name: storeValue,
+        page: currentPage,
+      })
+    );
   };
 
   return (
