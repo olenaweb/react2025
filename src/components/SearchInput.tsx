@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState, ChangeEvent, FormEvent } from "react";
-import { getData } from "../request/getData";
-import { Response } from "../types/types";
+import { useState, FormEvent } from "react";
 
 import ErrorButton from "./ErrorButton";
 import rickmorty from "./../assets/rickmorty.jpg";
@@ -10,43 +8,17 @@ import "./../App.css";
 interface SearchInputProps {
   searchValue: string;
   currentPage?: string;
-  updateRequestData?: (result: Response) => void;
   updateStoreValue?: (value: string) => void;
-  updateErrorMessage?: (message: string) => void;
   updateCurrentPage?: (value: string) => void;
 }
 
-const SearchInput = ({
-  searchValue,
-  updateRequestData,
-  updateStoreValue,
-  updateErrorMessage,
-  updateCurrentPage,
-}: SearchInputProps) => {
+const SearchInput = ({ searchValue, updateStoreValue, updateCurrentPage }: SearchInputProps) => {
   const [inputValue, setInputValue] = useState<string>(searchValue);
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setInputValue(e.target.value);
-  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const page = "1";
-      const result = await getData(inputValue.trim(), page);
-
-      if ("error" in result) {
-        updateErrorMessage?.(result.error + ". Sorry, the name is not found. Try another name");
-        updateStoreValue?.("");
-      } else {
-        updateErrorMessage?.("");
-        updateRequestData?.(result);
-        updateStoreValue?.(inputValue.trim());
-        updateCurrentPage?.("1");
-      }
-    } catch {
-      throw new Error("Something's gone wrong :-( ");
-    }
+    updateStoreValue?.(inputValue.trim());
+    updateCurrentPage?.("1");
   };
 
   return (
@@ -57,19 +29,24 @@ const SearchInput = ({
         </div>
         <h1 className="search-title">Rick and Morty</h1>
         <form className="search-form" onSubmit={handleSubmit}>
+          <label htmlFor="searchValue" className="search-label">
+            Search
+          </label>
           <input
             className="search-input"
             type="search"
             id="searchValue"
             value={inputValue}
-            onChange={handleChange}
+            onChange={(e) => setInputValue(e.target.value)}
             placeholder="Enter the name"
           />
-          <button className="search-button btn" type="submit">
+          <button className="search-button btn" type="submit" aria-label="Search">
             🔍
           </button>
         </form>
-        <ErrorButton />
+        <div className="search-buttons">
+          <ErrorButton />
+        </div>
         <div className="search-about-link">
           <Link to={`/about`}>About</Link>
         </div>

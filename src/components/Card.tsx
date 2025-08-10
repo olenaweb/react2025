@@ -13,7 +13,6 @@ export const Card: React.FC<Character> = (propsCharacter) => {
 
   const { favorites } = useAppSelector((state) => state.favorites);
   const [isFavorite, setIsFavorite] = useState(favorites.includes(favoriteItem));
-
   useEffect(() => {
     const isThere = favorites.some((item) => item.id === favoriteItem.id);
     setIsFavorite(isThere);

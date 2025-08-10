@@ -12,7 +12,6 @@ interface Props {
 
 export default function Pagination(props: Props) {
   const { currentPage, updateCurrentPage, nextPage, lastPage } = props;
-
   const currentPageValue = Number(currentPage) ? currentPage : "1";
   const [page, setPage] = useState<string>(currentPageValue);
   const nextPageValue = nextPage ? Number(nextPage) : null;
@@ -69,7 +68,9 @@ export default function Pagination(props: Props) {
       <Link to={`/page/${lastPage}`}>
         <button
           onClick={toLastPage}
-          disabled={isOutOfRange || (lastPage !== null && parseInt(page) === lastPage)}
+          disabled={
+            isOutOfRange || (lastPage !== null && parseInt(page) === lastPage) || lastPage === null
+          }
         >
           Last
         </button>

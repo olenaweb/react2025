@@ -74,10 +74,8 @@ describe("ErrorBoundary Component", () => {
       </ErrorBoundary>
     );
 
-    const button = screen.getByRole("button", { name: /Create Error/i });
-    expect(button).toBeInTheDocument();
-    await userEvent.click(button);
     await waitFor(() => {
+      expect(screen.getByRole("button", { name: /Back/i })).toBeInTheDocument();
       expect(screen.getByText(/404 There nothing here/i)).toBeInTheDocument();
     });
   });

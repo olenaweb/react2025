@@ -4,9 +4,9 @@ import { FavoriteItem } from "../types/types";
 export interface FavoriteState {
   favorites: FavoriteItem[];
 }
-
+const LS_Favorite = "olena_favorite";
 const initialState: FavoriteState = {
-  favorites: [],
+  favorites: JSON.parse(localStorage.getItem(LS_Favorite) ?? "[]"),
 };
 
 export const favoriteSlice = createSlice({
@@ -17,11 +17,13 @@ export const favoriteSlice = createSlice({
       const isThere = state.favorites.some((item) => item.id === action.payload.id);
       if (!isThere) {
         state.favorites.push(action.payload);
+        localStorage.setItem(LS_Favorite, JSON.stringify(state.favorites));
       }
     },
 
     removeFavorite(state, action: PayloadAction<FavoriteItem>) {
       state.favorites = state.favorites.filter((item) => item.id !== action.payload.id);
+      localStorage.setItem(LS_Favorite, JSON.stringify(state.favorites));
     },
   },
 });
