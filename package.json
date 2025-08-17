@@ -15,6 +15,7 @@
     "@reduxjs/toolkit": "^2.8.2",
     "babel-plugin-react-compiler": "^19.1.0-rc.2",
     "next": "15.4.6",
+    "next-redux-wrapper": "^8.1.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-redux": "^9.2.0"

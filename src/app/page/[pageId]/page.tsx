@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, usePathname } from "next/navigation";
 
 import { useAppSelector } from "@/store/appHook";
 import Popup from "@/components/Popup";
@@ -18,6 +18,7 @@ import { characterApi } from "@/request/characterApi";
 
 const App = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const { favorites } = useAppSelector((state) => state.favorites);
   const { theme, toggleTheme } = useTheme();
   const { pageId } = useParams<{ pageId: string }>();
@@ -50,7 +51,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    const { pathname } = location;
+    // const { pathname } = location;
 
     if (pathname === "/") {
       router.push(`/page/1`);

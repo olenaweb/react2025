@@ -43,7 +43,7 @@ const ExportButton = ({ favorites }: ExportButtonProps) => {
   return (
     <>
       <button aria-label="download" title="Download" onClick={handlePrepareCSV}>
-        <Image className="load" src="/load.png" alt="load" />
+        <Image className="load" src="/load.png" alt="load" width={20} height={20} />
       </button>
       <a ref={upload} href="" aria-label="download-link" role="link" />
     </>

@@ -194,16 +194,12 @@ a.search-about-link-text {
 }
 
 .detail-page {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  width: 25vw;
-  max-width: 230px;
+  width: 100%;
+  max-width: 900px;
   overflow: hidden;
   box-shadow: 2px 2px 8px 2px rgba(195, 195, 195, 1);
   margin: 0 auto;
   height: 100vh;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -249,7 +245,6 @@ html.dark .cards-panel {
 
 .detail-page-exit {
   position: absolute;
-  right: 5px;
   top: 0;
   width: 30px;
   height: 30px;
@@ -262,8 +257,22 @@ html.dark .cards-panel {
   cursor: pointer;
 }
 
+.detail-page-exit:hover {
+  color: #f6ea03fd;
+}
+
+.detail-page-exit:hover span {
+  color: #f6ea03fd;
+}
+
+
+
+.detail-page-exit:focus {
+  outline: none;
+}
+
 .detail-page img {
-  width: 80%;
+  width: 50%;
   height: auto;
 }
 
