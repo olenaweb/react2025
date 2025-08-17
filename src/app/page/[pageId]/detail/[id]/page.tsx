@@ -16,11 +16,11 @@ export default function DetailPage() {
 
   if (error || !data)
     return (
-      <>
+      <div className="detail-page" style={{ backgroundImage: `url(${background.src})` }}>
         {error && <p>Failed to load character</p>}
         {!data && <p>Character not found</p>}
         <button onClick={() => router.replace("/page/1")}>Back</button>
-      </>
+      </div>
     );
 
   const exit = () => {
