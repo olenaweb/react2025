@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
@@ -64,7 +64,7 @@ const App = () => {
     if (isInvalidPage) {
       router.push("/error");
     }
-  }, [pageId]);
+  }, [pageId, router]);
 
   const viewContainer = useMemo(() => {
     if (isLoading || isFetching) {

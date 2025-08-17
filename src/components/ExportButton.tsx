@@ -1,6 +1,6 @@
 import { FavoriteItem } from "../types/types";
 import { createRef } from "react";
-import Image from 'next/image'
+import Image from "next/image";
 
 interface ExportButtonProps {
   favorites: FavoriteItem[];
@@ -43,11 +43,7 @@ const ExportButton = ({ favorites }: ExportButtonProps) => {
   return (
     <>
       <button aria-label="download" title="Download" onClick={handlePrepareCSV}>
-        <Image
-          className="load"
-          src="/load.png"
-          alt="load"
-        />
+        <Image className="load" src="/load.png" alt="load" />
       </button>
       <a ref={upload} href="" aria-label="download-link" role="link" />
     </>

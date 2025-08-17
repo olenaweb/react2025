@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { isNotNullable } from "../types/types";
-import Link from 'next/link'
+import Link from "next/link";
 
 interface Props {
   currentPage: string;

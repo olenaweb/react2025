@@ -1,10 +1,9 @@
-'use client';
-
-import { useGetCharacterByIdQuery } from '@/request/characterApi';
-import Loader from '@/components/Loader';
+"use client";
+import Image from "next/image";
+import { useGetCharacterByIdQuery } from "@/request/characterApi";
+import Loader from "@/components/Loader";
 import background from "../../../../../assets/backPicture.jpg";
-import { useRouter, useParams } from 'next/navigation'
-
+import { useRouter, useParams } from "next/navigation";
 
 export default function DetailPage() {
   const router = useRouter();
@@ -15,51 +14,52 @@ export default function DetailPage() {
   const location = data?.location?.name ?? "";
   const origin = data?.origin?.name ?? "";
 
-  // if (isLoading) return <Loader />;
   if (error) return <p>Failed to load character</p>;
   if (!data) return <p>Character not found</p>;
+
   const exit = () => {
     router.back();
   };
-  const ContentDetail = () => {
-    return (
-      <>
-        <div className="detail-page-exit" onClick={exit}>
-          <span>⨉</span>
-        </div>
-        <h2>Detail for ID: {data?.id}</h2>
-        <img src={data?.image} alt={data?.name} />
-        <p>
-          <b>Name: {data?.name}</b>
-        </p>
-        <p>Status: {data?.status}</p>
-        <p>Species: {data?.species}</p>
-        <p>Type: {data?.type}</p>
-        <p>Gender: {data?.gender}</p>
-        <p>Origin: {origin}</p>
-        <p>Location: {location}</p>
-        <p>Created: {data?.created}</p>
-      </>
-    );
-  };
-  const style = {
-    div: {
-      backgroundImage: `url(${background})`,
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-    },
-  };
 
-  return (
+  const imageLink = data?.image || "/backPicture.jpg";
+  const imageName = data?.name || "Unknown Character";
+
+  const ContentDetail = () => (
     <>
-      {isLoading || isFetching ? (
-        <div className="detail-page" style={style.div}>
-          <Loader />
-        </div>
-      ) : (
-        <ContentDetail />
-      )}
+      <div className="detail-page-exit" onClick={exit}>
+        <span>⨉</span>
+      </div>
+      <h2>Detail for ID: {data?.id}</h2>
+      <Image
+        src={imageLink}
+        alt={imageName}
+        width={500}
+        height={500}
+        priority
+      />
+      <p>
+        <b>Name: {data?.name}</b>
+      </p>
+      <p>Status: {data?.status}</p>
+      <p>Species: {data?.species}</p>
+      <p>Type: {data?.type}</p>
+      <p>Gender: {data?.gender}</p>
+      <p>Origin: {origin}</p>
+      <p>Location: {location}</p>
+      <p>Created: {data?.created}</p>
     </>
   );
-}
 
+  return (
+    <div
+      className="detail-page"
+      style={{
+        backgroundImage: `url(${background.src})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      {isLoading || isFetching ? <Loader /> : <ContentDetail />}
+    </div>
+  );
+}

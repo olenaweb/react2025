@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/utils/ThemeProvider";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -21,15 +20,13 @@ export const metadata: Metadata = {
   description: "Rick and Morty Next.js App",
 };
 
-export default function RootLayout({ children, }: { children: React.ReactNode; }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <StoreProvider>
           <ThemeProvider>
-            <main id="root">
-              {children}
-            </main>
+            <main id="root">{children}</main>
           </ThemeProvider>
         </StoreProvider>
       </body>

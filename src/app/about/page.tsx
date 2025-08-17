@@ -1,5 +1,5 @@
 import "./aboutPage.css";
-import Image from 'next/image'
+import Image from "next/image";
 
 import BackButton from "../../components/BackButton";
 const AboutPage = () => {

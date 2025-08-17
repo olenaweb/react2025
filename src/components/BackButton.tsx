@@ -1,5 +1,5 @@
-'use client';
-import { useRouter } from 'next/navigation'
+"use client";
+import { useRouter } from "next/navigation";
 
 const BackButton = () => {
   const router = useRouter();

@@ -23,11 +23,11 @@ const SearchInput = ({ searchValue, updateStoreValue, updateCurrentPage }: Searc
       <div className="search-panel">
         <div className="rick-morty">
           <Image
-            className={"rick-morty-img"}
             src="/rickmorty.jpg"
             alt="rickmorty"
-            width={200}
-            height={200}
+            width={150}
+            height={150}
+            priority={true}
           />
         </div>
         <h1 className="search-title">Rick and Morty</h1>
