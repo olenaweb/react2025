@@ -1,0 +1,26 @@
+/app
+ ├─ layout.tsx                  // общий макет приложения
+ ├─ page.tsx                    // главная страница (редирект на /page/1)
+ ├─ page
+ │   └─ [pageId]
+ │       ├─ page.tsx            // SSR список персонажей
+ │       └─ detail
+ │           └─ [id].tsx        // SSR или CSR страница детали персонажа
+ ├─ about
+ │   └─ page.tsx                // AboutPage
+ ├─ error
+ │   └─ page.tsx                // 404 / ErrorPage
+/components
+ ├─ Pagination.tsx
+ ├─ Loader.tsx
+ ├─ Popup.tsx
+ ├─ SearchInput.tsx
+ ├─ ThemeProvider.tsx
+/store
+ ├─ store.ts
+ └─ slices
+      └─ favoriteSlice.ts
+/request
+ └─ characterApi.ts              // RTK Query endpoints
+/types
+ └─ types.ts
