@@ -1,5 +1,6 @@
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 import { useAppSelector, useAppDispatch } from "./../store/appHook";
 import { addFavorite, removeFavorite } from "@/store/slices/favoriteSlice";
@@ -52,7 +53,15 @@ export const Card: React.FC<Character> = (propsCharacter) => {
             <b>{name}</b>
           </p>
           <div>
-            <img className="card-image" src={image} alt={name} />
+            {/* <img className="card-image" src={image} alt={name} /> */}
+            <Image
+              className={"card-image"}
+              width={500}
+              height={500}
+              src={image}
+              alt={name}
+              priority={true}
+            />
           </div>
           <p>Gender: {gender}</p>
           <p>Species: {species}</p>

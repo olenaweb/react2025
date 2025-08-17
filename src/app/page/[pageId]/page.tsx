@@ -65,7 +65,7 @@ const App = () => {
     if (isInvalidPage) {
       router.push("/error");
     }
-  }, [pageId, router]);
+  }, [pageId, router, pathname]);
 
   const viewContainer = useMemo(() => {
     if (isLoading || isFetching) {
