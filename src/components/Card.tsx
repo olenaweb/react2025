@@ -53,7 +53,6 @@ export const Card: React.FC<Character> = (propsCharacter) => {
             <b>{name}</b>
           </p>
           <div>
-            {/* <img className="card-image" src={image} alt={name} /> */}
             <Image
               className={"card-image"}
               width={500}
