@@ -1,4 +1,3 @@
-// import { makeStore } from "@/store/store";
 import { characterApi } from "@/request/characterApi";
 import AppPage from "./AppPage";
 import { AppProvider } from "./AppProvider";
