@@ -14,8 +14,14 @@ export default function DetailPage() {
   const location = data?.location?.name ?? "";
   const origin = data?.origin?.name ?? "";
 
-  if (error) return <p>Failed to load character</p>;
-  if (!data) return <p>Character not found</p>;
+  if (error || !data) return (
+    <>
+      {error && <p>Failed to load character</p>}
+      {!data && <p>Character not found</p>}
+      <button onClick={() => router.replace("/page/1")}>
+        Back
+      </button>
+    </>)
 
   const exit = () => {
     router.back();
@@ -30,13 +36,7 @@ export default function DetailPage() {
         <span>⨉</span>
       </div>
       <h2>Detail for ID: {data?.id}</h2>
-      <Image
-        src={imageLink}
-        alt={imageName}
-        width={500}
-        height={500}
-        priority
-      />
+      <Image src={imageLink} alt={imageName} width={500} height={500} priority />
       <p>
         <b>Name: {data?.name}</b>
       </p>
