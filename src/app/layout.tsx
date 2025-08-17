@@ -1,9 +1,12 @@
+import "./app.css";
+import StoreProvider from "@/store/storeProviders";
+import { AppProvider } from "@/app/page/[pageId]/AppProvider";
+
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/utils/ThemeProvider";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./index.css";
 import "./app.css";
-import { StoreProvider } from "@/store/storeProviders";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,7 +29,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <StoreProvider>
           <ThemeProvider>
-            <main id="root">{children}</main>
+            <AppProvider>
+              <main id="root">{children}</main>
+            </AppProvider>
           </ThemeProvider>
         </StoreProvider>
       </body>
