@@ -1,9 +1,12 @@
 import { characterApi } from "@/request/characterApi";
 import AppPage from "./AppPage";
-import { AppProvider } from "./AppProvider";
-import { store } from "@/store/store";
+import StoreProvider from "@/store/storeProviders";
+import { makeStore } from "@/store/store";
 
 export default async function Page() {
+  console.log("SSR fetching characters...");
+  const store = makeStore();
+
   await store.dispatch(
     characterApi.endpoints.getCharacters.initiate({
       name: "",
@@ -11,9 +14,13 @@ export default async function Page() {
     })
   );
 
+  await Promise.all(store.dispatch(characterApi.util.getRunningQueriesThunk()));
+
+  const preloadedState = store.getState();
+
   return (
-    <AppProvider>
+    <StoreProvider initialState={preloadedState}>
       <AppPage />
-    </AppProvider>
+    </StoreProvider>
   );
 }
