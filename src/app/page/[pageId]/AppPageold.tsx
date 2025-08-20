@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { useParams, useRouter, usePathname } from "next/navigation";
 
@@ -26,12 +26,14 @@ const AppPage = () => {
 
   const [storeValue, setStoreValue] = useLocalStorage("olena_01_search", "");
   const [currentPage, setCurrentPage] = useState<string>(pageId || "1");
-
-  const { data, isLoading, isFetching, error, status } = useGetCharactersQuery(
-    `${storeValue ?? ""}-${currentPage ?? 1}`,
-    { refetchOnMountOrArgChange: true, skip: !storeValue && !currentPage }
+  const queryArg = useMemo(
+    () => ({ name: storeValue, page: currentPage }),
+    [storeValue, currentPage]
   );
-
+  const { data, isLoading, isFetching, error, status } = useGetCharactersQuery(queryArg, {
+    refetchOnMountOrArgChange: false,
+    skip: !storeValue && !currentPage,
+  });
   console.log({ data, error, isLoading, isFetching, status });
   let nextList: string | null;
   let lastList: number | null;
@@ -67,7 +69,7 @@ const AppPage = () => {
     }
   }, [pageId, router, pathname]);
 
-  const viewContainer = () => {
+  const viewContainer = useMemo(() => {
     if (isLoading || isFetching) {
       return <Loader />;
     } else if (error) {
@@ -93,12 +95,15 @@ const AppPage = () => {
         </>
       );
     }
-  };
+  }, [isLoading, isFetching, error, data]);
 
   const handleRefreshClick = async () => {
     dispatch(characterApi.util.resetApiState());
     dispatch(
-      characterApi.endpoints.getCharacters.initiate(`${storeValue ?? ""}-${currentPage ?? 1}`)
+      characterApi.endpoints.getCharacters.initiate({
+        name: storeValue,
+        page: currentPage,
+      })
     );
   };
 
@@ -130,7 +135,7 @@ const AppPage = () => {
         lastPage={lastList}
       />
 
-      <div className="cards-panel">{viewContainer()}</div>
+      <div className="cards-panel">{viewContainer}</div>
       {favorites.length > 0 && <Popup />}
     </div>
   );
