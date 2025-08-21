@@ -1,0 +1,41 @@
+#root {
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  text-align: center;
+  background: var(--background-color);
+}
+
+.view-app {
+  display: flex;
+  justify-content: space-around;
+  height: 70px;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 10px;
+  position: relative;
+  box-shadow: 2px 2px 8px 2px rgba(195, 195, 195, 1);
+}
+
+.back-btn {
+  padding: 4px 23px;
+  margin-top: 10px;
+}
+
+.exit-btn {
+  position: absolute;
+  right: 5px;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  font-size: clamp(1.125rem, 0.9047rem + 1.1013vw, 1.75rem);
+  font-weight: 800;
+  -webkit-text-stroke: 1px #3a3a04;
+}
+
+
+
+@media (max-width: 600px) {}
+
+@media (max-width: 480px) {}
