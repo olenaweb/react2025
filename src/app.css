@@ -34,8 +34,8 @@
   -webkit-text-stroke: 1px #3a3a04;
 }
 
+@media (max-width: 600px) {
+}
 
-
-@media (max-width: 600px) {}
-
-@media (max-width: 480px) {}
+@media (max-width: 480px) {
+}

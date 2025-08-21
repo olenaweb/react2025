@@ -18,13 +18,9 @@ const App = () => {
 
   return (
     <div className="view-app">
-      <button onClick={controlFormHandle}>
-        Control Form
-      </button>
+      <button onClick={controlFormHandle}>Control Form</button>
 
-      <button onClick={unControlFormHandle}>
-        Uncontrol Form
-      </button>
+      <button onClick={unControlFormHandle}>Uncontrol Form</button>
     </div>
   );
 };

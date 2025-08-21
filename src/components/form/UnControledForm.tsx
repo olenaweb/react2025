@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from './forms.module.css';
+import React from "react";
+import styles from "./forms.module.css";
 const UnControledForm: React.FC = () => {
   return (
     <div className={styles.wrapper}>
