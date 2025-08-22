@@ -3,7 +3,7 @@ import styles from "./forms.module.css";
 const ControledForm: React.FC = () => {
   return (
     <div className={styles.wrapper}>
-      <h1>Controlled Form</h1>
+      <h1>1.Controlled Form</h1>
       {/* <FormContent /> */}
     </div>
   );

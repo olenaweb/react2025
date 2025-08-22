@@ -4,6 +4,36 @@
   min-height: 100vh;
   text-align: center;
   background: var(--background-color);
+  position: relative;
+  z-index: 0;
+  font-family: "Roboto", sans-serif;
+  color: var(--color);
+  position: relative;
+}
+
+#modal-root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid red;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.094);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .view-app {
