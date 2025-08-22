@@ -78,12 +78,21 @@ body {
 }
 
 h1 {
-  font-size: clamp(0.8rem, 0.6476rem + 1.7621vw, 1.5rem);
+  font-size: clamp(1rem, 0.5714rem + 2.1429vw, 2.5rem);
   line-height: 1.1;
+  text-shadow: 0 0 3px #594601;
+}
+
+p {
+  font-size: clamp(0.875rem, 0.5536rem + 1.6071vw, 2rem);
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: var(--color);
+  text-shadow: 0 0 3px #594601;
 }
 
 h2 {
-  text-shadow: 0 0 3px #696557;
+  text-shadow: 0 0 3px #594601;
   font-size: clamp(0.8rem, 0.6476rem + 1.7621vw, 1.5rem);
 }
 

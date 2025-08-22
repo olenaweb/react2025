@@ -10,14 +10,10 @@ import { ErrorBoundary } from "./components/error/ErrorBoundary.tsx";
 import ErrorPage from "./components/error/ErrorPage.tsx";
 import { RouterProvider, createBrowserRouter, RouteObject } from "react-router-dom";
 
-const modalRoot = document.getElementById("modal-root") as HTMLElement | null;
-if (!modalRoot) {
-  throw new Error("Modal root element not found");
-}
 export const routes: RouteObject[] = [
   {
     path: "/",
-    element: <App modalRoot={modalRoot} />,
+    element: <App />,
     errorElement: <ErrorPage />,
     children: [
       {

@@ -4,8 +4,6 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
-  width: 50%;
-  min-width: 300px;
   height: 50vh;
   background-color: var(--background-color);
   color: var(--color);
