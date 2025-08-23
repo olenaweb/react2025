@@ -1,21 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-type UserData = {
-  name: string;
-  age: number;
-  email: string;
-  gender: string;
-  image?: string;
-  country: string;
-};
+import { formData } from "@/type/type";
 
 type UserState = {
-  data: UserData | null;
+  data: formData[];
   highlight: boolean;
 };
 
 const initialState: UserState = {
-  data: null,
+  data: [] as formData[],
   highlight: false,
 };
 
@@ -23,8 +15,12 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    saveUser(state, action: PayloadAction<UserData>) {
-      state.data = action.payload;
+    // saveUser(state, action: PayloadAction<formData>) {
+    //   state.data = action.payload;
+    //   state.highlight = true;
+    // },
+    saveUser: (state, action: PayloadAction<formData>) => {
+      state.data.push(action.payload);
       state.highlight = true;
     },
     clearHighlight(state) {

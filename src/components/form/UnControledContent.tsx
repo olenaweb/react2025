@@ -56,13 +56,25 @@ const UnControledContent: React.FC = () => {
 
     const file = fileRef.current?.files?.[0];
     let base64: string | undefined;
+    console.log('"file="', file);
     if (file) {
       if (!["image/png", "image/jpeg"].includes(file.type)) {
         setErrors({ file: "Only PNG or JPEG are acceptable" });
         return;
       }
-      const buffer = await file.arrayBuffer();
-      base64 = `data:${file.type};base64,${btoa(String.fromCharCode(...new Uint8Array(buffer)))}`;
+
+      try {
+        base64 = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result as string);
+          reader.onerror = () => reject(reader.error);
+          reader.readAsDataURL(file);
+        });
+      } catch (readErr) {
+        console.error(readErr);
+        setErrors({ file: "Failed to read file" });
+        return;
+      }
     }
 
     const formData = {
@@ -78,7 +90,8 @@ const UnControledContent: React.FC = () => {
     };
 
     try {
-      await schema.validate(formData, { abortEarly: false });
+      const isValidate = await schema.validate(formData, { abortEarly: false });
+      console.log('"isValidate="', isValidate);
       setErrors({});
       dispatch(saveUser(formData));
       onCloseForm();
@@ -91,6 +104,7 @@ const UnControledContent: React.FC = () => {
           }
         });
         setErrors(newErrors);
+        console.log('"newErrors="', newErrors);
       } else {
         console.error(err);
         setErrors({ _general: (err as Error)?.message || "Unexpected error" });

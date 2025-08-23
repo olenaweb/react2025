@@ -4,7 +4,7 @@ const BackButton = () => {
   const navigate = useNavigate();
 
   const exit = () => {
-    navigate(-1);
+    navigate("/", { replace: true });
   };
   return (
     <button className="back-btn reload-btn btn" onClick={exit}>
