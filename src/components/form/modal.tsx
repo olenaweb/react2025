@@ -5,20 +5,16 @@ type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
-  returnFocusRef?: React.RefObject<HTMLElement | null>;
 };
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, returnFocusRef }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     if (isOpen) {
       closeButtonRef.current?.focus();
-    } else {
-      returnFocusRef?.current?.focus();
     }
-  }, [isOpen, returnFocusRef]);
+  }, [isOpen]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Escape") {
@@ -55,9 +51,9 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, returnFocusRef
   };
 
   return createPortal(
-    <div onClick={handleOverlayClick} onKeyDown={handleKeyDown} className="overlay">
-      <div ref={modalRef} className="modal">
-        <button ref={closeButtonRef} onClick={onClose} className="close-btn">
+    <div className="overlay" onClick={handleOverlayClick} onKeyDown={handleKeyDown}>
+      <div className="modal" ref={modalRef}>
+        <button className="close-btn" ref={closeButtonRef} onClick={onClose}>
           ✕
         </button>
         {children}

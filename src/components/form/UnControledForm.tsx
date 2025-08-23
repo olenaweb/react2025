@@ -1,10 +1,12 @@
 import React from "react";
-import styles from "./forms.module.css";
+import UnControledContent from "./UnControledContent";
+import "./forms.css";
+
 const UnControledForm: React.FC = () => {
   return (
-    <div className={styles.wrapper}>
+    <div className={"wrapper"}>
       <h1>2.Uncontroled Form</h1>
-      {/* <FormContent /> */}
+      <UnControledContent />
     </div>
   );
 };

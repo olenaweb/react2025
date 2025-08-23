@@ -31,6 +31,7 @@ const App: React.FC = () => {
   const doCloseHandle = () => {
     setIsOpen(false);
     navigate("/", { replace: true });
+    lastFocusedButton?.current?.focus();
   };
 
   return (
@@ -44,7 +45,7 @@ const App: React.FC = () => {
         <p>Click the buttons above to open a form in a modal.</p>
       </div>
       {isOpen && (
-        <Modal isOpen={isOpen} onClose={doCloseHandle} returnFocusRef={lastFocusedButton}>
+        <Modal isOpen={isOpen} onClose={doCloseHandle}>
           {formType === "control" ? <ControlledForm /> : <UncontrolledForm />}
         </Modal>
       )}

@@ -1,15 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-
-// import { Provider } from "react-redux";
-import App from "./App.tsx";
-import "./index.css";
+import { RouterProvider, createBrowserRouter, RouteObject } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
 import UnControledForm from "./components/form/UnControledForm.tsx";
 import ControledForm from "./components/form/ControledForm.tsx";
 import { ErrorBoundary } from "./components/error/ErrorBoundary.tsx";
 import ErrorPage from "./components/error/ErrorPage.tsx";
-import { RouterProvider, createBrowserRouter, RouteObject } from "react-router-dom";
-
+import "./index.css";
+import App from "./App.tsx";
 export const routes: RouteObject[] = [
   {
     path: "/",
@@ -44,10 +43,10 @@ if (!rootApp) {
 
 ReactDOM.createRoot(rootApp).render(
   <React.StrictMode>
-    {/* <Provider store={store}> */}
-    <ErrorBoundary>
-      <RouterProvider router={router} />
-    </ErrorBoundary>
-    {/* </Provider> */}
+    <Provider store={store}>
+      <ErrorBoundary>
+        <RouterProvider router={router} />
+      </ErrorBoundary>
+    </Provider>
   </React.StrictMode>
 );
