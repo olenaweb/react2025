@@ -5,9 +5,7 @@ export const Card: React.FC<FormData> = (data) => {
     <>
       <li className="card">
         <p>{data.name}</p>
-        <div>
-          {data.image && (<img className="card-image" src={data.image} alt="Image" />)}
-        </div>
+        <div>{data.image && <img className="card-image" src={data.image} alt="Image" />}</div>
         <div>Name: {data.name}</div>
         <div>Age: {data.age}</div>
         <div>Password: {data.password}</div>

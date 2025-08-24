@@ -37,7 +37,6 @@ const App: React.FC = () => {
     setIsOpen(false);
     navigate("/", { replace: true });
     lastFocusedButton?.current?.focus();
-
   };
 
   return (
@@ -48,8 +47,11 @@ const App: React.FC = () => {
       </div>
       <div className="view-body">
         <h1>Welcome to React Forms</h1>
-        <p>Click the buttons above to open a form in a modal.</p>
-        {results.length > 0 ? <CardList result={results} /> : <p>No user data available. Please submit the form.</p>}
+        {results.length > 0 ? (
+          <CardList result={results} />
+        ) : (
+          <p>No user data available. Please submit the form.</p>
+        )}
       </div>
       {isOpen && (
         <Modal isOpen={isOpen} onClose={doCloseHandle}>

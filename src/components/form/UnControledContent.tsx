@@ -22,15 +22,21 @@ const UnControledContent: React.FC<Props> = ({ onClose }) => {
   const countryRef = useRef<HTMLSelectElement>(null);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-
+  const getFile = (fileIn: unknown): File | undefined => {
+    if (!fileIn) return undefined;
+    if (fileIn instanceof File) return fileIn;
+    if (typeof (fileIn as FileList).item === "function")
+      return (fileIn as FileList).item(0) || undefined;
+    return undefined;
+  };
   const schema = Yup.object({
     name: Yup.string()
       .required("Name is required")
       .matches(/^[A-Z][a-z]+$/, "The first letter is title, only Latin"),
     age: Yup.number()
+      .required("Age is required")
       .typeError("Age should be a number")
-      .positive("Age should be more than 0")
-      .required("Age is required"),
+      .positive("Age should be more than 0"),
     email: Yup.string().email("Incorrect email").required("Email is required"),
     password: Yup.string()
       .required("Password is required")
@@ -40,11 +46,23 @@ const UnControledContent: React.FC<Props> = ({ onClose }) => {
       .matches(/\d/, "Need at least one digit")
       .matches(/[@#$!^%*?&]/, "Need one special character @#$!^%*?&"),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password")], "Passwords don't match")
-      .required("Is required"),
+      .required("Is required")
+      .oneOf([Yup.ref("password")], "Passwords don't match"),
     gender: Yup.string().required("Choose gender "),
-    agreement: Yup.boolean().oneOf([true], "You must accept terms"),
+    agreement: Yup.boolean().oneOf([true], "You must accept terms").required("accept terms "),
     country: Yup.string().required("Choose the country"),
+    file: Yup.mixed()
+      .required("choose one file")
+      .test("fileType", "Only PNG or JPEG", (value: unknown) => {
+        const file = getFile(value);
+        if (!file) return true;
+        return ["image/png", "image/jpeg"].includes(file.type);
+      })
+      .test("fileSize", "Max size 2MB", (value: unknown) => {
+        const file = getFile(value);
+        if (!file) return true;
+        return file.size <= 2 * 1024 * 1024;
+      }),
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -112,36 +130,36 @@ const UnControledContent: React.FC<Props> = ({ onClose }) => {
     <form id="uncontrol" className={"form"} onSubmit={handleSubmit}>
       <div className="Name inputBlock">
         <label htmlFor="name">Name:</label>
-        <input ref={nameRef} id="name" type="text" />
+        <input ref={nameRef} id="name" type="text" tabIndex={1} />
         {errors.name && <p className="error">{errors.name}</p>}
       </div>
 
       <div className="Age inputBlock">
         <label htmlFor="age">Age:</label>
-        <input ref={ageRef} id="age" type="number" />
+        <input ref={ageRef} id="age" type="number" tabIndex={2} />
         {errors.age && <p className="error">{errors.age}</p>}
       </div>
       <div className="Password inputBlock">
         <label htmlFor="password">Password:</label>
-        <input ref={passwordRef} id="password" type="password" />
+        <input ref={passwordRef} id="password" type="password" tabIndex={3} />
         {errors.password && <p className="error">{errors.password}</p>}
       </div>
 
       <div className="ConfirmPassword inputBlock">
         <label htmlFor="confirmPassword">Confirm Password:</label>
-        <input ref={confirmPasswordRef} id="confirmPassword" type="password" />
+        <input ref={confirmPasswordRef} id="confirmPassword" type="password" tabIndex={4} />
         {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
       </div>
 
       <div className="Email inputBlock">
         <label htmlFor="email">Email:</label>
-        <input ref={emailRef} id="email" type="email" />
+        <input ref={emailRef} id="email" type="email" tabIndex={5} />
         {errors.email && <p className="error">{errors.email}</p>}
       </div>
 
       <div className="gender inputBlock">
         <label htmlFor="gender">Gender:</label>
-        <select ref={genderRef} id="gender" autoComplete="on">
+        <select ref={genderRef} id="gender" autoComplete="on" tabIndex={6}>
           <option className="choose-options" value="">
             Choose...
           </option>
@@ -157,7 +175,7 @@ const UnControledContent: React.FC<Props> = ({ onClose }) => {
 
       <div className="country inputBlock">
         <label htmlFor="country">Country:</label>
-        <select className="select" ref={countryRef} id="country" autoComplete="on">
+        <select className="select" ref={countryRef} id="country" autoComplete="on" tabIndex={7}>
           <option className="choose-options" value="">
             Choose country...
           </option>
@@ -171,7 +189,7 @@ const UnControledContent: React.FC<Props> = ({ onClose }) => {
       </div>
 
       <div className="agreement inputBlock">
-        <input className={"check-agree"} ref={agreementRef} type="checkbox" id="agreement" />
+        <input className={"check-agree"} ref={agreementRef} type="checkbox" id="agreement" tabIndex={8} />
         <label className={"text-agree"} htmlFor="agreement">
           I agree to the terms and conditions
         </label>
@@ -180,11 +198,11 @@ const UnControledContent: React.FC<Props> = ({ onClose }) => {
 
       <div className="file inputBlock">
         <label htmlFor="file">Avatar:</label>
-        <input ref={fileRef} id="file" type="file" />
+        <input ref={fileRef} id="file" type="file" tabIndex={1} />
         {errors.file && <p className="error">{errors.file}</p>}
       </div>
 
-      <button type="submit">Submit</button>
+      <button className={"submit-btn"} type="submit" tabIndex={9}>Submit</button>
     </form>
   );
 };

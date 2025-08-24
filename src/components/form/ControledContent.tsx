@@ -40,9 +40,9 @@ const ControledContent: React.FC<Props> = ({ onClose }) => {
       .required("Name is required")
       .matches(/^[A-Z][a-z]+$/, "The first letter is title, only Latin"),
     age: Yup.number()
+      .required("Age is required")
       .typeError("Age should be a number")
-      .positive("Age should be more than 0")
-      .required("Age is required"),
+      .positive("Age should be more than 0"),
     email: Yup.string().email("Incorrect email").required("Email is required"),
     password: Yup.string()
       .required("Password is required")
@@ -52,12 +52,16 @@ const ControledContent: React.FC<Props> = ({ onClose }) => {
       .matches(/\d/, "Need at least one digit")
       .matches(/[@#$!^%*?&]/, "Need one special character @#$!^%*?&"),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password")], "Passwords don't match")
-      .required("Is required"),
+      .required("Is required")
+      .oneOf([Yup.ref("password")], "Passwords don't match"),
     gender: Yup.string().required("Choose gender "),
-    agreement: Yup.boolean().oneOf([true], "You must accept terms"),
+    agreement: Yup.boolean().oneOf([true], "You must accept terms").required("accept terms "),
     country: Yup.string().required("Choose the country"),
     file: Yup.mixed()
+      .test("fileRequired", "choose one file", (value: unknown) => {
+        const file = getFile(value);
+        return !!file;
+      })
       .test("fileType", "Only PNG or JPEG", (value: unknown) => {
         const file = getFile(value);
         if (!file) return true;
@@ -69,6 +73,7 @@ const ControledContent: React.FC<Props> = ({ onClose }) => {
         return file.size <= 2 * 1024 * 1024;
       }),
   });
+
   const {
     register,
     handleSubmit,
@@ -125,37 +130,37 @@ const ControledContent: React.FC<Props> = ({ onClose }) => {
     <form id="control" className="form" onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="Name inputBlock">
         <label htmlFor="name">Name</label>
-        <input id="name" type="text" {...register("name")} />
+        <input id="name" type="text" {...register("name")} tabIndex={1} />
         {errors.name && <p className="error">{errors.name.message}</p>}
       </div>
 
       <div className="Age inputBlock">
         <label htmlFor="age">Age:</label>
-        <input id="age" type="number" {...register("age")} />
+        <input id="age" type="number" {...register("age")} tabIndex={2} />
         {errors.age && <p className="error">{errors.age.message}</p>}
       </div>
 
       <div className="Password inputBlock">
         <label htmlFor="password">Password:</label>
-        <input id="password" type="password" {...register("password")} />
+        <input id="password" type="password" {...register("password")} tabIndex={3} />
         {errors.password && <p className="error">{errors.password.message}</p>}
       </div>
 
       <div className="ConfirmPassword inputBlock">
         <label htmlFor="confirmPassword">Confirm Password:</label>
-        <input id="confirmPassword" type="password" {...register("confirmPassword")} />
+        <input id="confirmPassword" type="password" {...register("confirmPassword")} tabIndex={4} />
         {errors.confirmPassword && <p className="error">{errors.confirmPassword.message}</p>}
       </div>
 
       <div className="Email inputBlock">
         <label htmlFor="email">Email:</label>
-        <input id="email" type="email" {...register("email")} />
+        <input id="email" type="email" {...register("email")} tabIndex={5} />
         {errors.email && <p className="error">{errors.email.message}</p>}
       </div>
 
       <div className="gender inputBlock">
         <label htmlFor="gender">Gender:</label>
-        <select id="gender" autoComplete="on" {...register("gender")}>
+        <select id="gender" autoComplete="on" {...register("gender")} tabIndex={6}>
           <option className="choose-options" value="">
             Choose...
           </option>
@@ -171,7 +176,7 @@ const ControledContent: React.FC<Props> = ({ onClose }) => {
 
       <div className="country inputBlock">
         <label htmlFor="country">Country:</label>
-        <select className="select" id="country" autoComplete="on" {...register("country")}>
+        <select className="select" id="country" autoComplete="on" {...register("country")} tabIndex={7}>
           <option className="choose-options" value="">
             Choose country...
           </option>
@@ -190,6 +195,7 @@ const ControledContent: React.FC<Props> = ({ onClose }) => {
           type="checkbox"
           id="agreement"
           {...register("agreement")}
+          tabIndex={8}
         />
         <label className={"text-agree"} htmlFor="agreement">
           I agree to the terms and conditions
@@ -199,13 +205,13 @@ const ControledContent: React.FC<Props> = ({ onClose }) => {
 
       <div className="file inputBlock">
         <label htmlFor="file">Avatar:</label>
-        <input id="file" type="file" accept="image/png, image/jpeg" {...register("file")} />
+        <input id="file" type="file" accept="image/png, image/jpeg" {...register("file")} tabIndex={9} />
         <p className="error" aria-live="polite">
           {(errors.file?.message as string) || "\u00A0"}
         </p>
       </div>
 
-      <button type="submit" disabled={!isValid || isSubmitting}>
+      <button className={"submit-btn"} type="submit" disabled={!isValid || isSubmitting} tabIndex={10}>
         {isSubmitting ? "Submitting..." : "Submit"}
       </button>
     </form>

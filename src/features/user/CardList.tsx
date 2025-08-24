@@ -6,7 +6,6 @@ type CardListProps = {
 };
 import "./user.css";
 
-
 export const CardList: React.FC<CardListProps> = ({ result }) => {
   return (
     <ul className="cards">

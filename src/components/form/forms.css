@@ -15,7 +15,7 @@
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: repeat(5, 133px);
+  grid-template-rows: repeat(5, 116px);
   gap: 15px;
   font-size: clamp(0.875rem, 0.6964rem + 0.8929vw, 1.5rem);
 }
@@ -30,7 +30,7 @@ p.error {
 }
 
 label {
-  font-size: clamp(0.875rem, 0.6964rem + 0.8929vw, 1.5rem);
+  font-size: clamp(0.875rem, 0.6964rem + 0.8929vw, 1.25rem);
   padding: 0;
   color: #000;
 }
@@ -43,10 +43,11 @@ label {
 }
 
 .agreement.inputBlock {
+  grid-row: 5 / 6;
   grid-column: 1 / 2;
   display: grid;
   grid-template-columns: 30px auto;
-  grid-template-rows: 40px;
+  grid-template-rows: 60px;
   gap: 10px;
 }
 
@@ -54,12 +55,12 @@ label {
   grid-column: 1/2;
   width: 20px;
   height: 20px;
-  margin-top: 10px;
+  margin-top: 6px;
 }
 
 .text-agree {
-  grid-column: 2/3;
-  align-self: center;
+  grid-column: 2 / 3;
+  align-self: start;
 }
 
 input,
@@ -82,7 +83,24 @@ input#file {
   width: 100%;
   padding: 0;
   border: none;
-  height: 27px;
+  height: 40px;
+}
+
+input#file:focus {
+  outline: 3px solid rgb(11, 11, 11);
+  border: none;
+}
+
+input[type="file" i]::-webkit-file-upload-button {
+  cursor: pointer;
+  height: 40px;
+  border: none;
+  background-color: #d8c14e;
+  color: #0000006a;
+  font-weight: 800;
+  font-size: clamp(0.875rem, 0.7679rem + 0.5357vw, 1rem);
+  border-radius: 0 1rem 1rem 0;
+  padding: 5px 10px;
 }
 
 .select,
@@ -101,4 +119,8 @@ input:focus,
 select:focus {
   outline: none;
   border-color: #000;
+}
+
+.submit-btn {
+  height: 40px;
 }
