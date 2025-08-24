@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import * as Yup from "yup";
 import { ValidationError } from "yup";
 import { useAppDispatch, useAppSelector } from "@/app/appHook";
@@ -12,6 +12,9 @@ const UnControledContent: React.FC<Props> = ({ onClose }) => {
   const { countries } = useAppSelector((state) => state.countries);
 
   const nameRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    nameRef.current?.focus();
+  }, []);
   const ageRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -198,11 +201,11 @@ const UnControledContent: React.FC<Props> = ({ onClose }) => {
 
       <div className="file inputBlock">
         <label htmlFor="file">Avatar:</label>
-        <input ref={fileRef} id="file" type="file" tabIndex={1} />
+        <input ref={fileRef} id="file" type="file" tabIndex={9} />
         {errors.file && <p className="error">{errors.file}</p>}
       </div>
 
-      <button className={"submit-btn"} type="submit" tabIndex={9}>Submit</button>
+      <button className={"submit-btn"} type="submit" tabIndex={10} >Submit</button>
     </form>
   );
 };

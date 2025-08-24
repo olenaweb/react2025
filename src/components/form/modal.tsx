@@ -1,20 +1,15 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { createPortal } from "react-dom";
 
 type ModalProps = {
-  isOpen: boolean;
+  isOpen?: boolean;
   onClose: () => void;
   children: React.ReactNode;
 };
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (isOpen) {
-      closeButtonRef.current?.focus();
-    }
-  }, [isOpen]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Escape") {
@@ -52,7 +47,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
 
   return createPortal(
     <div className="overlay" onClick={handleOverlayClick} onKeyDown={handleKeyDown}>
-      <div className="modal" ref={modalRef}>
+      {/* <div className="modal" ref={modalRef}> */}
+      <div className="modal">
         <button className="close-btn" ref={closeButtonRef} onClick={onClose}>
           ✕
         </button>

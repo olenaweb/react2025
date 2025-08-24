@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler, Resolver } from "react-hook-form";
-
+import { useRef, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/appHook";
 import { saveUser } from "@/features/user/userSlice";
 
@@ -26,7 +26,10 @@ type SubmitValues = Omit<FormDataInput, "file"> & { image: string };
 const ControledContent: React.FC<Props> = ({ onClose }) => {
   const dispatch = useAppDispatch();
   const { countries } = useAppSelector((state) => state.countries);
-
+  const nameRef = useRef<HTMLInputElement | null>(null);
+  useEffect(() => {
+    nameRef.current?.focus();
+  }, []);
   const getFile = (fileIn: unknown): File | undefined => {
     if (!fileIn) return undefined;
     if (fileIn instanceof File) return fileIn;
@@ -130,7 +133,7 @@ const ControledContent: React.FC<Props> = ({ onClose }) => {
     <form id="control" className="form" onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="Name inputBlock">
         <label htmlFor="name">Name</label>
-        <input id="name" type="text" {...register("name")} tabIndex={1} />
+        <input id="name" type="text" {...register("name")} tabIndex={1} ref={nameRef} />
         {errors.name && <p className="error">{errors.name.message}</p>}
       </div>
 

@@ -51,6 +51,13 @@ label {
   gap: 10px;
 }
 
+.agreement.inputBlock:focus-within {
+  outline: 3px solid rgb(11, 11, 11);
+
+  outline-offset: 10px;
+  border-radius: 1rem;
+}
+
 .check-agree {
   grid-column: 1/2;
   width: 20px;
