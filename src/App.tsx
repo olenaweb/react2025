@@ -46,7 +46,11 @@ const App: React.FC = () => {
       </div>
       {isOpen && (
         <Modal isOpen={isOpen} onClose={doCloseHandle}>
-          {formType === "control" ? <ControlledForm /> : <UncontrolledForm />}
+          {formType === "control" ? (
+            <ControlledForm onClose={doCloseHandle} />
+          ) : (
+            <UncontrolledForm onClose={doCloseHandle} />
+          )}
         </Modal>
       )}
     </>

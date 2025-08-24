@@ -1,12 +1,14 @@
 import React from "react";
 import UnControledContent from "./UnControledContent";
 import "./forms.css";
-
-const UnControledForm: React.FC = () => {
+type Props = {
+  onClose?: () => void;
+};
+const UnControledForm: React.FC<Props> = ({ onClose }) => {
   return (
     <div className={"wrapper"}>
       <h1>2.Uncontroled Form</h1>
-      <UnControledContent />
+      <UnControledContent onClose={onClose} />
     </div>
   );
 };

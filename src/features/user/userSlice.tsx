@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { formData } from "@/type/type";
+import { FormData } from "@/type/type";
 
 type UserState = {
-  data: formData[];
+  data: FormData[];
   highlight: boolean;
 };
 
 const initialState: UserState = {
-  data: [] as formData[],
+  data: [] as FormData[],
   highlight: false,
 };
 
@@ -15,11 +15,7 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    // saveUser(state, action: PayloadAction<formData>) {
-    //   state.data = action.payload;
-    //   state.highlight = true;
-    // },
-    saveUser: (state, action: PayloadAction<formData>) => {
+    saveUser: (state, action: PayloadAction<FormData>) => {
       state.data.push(action.payload);
       state.highlight = true;
     },

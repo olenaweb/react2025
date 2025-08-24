@@ -1,16 +1,16 @@
 import React, { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { ValidationError } from "yup";
 import { useAppDispatch, useAppSelector } from "@/app/appHook";
 
 import { saveUser } from "@/features/user/userSlice";
-
-const UnControledContent: React.FC = () => {
+type Props = {
+  onClose?: () => void;
+};
+const UnControledContent: React.FC<Props> = ({ onClose }) => {
   const dispatch = useAppDispatch();
   const { countries } = useAppSelector((state) => state.countries);
 
-  const navigate = useNavigate();
   const nameRef = useRef<HTMLInputElement>(null);
   const ageRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -42,14 +42,10 @@ const UnControledContent: React.FC = () => {
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password")], "Passwords don't match")
       .required("Is required"),
-    gender: Yup.string().required("Is required "),
-    agreement: Yup.boolean().oneOf([true], "Is required"),
+    gender: Yup.string().required("Choose gender "),
+    agreement: Yup.boolean().oneOf([true], "You must accept terms"),
     country: Yup.string().required("Choose the country"),
   });
-
-  const onCloseForm = () => {
-    navigate("/", { replace: true });
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -77,7 +73,7 @@ const UnControledContent: React.FC = () => {
       }
     }
 
-    const formData = {
+    const data = {
       name: nameRef.current?.value || "",
       age: ageRef.current?.value ? Number(ageRef.current.value) : 0,
       email: emailRef.current?.value || "",
@@ -90,11 +86,11 @@ const UnControledContent: React.FC = () => {
     };
 
     try {
-      const isValidate = await schema.validate(formData, { abortEarly: false });
+      const isValidate = await schema.validate(data, { abortEarly: false });
       console.log('"isValidate="', isValidate);
       setErrors({});
-      dispatch(saveUser(formData));
-      onCloseForm();
+      dispatch(saveUser(data));
+      onClose?.();
     } catch (err: unknown) {
       if (err instanceof ValidationError) {
         const newErrors: Record<string, string> = {};
