@@ -20,7 +20,6 @@ const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
     return () => document.removeEventListener("keydown", handleEsc);
   }, [onClose]);
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-
     if (e.key === "Tab" && modalRef.current) {
       const focusableEls = modalRef.current.querySelectorAll<HTMLElement>(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'

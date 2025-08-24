@@ -183,7 +183,8 @@ const ControledContent: React.FC<Props> = ({ onClose }) => {
           className="select"
           id="country"
           list="country-list"
-          {...register("country")} tabIndex={7}
+          {...register("country")}
+          tabIndex={7}
         />
         <datalist id="country-list">
           {countries.map((item: string) => (
@@ -209,13 +210,24 @@ const ControledContent: React.FC<Props> = ({ onClose }) => {
 
       <div className="file inputBlock">
         <label htmlFor="file">Avatar:</label>
-        <input id="file" type="file" accept="image/png, image/jpeg" {...register("file")} tabIndex={9} />
+        <input
+          id="file"
+          type="file"
+          accept="image/png, image/jpeg"
+          {...register("file")}
+          tabIndex={9}
+        />
         <p className="error" aria-live="polite">
           {(errors.file?.message as string) || "\u00A0"}
         </p>
       </div>
 
-      <button className={"submit-btn"} type="submit" disabled={!isValid || isSubmitting} tabIndex={10}>
+      <button
+        className={"submit-btn"}
+        type="submit"
+        disabled={!isValid || isSubmitting}
+        tabIndex={10}
+      >
         {isSubmitting ? "Submitting..." : "Submit"}
       </button>
     </form>

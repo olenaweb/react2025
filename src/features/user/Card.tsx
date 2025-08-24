@@ -14,7 +14,7 @@ export const Card: React.FC<CardProps> = ({ last, ...data }) => {
   }, [last]);
 
   return (
-    <li className={`card ${highlight ? "card--highlight" : ""}`} >
+    <li className={`card ${highlight ? "card--highlight" : ""}`}>
       <p>{data.name}</p>
       <div>{data.image && <img className="card-image" src={data.image} alt="Image" />}</div>
       <div>Name: {data.name}</div>

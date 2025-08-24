@@ -9,6 +9,7 @@ export default {
     "\\.(jpg|jpeg|png|gif|svg|woff|woff2|ttf|eot)$": "<rootDir>/test/__mocks__/fileMock.js",
     "\\.(css|less|scss|sass)$": "identity-obj-proxy",
     '^(\\.{1,2}/.*)\\.js$': '$1',
+    '^@/(.*)$': '<rootDir>/src/$1',
   },
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
   collectCoverageFrom: [
@@ -17,6 +18,9 @@ export default {
     '!src/index.{js,jsx,ts,tsx}',
     '!src/setupTests.{js,ts}',
     '!src/**/*.d.ts',
+    '!src/main.tsx',
+    '!src/**/countriesList.tsx',
+    '!src/**/appHook.tsx',
     "!<rootDir>/node_modules/",
     "!<rootDir>/dist/",
     "!<rootDir>/"

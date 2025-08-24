@@ -16,7 +16,6 @@ const userSlice = createSlice({
     saveUser: (state, action: PayloadAction<FormData>) => {
       state.data.push(action.payload);
     },
-
   },
 });
 

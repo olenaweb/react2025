@@ -24,7 +24,6 @@ const UnControledContent: React.FC<Props> = ({ onClose }) => {
   const fileRef = useRef<HTMLInputElement>(null);
   const countryRef = useRef<HTMLInputElement>(null);
 
-
   const [errors, setErrors] = useState<Record<string, string>>({});
   const getFile = (fileIn: unknown): File | undefined => {
     if (!fileIn) return undefined;
@@ -107,13 +106,14 @@ const UnControledContent: React.FC<Props> = ({ onClose }) => {
       agreement: agreementRef.current?.checked || false,
       country: countryRef.current?.value || "",
       image: base64,
-      file: fileRef.current?.files?.[0]
+      file: fileRef.current?.files?.[0],
     };
 
     try {
       await schema.validate(data, { abortEarly: false });
       setErrors({});
       const { file, ...rest } = data;
+      console.log('"file="', file);
       const values: FormData = { ...rest };
       dispatch(saveUser(values));
       onClose?.();
@@ -185,7 +185,8 @@ const UnControledContent: React.FC<Props> = ({ onClose }) => {
           className="select"
           id="country"
           list="country-list"
-          ref={countryRef} tabIndex={7}
+          ref={countryRef}
+          tabIndex={7}
           placeholder="Choose country..."
         />
         <datalist id="country-list">
@@ -197,7 +198,13 @@ const UnControledContent: React.FC<Props> = ({ onClose }) => {
       </div>
 
       <div className="agreement inputBlock">
-        <input className={"check-agree"} ref={agreementRef} type="checkbox" id="agreement" tabIndex={8} />
+        <input
+          className={"check-agree"}
+          ref={agreementRef}
+          type="checkbox"
+          id="agreement"
+          tabIndex={8}
+        />
         <label className={"text-agree"} htmlFor="agreement">
           I agree to the terms and conditions
         </label>
@@ -210,7 +217,9 @@ const UnControledContent: React.FC<Props> = ({ onClose }) => {
         {errors.file && <p className="error">{errors.file}</p>}
       </div>
 
-      <button className={"submit-btn"} type="submit" tabIndex={10} >Submit</button>
+      <button className={"submit-btn"} type="submit" tabIndex={10}>
+        Submit
+      </button>
     </form>
   );
 };
