@@ -19,6 +19,7 @@ export default {
     '!src/setupTests.{js,ts}',
     '!src/**/*.d.ts',
     '!src/main.tsx',
+    '!src/**/type.tsx',
     '!src/**/countriesList.tsx',
     '!src/**/appHook.tsx',
     "!<rootDir>/node_modules/",

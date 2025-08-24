@@ -1,15 +1,15 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import ControledForm from "../form/UnControledForm";
-import ControledContent from "../form/UnControledContent";
+import UnControledForm from "../form/UnControledForm";
+import UnControledContent from "../form/UnControledContent";
 
 jest.mock("../form/UnControledContent", () => ({
   __esModule: true,
   default: jest.fn(() => <div data-testid="mock-controled-content" />),
 }));
 
-const MockedControledContent = ControledContent as jest.Mock;
+const MockedControledContent = UnControledContent as jest.Mock;
 
 describe("UnControledForm", () => {
   beforeEach(() => {
@@ -17,7 +17,7 @@ describe("UnControledForm", () => {
   });
 
   test("must display the title and a subsidiary component", () => {
-    render(<ControledForm />);
+    render(<UnControledForm />);
 
     const heading = screen.getByRole("heading", { name: /2.Uncontroled Form/i });
     expect(heading).toBeInTheDocument();
