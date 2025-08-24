@@ -22,7 +22,7 @@ const UnControledContent: React.FC<Props> = ({ onClose }) => {
   const genderRef = useRef<HTMLSelectElement>(null);
   const agreementRef = useRef<HTMLInputElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
-  const countryRef = useRef<HTMLSelectElement>(null);
+  const countryRef = useRef<HTMLInputElement>(null);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const getFile = (fileIn: unknown): File | undefined => {
@@ -175,19 +175,20 @@ const UnControledContent: React.FC<Props> = ({ onClose }) => {
         </select>
         {errors.gender && <p className="error">{errors.gender}</p>}
       </div>
-
       <div className="country inputBlock">
         <label htmlFor="country">Country:</label>
-        <select className="select" ref={countryRef} id="country" autoComplete="on" tabIndex={7}>
-          <option className="choose-options" value="">
-            Choose country...
-          </option>
-          {countries.map((item) => (
-            <option className="choose-options" key={item} value={item}>
-              {item}
-            </option>
+        <input
+          className="select"
+          id="country"
+          list="country-list"
+          ref={countryRef} tabIndex={7}
+          placeholder="Choose country..."
+        />
+        <datalist id="country-list">
+          {countries.map((item: string) => (
+            <option key={item} value={item} />
           ))}
-        </select>
+        </datalist>
         {errors.country && <p className="error">{errors.country}</p>}
       </div>
 

@@ -179,16 +179,17 @@ const ControledContent: React.FC<Props> = ({ onClose }) => {
 
       <div className="country inputBlock">
         <label htmlFor="country">Country:</label>
-        <select className="select" id="country" autoComplete="on" {...register("country")} tabIndex={7}>
-          <option className="choose-options" value="">
-            Choose country...
-          </option>
-          {countries.map((item) => (
-            <option className="choose-options" key={item} value={item}>
-              {item}
-            </option>
+        <input
+          className="select"
+          id="country"
+          list="country-list"
+          {...register("country")} tabIndex={7}
+        />
+        <datalist id="country-list">
+          {countries.map((item: string) => (
+            <option key={item} value={item} />
           ))}
-        </select>
+        </datalist>
         {errors.country && <p className="error">{errors.country.message}</p>}
       </div>
 
