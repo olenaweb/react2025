@@ -65,7 +65,6 @@ describe("ControledContent - Final Fixed Test", () => {
   });
 
   test("should render all form fields correctly", () => {
-    // Проверяем, что все поля формы отображаются на экране
     expect(screen.getByLabelText("Name")).toBeInTheDocument();
     expect(screen.getByLabelText("Age:")).toBeInTheDocument();
     expect(screen.getByLabelText("Email:")).toBeInTheDocument();
