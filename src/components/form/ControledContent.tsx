@@ -133,7 +133,7 @@ const ControledContent: React.FC<Props> = ({ onClose }) => {
     <form id="control" className="form" onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="Name inputBlock">
         <label htmlFor="name">Name</label>
-        <input id="name" type="text" {...register("name")} tabIndex={1} ref={nameRef} />
+        <input id="name" type="text" {...register("name")} tabIndex={1} autoFocus />
         {errors.name && <p className="error">{errors.name.message}</p>}
       </div>
 

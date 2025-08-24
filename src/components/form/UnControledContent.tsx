@@ -1,20 +1,20 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import * as Yup from "yup";
 import { ValidationError } from "yup";
-import { useAppDispatch, useAppSelector } from "@/app/appHook";
 
+import { useAppDispatch, useAppSelector } from "@/app/appHook";
 import { saveUser } from "@/features/user/userSlice";
+
+import { FormData } from "@/type/type";
 type Props = {
   onClose?: () => void;
 };
+
 const UnControledContent: React.FC<Props> = ({ onClose }) => {
   const dispatch = useAppDispatch();
   const { countries } = useAppSelector((state) => state.countries);
 
   const nameRef = useRef<HTMLInputElement>(null);
-  useEffect(() => {
-    nameRef.current?.focus();
-  }, []);
   const ageRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -23,6 +23,7 @@ const UnControledContent: React.FC<Props> = ({ onClose }) => {
   const agreementRef = useRef<HTMLInputElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const countryRef = useRef<HTMLInputElement>(null);
+
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const getFile = (fileIn: unknown): File | undefined => {
@@ -55,7 +56,10 @@ const UnControledContent: React.FC<Props> = ({ onClose }) => {
     agreement: Yup.boolean().oneOf([true], "You must accept terms").required("accept terms "),
     country: Yup.string().required("Choose the country"),
     file: Yup.mixed()
-      .required("choose one file")
+      .test("fileRequired", "choose one file", (value: unknown) => {
+        const file = getFile(value);
+        return !!file;
+      })
       .test("fileType", "Only PNG or JPEG", (value: unknown) => {
         const file = getFile(value);
         if (!file) return true;
@@ -73,7 +77,6 @@ const UnControledContent: React.FC<Props> = ({ onClose }) => {
 
     const file = fileRef.current?.files?.[0];
     let base64: string | undefined;
-    console.log('"file="', file);
     if (file) {
       if (!["image/png", "image/jpeg"].includes(file.type)) {
         setErrors({ file: "Only PNG or JPEG are acceptable" });
@@ -104,13 +107,15 @@ const UnControledContent: React.FC<Props> = ({ onClose }) => {
       agreement: agreementRef.current?.checked || false,
       country: countryRef.current?.value || "",
       image: base64,
+      file: fileRef.current?.files?.[0]
     };
 
     try {
-      const isValidate = await schema.validate(data, { abortEarly: false });
-      console.log('"isValidate="', isValidate);
+      await schema.validate(data, { abortEarly: false });
       setErrors({});
-      dispatch(saveUser(data));
+      const { file, ...rest } = data;
+      const values: FormData = { ...rest };
+      dispatch(saveUser(values));
       onClose?.();
     } catch (err: unknown) {
       if (err instanceof ValidationError) {
@@ -121,7 +126,6 @@ const UnControledContent: React.FC<Props> = ({ onClose }) => {
           }
         });
         setErrors(newErrors);
-        console.log('"newErrors="', newErrors);
       } else {
         console.error(err);
         setErrors({ _general: (err as Error)?.message || "Unexpected error" });
@@ -133,7 +137,7 @@ const UnControledContent: React.FC<Props> = ({ onClose }) => {
     <form id="uncontrol" className={"form"} onSubmit={handleSubmit}>
       <div className="Name inputBlock">
         <label htmlFor="name">Name:</label>
-        <input ref={nameRef} id="name" type="text" tabIndex={1} />
+        <input ref={nameRef} id="name" type="text" tabIndex={1} autoFocus />
         {errors.name && <p className="error">{errors.name}</p>}
       </div>
 

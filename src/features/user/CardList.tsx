@@ -7,10 +7,11 @@ type CardListProps = {
 import "./user.css";
 
 export const CardList: React.FC<CardListProps> = ({ result }) => {
+  const lastElementIndex = result.length - 1;
   return (
     <ul className="cards">
       {result.map((item, i) => (
-        <Card key={i} {...item} />
+        <Card key={i} {...item} last={i === lastElementIndex} />
       ))}
     </ul>
   );

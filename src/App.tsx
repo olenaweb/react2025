@@ -16,7 +16,6 @@ const App: React.FC = () => {
   const [formType, setFormType] = useState<"control" | "uncontrol">("control");
   const result = useAppSelector((state) => state.user);
   const results = result.data;
-  console.log('"results="', results);
   const lastFocusedButton = useRef<HTMLButtonElement | null>(null);
 
   const controlFormHandle = (e: React.MouseEvent<HTMLButtonElement>) => {

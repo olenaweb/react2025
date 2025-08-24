@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 
 type ModalProps = {
@@ -10,11 +10,16 @@ type ModalProps = {
 const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
-
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    document.addEventListener("keydown", handleEsc);
+    return () => document.removeEventListener("keydown", handleEsc);
+  }, [onClose]);
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "Escape") {
-      onClose();
-    }
 
     if (e.key === "Tab" && modalRef.current) {
       const focusableEls = modalRef.current.querySelectorAll<HTMLElement>(
@@ -47,7 +52,6 @@ const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
 
   return createPortal(
     <div className="overlay" onClick={handleOverlayClick} onKeyDown={handleKeyDown}>
-      {/* <div className="modal" ref={modalRef}> */}
       <div className="modal">
         <button className="close-btn" ref={closeButtonRef} onClick={onClose}>
           ✕
