@@ -8,17 +8,17 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler, Resolver } from "react-hook-form";
 import AddNewInformation from "@/components/form/add-new-information";
-
+const currentYear = new Date().getFullYear();
 const schema = Yup.object().shape({
   country: Yup.string().matches(
     /^($| $|[A-Z][A-Za-z0-9 ]*)$/,
-    "The wrong format. The field should begin with the title letter or be empty."
+    "Should begin with the title letter or be empty."
   ),
   year: Yup.number()
     .required("Year is required")
     .typeError("Year should be a number")
     .min(1900, "Min year 1900")
-    .max(2025, "Max year 2025"),
+    .max(currentYear, `Max year ${currentYear}`),
 });
 
 type FormDataInput = {

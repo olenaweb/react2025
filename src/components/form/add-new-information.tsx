@@ -1,5 +1,4 @@
 import React from "react";
-import "./forms.css";
 import Content from "./content";
 type Props = {
   onClose?: () => void;
