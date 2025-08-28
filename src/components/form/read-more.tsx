@@ -3,7 +3,7 @@ import Content from "./content";
 type Props = {
   onClose?: () => void;
 };
-const AddNewInformation: React.FC<Props> = ({ onClose }) => {
+const ReadMore: React.FC<Props> = ({ onClose }) => {
   return (
     <div className={"wrapper"}>
       <h1>Select additional information</h1>
@@ -12,4 +12,4 @@ const AddNewInformation: React.FC<Props> = ({ onClose }) => {
   );
 };
 
-export default AddNewInformation;
+export default ReadMore;
