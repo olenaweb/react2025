@@ -13,10 +13,18 @@ const DataTable: React.FC<DataTableProps> = ({ data }) => {
       <table className="data-table">
         <thead>
           <tr>
-            <th>Country</th>
+            <th>
+              <button className="datatable-sorter">
+                <span>Country</span> <svg className="size-4 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" data-sorting-icon="true"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"></path> </svg>
+              </button>
+            </th>
             <th>ISO Code</th>
             <th>Year</th>
-            <th>Population</th>
+            <th>
+              <button className="datatable-sorter">
+                <span>Population</span> <svg className="size-4 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" data-sorting-icon="true"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"></path> </svg>
+              </button>
+            </th>
             <th>CO2</th>
             <th>CO2 per capita</th>
           </tr>

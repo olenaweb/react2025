@@ -48,6 +48,34 @@
   transition: background-color 0.2s ease;
 }
 
+.datatable-sorter {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: white;
+}
+
+.datatable-sorter:hover {
+  border: none;
+}
+
+.datatable-sorter:active {
+  outline: black 1px solid;
+}
+
+.shrink-0 {
+  flex-shrink: 0;
+}
+
+.size-4 {
+  width: 20px;
+  height: 20px;
+}
+
 .data-table tbody tr:last-child td {
   border-bottom: none;
 }
