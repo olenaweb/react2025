@@ -23,6 +23,7 @@ export interface ErrorResponse {
 export type Response = CountryData[] | ErrorResponse;
 
 export interface CountryData {
+  id: number;
   country: string;
   iso_code?: string;
   data: Values[];
@@ -43,4 +44,14 @@ export interface Values {
   nitrous_oxide?: number;
   nitrous_oxide_per_capita?: number;
   temperature_change_anomaly?: number;
+}
+export interface FetchError extends Error {
+  message: string;
+}
+
+export interface RawDataStructure {
+  [countryName: string]: {
+    iso_code?: string;
+    data: Values[];
+  };
 }

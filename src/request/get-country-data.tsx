@@ -1,17 +1,8 @@
 import { ErrorResponse, Response, CountryData, Values } from "@/type/type";
+import { FetchError } from "@/type/type";
+import { RawDataStructure } from "@/type/type";
 
-interface FetchError extends Error {
-  message: string;
-}
-
-interface RawDataStructure {
-  [countryName: string]: {
-    iso_code?: string;
-    data: Values[];
-  };
-}
-
-export async function getData(currYear: number): Promise<Response> {
+export async function getCountryData(currYear: number, currCountry: string): Promise<Response> {
   try {
     const response = await fetch(
       "https://raw.githubusercontent.com/olenaweb/country/main/source-data.json"
@@ -24,14 +15,27 @@ export async function getData(currYear: number): Promise<Response> {
       })
       .then((informdata: RawDataStructure) => {
         // console.log('Raw data structure:', informdata);
-
-        const countriesArray: CountryData[] = Object.keys(informdata).map((countryName) => ({
-          country: countryName,
-          iso_code: informdata[countryName].iso_code,
-          data: informdata[countryName].data || [],
-        }));
+        let countriesArray: CountryData[] = [];
+        if (currCountry === undefined || currCountry === "") {
+          countriesArray = Object.keys(informdata).map((countryName, i) => ({
+            id: i,
+            country: countryName,
+            iso_code: informdata[countryName].iso_code,
+            data: informdata[countryName].data || [],
+          }));
+        } else {
+          countriesArray = Object.keys(informdata)
+            .map((countryName, i) => ({
+              id: i,
+              country: countryName,
+              iso_code: informdata[countryName].iso_code,
+              data: informdata[countryName].data || [],
+            }))
+            .filter((value: CountryData) => value.country === currCountry);
+        }
 
         const selectedCountries = countriesArray.map((country: CountryData) => ({
+          id: country.id,
           country: country.country,
           iso_code: country.iso_code,
           data: country.data
