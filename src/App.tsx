@@ -5,7 +5,8 @@ import Modal from "@/components/form/modal";
 
 import SearchForm from "@/components/form/search-form";
 import ReadMore from "@/components/form/read-more";
-import Loader from "@/components/loader/Loader";
+import Loader from "@/components/loader/loader";
+import DataTable from "@/components/table/DataTable";
 
 import ReloadButton from "@/components/buttons/BackButton";
 
@@ -88,18 +89,7 @@ const App: React.FC = () => {
         </div>
       );
     } else {
-      return (
-        <>
-          <p>Data</p>
-          <ul className="cards">
-            {requestData.map((item) => (
-              <p key={item.country}>
-                Country: {item.country} ISO: {item.iso_code}
-              </p>
-            ))}
-          </ul>
-        </>
-      );
+      return <DataTable data={requestData} />;
     }
   }, [isLoading, errorMessage, requestData]);
 

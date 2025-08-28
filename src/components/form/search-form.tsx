@@ -114,7 +114,7 @@ const SearchForm: React.FC<SearchProps> = ({ updateCountry, updateYear }) => {
               onClick={controlFormHandle}
               tabIndex={4}
             >
-              Add Fields
+              Read More
             </button>
           </div>
         </form>
