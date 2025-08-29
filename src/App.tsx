@@ -65,7 +65,6 @@ const App: React.FC = () => {
           ]);
         } else {
           setRequestData(resultData);
-          console.log('"resultData="', resultData);
           setErrorMessage("");
         }
         setIsLoading(false);
