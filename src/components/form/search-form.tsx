@@ -34,6 +34,7 @@ interface SearchProps {
 
 const SearchForm: React.FC<SearchProps> = ({ updateCountry, updateYear }) => {
   const countries = useAppSelector((state) => state.countries.countries);
+
   const {
     register,
     handleSubmit,
@@ -50,13 +51,11 @@ const SearchForm: React.FC<SearchProps> = ({ updateCountry, updateYear }) => {
   const [isOpen, setIsOpen] = useState(false);
   const doCloseHandle = () => {
     setIsOpen(false);
-    console.log('"isOpen="', isOpen);
   };
 
   const controlFormHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setIsOpen(true);
-    console.log('"isOpen="', isOpen);
   };
 
   const onSubmit: SubmitHandler<FormDataInput> = async (data) => {

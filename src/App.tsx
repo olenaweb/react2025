@@ -1,31 +1,21 @@
 import "./index.css";
 import "./app.css";
-import { useState, useEffect, useMemo } from "react";
-import Modal from "@/components/form/modal";
+import { useState, useEffect } from "react";
+import React, { Suspense } from "react";
 
+const DataTable = React.lazy(() => import("@/components/table/DataTable"));
 import SearchForm from "@/components/form/search-form";
-import ReadMore from "@/components/form/read-more";
 import Loader from "@/components/loader/loader";
-import DataTable from "@/components/table/DataTable";
-
-import ReloadButton from "@/components/buttons/BackButton";
 
 import { getCountryData } from "@/request/get-country-data";
 import { Response } from "@/type/type";
 import { CountryData } from "@/type/type";
 
 const App: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [requestData, setRequestData] = useState<CountryData[]>([
-    {
-      id: 0,
-      country: "",
-      iso_code: "",
-      data: [],
-    },
-  ]);
+  const [requestData, setRequestData] = useState<CountryData[]>([]);
+  const [filteredRequestData, setFilteredRequestData] = useState<CountryData[]>(requestData);
   const [currYear, setCurrentYear] = useState<number>(2023);
   const [currCountry, setCurrentCountry] = useState<string>("");
 
@@ -37,32 +27,14 @@ const App: React.FC = () => {
     setCurrentYear(year);
   };
 
-  // const controlFormHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
-  //   e.preventDefault();
-  //   setIsOpen(true);
-  //   console.log('"isOpen="', isOpen);
-  // };
-
-  const doCloseHandle = () => {
-    setIsOpen(false);
-    console.log('"isOpen="', isOpen);
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const resultData: Response = await getCountryData(currYear, currCountry);
+        const resultData: Response = await getCountryData();
         if ("error" in resultData) {
           setErrorMessage("Sorry, the name is not found. Try another name");
-          setRequestData([
-            {
-              id: 0,
-              country: "",
-              iso_code: "",
-              data: [],
-            },
-          ]);
+          setRequestData([]);
         } else {
           setRequestData(resultData);
           setErrorMessage("");
@@ -76,34 +48,41 @@ const App: React.FC = () => {
     };
 
     fetchData();
-  }, [currYear, currCountry]);
+  }, []);
 
-  const viewContainer = useMemo(() => {
-    if (isLoading) {
-      return <Loader />;
-    } else if (errorMessage !== "") {
-      return (
-        <div className="error-message">
-          {errorMessage} <ReloadButton />
-        </div>
-      );
-    } else {
-      return <DataTable data={requestData} />;
+  useEffect(() => {
+    if (requestData.length > 0 && requestData[0].country !== "") {
+      setIsLoading(true);
+      const filtered = requestData
+        .filter((item) => {
+          const matchesCountry = currCountry ? item.country === currCountry : true;
+          return matchesCountry;
+        })
+        .map((item) => ({
+          ...item,
+          data: item.data.filter((d) => d.year === currYear),
+        }))
+        .filter((item) => item.data.length > 0);
+
+      setFilteredRequestData(filtered);
+      setIsLoading(false);
     }
-  }, [isLoading, errorMessage, requestData]);
+  }, [requestData, currYear, currCountry]);
 
   return (
     <div className="view-app">
-      <div className="search-block">
-        <SearchForm updateCountry={updateCounty} updateYear={updateYear} />
-      </div>
-      <div className="view-body">{viewContainer}</div>
-
-      {isOpen && (
-        <Modal isOpen={isOpen} onClose={doCloseHandle}>
-          <ReadMore onClose={doCloseHandle} />
-        </Modal>
-      )}
+      <SearchForm updateCountry={updateCounty} updateYear={updateYear} />
+      <Suspense fallback={<Loader />}>
+        {isLoading ? (
+          <Loader />
+        ) : filteredRequestData.length > 0 ? (
+          <DataTable data={filteredRequestData} />
+        ) : !errorMessage && requestData.length > 0 ? (
+          <div className="no-data">No data found for the selected criteria.</div>
+        ) : !errorMessage ? (
+          <div className="no-data">No data available. Loading...</div>
+        ) : null}
+      </Suspense>
     </div>
   );
 };
