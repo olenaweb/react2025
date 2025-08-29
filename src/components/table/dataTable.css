@@ -1,51 +1,75 @@
 .data-table-container {
-  margin: 20px 0;
-  padding: 20px;
   background: #f9f9f9;
-  border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   min-width: 95%;
-}
-
-.data-table-container h2 {
-  margin-bottom: 16px;
-  color: #333;
-  font-size: 1.5rem;
-  font-weight: 600;
+  overflow: auto;
+  max-height: calc(100vh - 150px);
+  max-width: 100%;
+  font-size: clamp(0.875rem, 0.6755rem + 0.6383vw, 1.25rem);
 }
 
 .data-table {
   width: 100%;
+  min-width: 1200px;
   border-collapse: collapse;
   background: white;
   border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+  display: table;
+  max-height: calc(100vh - 150px);
+  overflow: auto;
 }
 
 .data-table thead {
   background: #a58305;
   color: white;
+  display: table-header-group;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  font-size: clamp(0.875rem, 0.8085rem + 0.2128vw, 1rem);
+}
+
+.data-table tbody {
+  display: table-row-group;
+  font-size: clamp(0.875rem, 0.8085rem + 0.2128vw, 1rem);
+}
+
+.data-table tr {
+  display: table-row;
 }
 
 .data-table th {
-  padding: 12px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 12px 8px;
   text-align: center;
   font-weight: 600;
-  font-size: 0.9rem;
-  text-transform: uppercase;
   letter-spacing: 0.5px;
+  word-wrap: break-word;
+  background: #a58305;
+  white-space: nowrap;
 }
 
 .data-table th.sortable {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   text-align: left;
   cursor: pointer;
+  background: #a58305;
 }
 
 .data-table td {
-  padding: 12px 16px;
+  padding: 12px 8px;
   border-bottom: 1px solid #e0e0e0;
   color: #555;
+  word-wrap: break-word;
+  text-align: center;
+  display: table-cell;
+  white-space: nowrap;
 }
 
 .data-table tbody tr:hover {
@@ -53,15 +77,17 @@
   transition: background-color 0.2s ease;
 }
 
-.datatable-sorter {
+button.datatable-sorter {
   cursor: pointer;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   border: none;
   background: transparent;
   color: white;
+  font-size: clamp(0.875rem, 0.8085rem + 0.2128vw, 1rem);
+  padding: 5px 2px;
 }
 
 .datatable-sorter:hover {
@@ -109,26 +135,32 @@
   .data-table-container {
     padding: 10px;
     margin: 10px 0;
+    max-height: 400px;
   }
 
   .data-table {
-    font-size: 0.8rem;
+    max-height: 350px;
   }
 
   .data-table th,
   .data-table td {
-    padding: 8px 12px;
-  }
-
-  .data-table-container h2 {
-    font-size: 1.2rem;
+    padding: 8px 6px;
+    min-width: 80px;
   }
 }
 
 @media (max-width: 480px) {
+  .data-table-container {
+    max-height: 300px;
+  }
+
+  .data-table {
+    max-height: 250px;
+  }
+
   .data-table th,
   .data-table td {
-    padding: 6px 8px;
-    font-size: 0.7rem;
+    padding: 6px 4px;
+    min-width: 70px;
   }
 }

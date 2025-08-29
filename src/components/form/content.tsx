@@ -13,7 +13,6 @@ type Props = {
 const Content: React.FC<Props> = () => {
   const dispatch = useAppDispatch();
   const informData = useAppSelector((state) => state.inform.data);
-  console.log("Inform Data from Redux:", informData);
   const {
     register,
     handleSubmit,
@@ -56,7 +55,13 @@ const Content: React.FC<Props> = () => {
           </div>
 
           <div className="inform-inputBlock">
-            <input className={"inform-add-column"} type="checkbox" id="gdp" {...register("gdp")} tabIndex={2} />
+            <input
+              className={"inform-add-column"}
+              type="checkbox"
+              id="gdp"
+              {...register("gdp")}
+              tabIndex={2}
+            />
             <label className={"text-add-column"} htmlFor="gdp">
               GDP
             </label>

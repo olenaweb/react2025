@@ -42,10 +42,8 @@
   height: 40px;
   background: #a78107b2;
   color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
   transition: background 0.3s ease;
+  align-self: center;
 }
 
 .inform-submit-btn:hover {
