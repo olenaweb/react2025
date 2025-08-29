@@ -6,7 +6,7 @@ type Props = {
 const ReadMore: React.FC<Props> = ({ onClose }) => {
   return (
     <div className={"wrapper"}>
-      <h1>Select additional information</h1>
+      <h1>Select additional columns for viewing</h1>
       <Content onClose={onClose} />
     </div>
   );

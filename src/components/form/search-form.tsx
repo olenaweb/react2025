@@ -18,8 +18,8 @@ const schema = Yup.object().shape({
   year: Yup.number()
     .required("Year is required")
     .typeError("Year should be a number")
-    .min(1900, "Min year 1900")
-    .max(currentYear, `Max year ${currentYear}`),
+    .min(1750, "Min year 1750")
+    .max(currentYear - 2, `Max year ${currentYear - 2}`),
 });
 
 type FormDataInput = {
