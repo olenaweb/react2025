@@ -1,22 +1,33 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 
-import { CountryData } from "@/type/type";
+import { CountryData, Response } from "@/type/type";
 import "./dataTable.css";
 import { FormData } from "@/type/type";
+import Loader from "@/components/loader/loader";
+
 import { useAppSelector } from "@/app/appHook";
+import { getCountryData } from "@/request/get-country-data";
 
 interface DataTableProps {
-  data: CountryData[];
+  year: number;
+  country: string;
 }
 
-const DataTable: React.FC<DataTableProps> = ({ data }) => {
-  console.log('"data="', data);
+const DataTable: React.FC<DataTableProps> = ({ year, country }) => {
   const [sortCountry, setSortCountry] = useState<string>("asc");
   const [sortPopulation, setSortPopulation] = useState<string>("asc");
-  const [sortedData, setSortedData] = useState<CountryData[]>(data);
-  const [highlightedRows, setHighlightedRows] = useState<Set<number>>(new Set());
+
+  const [allData, setAllData] = useState<CountryData[]>([]);
+  const [sortedData, setSortedData] = useState<CountryData[]>([]);
   const previousDataRef = useRef<CountryData[]>([]);
+
+  const [highlightedRows, setHighlightedRows] = useState<Set<number>>(new Set());
+
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isInitialLoad, setIsInitialLoad] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
   const informData = useAppSelector((state) => state.inform.data);
   const {
     co2_per_gdp,
@@ -32,12 +43,56 @@ const DataTable: React.FC<DataTableProps> = ({ data }) => {
   } = informData as FormData;
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const resultData: Response = await getCountryData();
+        if ("error" in resultData) {
+          setErrorMessage(resultData.error + " 404 (Please try again later)");
+          setAllData([]);
+          setIsInitialLoad(false);
+        } else {
+          setErrorMessage("");
+          setAllData(resultData);
+          setIsInitialLoad(true);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setErrorMessage("Something's gone wrong :-( ");
+        setIsInitialLoad(false);
+      }
+      finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (allData.length > 0) {
+      const filtered = allData
+        .filter((item) => {
+          const matchesCountry = country ? item.country === country : true;
+          return matchesCountry;
+        })
+        .map((item) => ({
+          ...item,
+          data: item.data.filter((d) => d.year === year),
+        }))
+        .filter((item) => item.data.length > 0);
+
+      setSortedData(filtered);
+    }
+  }, [allData, year, country]);
+
+  useEffect(() => {
     const previousData = previousDataRef.current;
 
     if (previousData.length > 0) {
       const changedRowIds = new Set<number>();
 
-      data.forEach((item) => {
+      sortedData.forEach((item) => {
         const prevItem = previousData.find((prev) => prev.country === item.country);
         if (prevItem) {
           const currentData = item.data.length > 0 ? item.data[0] : null;
@@ -78,9 +133,8 @@ const DataTable: React.FC<DataTableProps> = ({ data }) => {
       }
     }
 
-    setSortedData(data);
-    previousDataRef.current = [...data];
-  }, [data]);
+    previousDataRef.current = [...sortedData];
+  }, [sortedData]);
 
   const handleSortByCountry = () => {
     const sorted = [...sortedData].sort((a, b) => {
@@ -107,8 +161,22 @@ const DataTable: React.FC<DataTableProps> = ({ data }) => {
     setSortPopulation(sortPopulation === "asc" ? "desc" : "asc");
     setSortedData(sorted);
   };
+
+  if (isLoading) {
+    return (<Loader />);
+  }
+
+  if (errorMessage && !isInitialLoad) {
+    return <div className="error-message">{errorMessage}</div>;
+  }
+
+  if (sortedData.length === 0 && allData.length > 0 && isInitialLoad) {
+    return <div className="no-data">No data found for the selected criteria.</div>;
+  }
+
   return (
     <div className="data-table-container">
+
       <table className="data-table">
         <thead>
           <tr>
@@ -235,6 +303,7 @@ const DataTable: React.FC<DataTableProps> = ({ data }) => {
           ))}
         </tbody>
       </table>
+
     </div>
   );
 };

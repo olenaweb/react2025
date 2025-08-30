@@ -14,7 +14,6 @@ export async function getCountryData(): Promise<Response> {
         return informdata.json();
       })
       .then((informdata: RawDataStructure) => {
-        // console.log('Raw data structure:', informdata);
         let countriesArray: CountryData[] = [];
         countriesArray = Object.keys(informdata).map((countryName, i) => ({
           id: i,

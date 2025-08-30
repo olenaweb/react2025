@@ -14,7 +14,6 @@ export async function getCountryData(currYear: number, currCountry: string): Pro
         return informdata.json();
       })
       .then((informdata: RawDataStructure) => {
-        // console.log('Raw data structure:', informdata);
         let countriesArray: CountryData[] = [];
         if (currCountry === undefined || currCountry === "") {
           countriesArray = Object.keys(informdata).map((countryName, i) => ({

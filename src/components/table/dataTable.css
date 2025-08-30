@@ -1,3 +1,25 @@
+.error-message,
+.no-data {
+  text-align: center;
+  padding: 40px 20px;
+  margin: 20px auto;
+  max-width: 500px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.error-message {
+  color: #d32f2f;
+  border-left: 4px solid #d32f2f;
+  min-width: 100%;
+}
+
+.no-data {
+  color: #666;
+  border-left: 4px solid #3ef307;
+}
+
 .data-table-container {
   background: #f9f9f9;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

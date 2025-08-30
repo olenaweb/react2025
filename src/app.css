@@ -121,7 +121,8 @@
   background: #f9f9f9;
   border-radius: 8px;
   margin: 20px;
-  border: 2px dashed #ccc;
+  border: 2px solid #ccc;
+  min-width: 100%;
 }
 
 .error-message {
