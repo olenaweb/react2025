@@ -21,16 +21,16 @@ const Content: React.FC<Props> = () => {
     mode: "onTouched",
     resolver: undefined as unknown as Resolver<FormData>,
     defaultValues: {
-      population_growth_prct: informData.population_growth_prct || false,
+      co2_per_gdp: informData.co2_per_gdp || false,
       gdp: informData.gdp || false,
-      cement_co2: informData.cement_co2 || false,
-      co2_growth_abs: informData.co2_growth_abs || false,
+      ghg_per_capita: informData.ghg_per_capita || false,
+      cumulative_co2: informData.cumulative_co2 || false,
       co2_growth_prct: informData.co2_growth_prct || false,
       methane: informData.methane || false,
       methane_per_capita: informData.methane_per_capita || false,
       nitrous_oxide: informData.nitrous_oxide || false,
       nitrous_oxide_per_capita: informData.nitrous_oxide_per_capita || false,
-      temperature_change_anomaly: informData.temperature_change_anomaly || false,
+      total_ghg: informData.total_ghg || false,
     },
   });
   const onSubmit: SubmitHandler<FormData> = async (data) => {
@@ -44,13 +44,13 @@ const Content: React.FC<Props> = () => {
             <input
               className={"inform-add-column"}
               type="checkbox"
-              id="population_growth_prct"
-              {...register("population_growth_prct")}
+              id="co2_per_gdp"
+              {...register("co2_per_gdp")}
               tabIndex={1}
               autoFocus
             />
-            <label className={"text-add-column"} htmlFor="population_growth_prct">
-              Population growth prct
+            <label className={"text-add-column"} htmlFor="co2_per_gdp">
+              CO2 per GDP
             </label>
           </div>
 
@@ -71,12 +71,12 @@ const Content: React.FC<Props> = () => {
             <input
               className={"inform-add-column"}
               type="checkbox"
-              id="cement_co2"
-              {...register("cement_co2")}
+              id="ghg_per_capita"
+              {...register("ghg_per_capita")}
               tabIndex={3}
             />
-            <label className={"text-add-column"} htmlFor="cement_co2">
-              Cement CO2
+            <label className={"text-add-column"} htmlFor="ghg_per_capita">
+              GHG per capita
             </label>
           </div>
 
@@ -84,12 +84,12 @@ const Content: React.FC<Props> = () => {
             <input
               className={"inform-add-column"}
               type="checkbox"
-              id="co2_growth_abs"
-              {...register("co2_growth_abs")}
+              id="cumulative_co2"
+              {...register("cumulative_co2")}
               tabIndex={4}
             />
-            <label className={"text-add-column"} htmlFor="co2_growth_abs">
-              CO2 Growth Absolute
+            <label className={"text-add-column"} htmlFor="cumulative_co2">
+              Cumulative CO2
             </label>
           </div>
 
@@ -162,12 +162,12 @@ const Content: React.FC<Props> = () => {
             <input
               className={"inform-add-column"}
               type="checkbox"
-              id="temperature_change_anomaly"
-              {...register("temperature_change_anomaly")}
+              id="total_ghg"
+              {...register("total_ghg")}
               tabIndex={10}
             />
-            <label className={"text-add-column"} htmlFor="temperature_change_anomaly">
-              Temperature Change Anomaly
+            <label className={"text-add-column"} htmlFor="total_ghg">
+              Total GHG
             </label>
           </div>
 

@@ -11,6 +11,7 @@ interface DataTableProps {
 }
 
 const DataTable: React.FC<DataTableProps> = ({ data }) => {
+  console.log('"data="', data);
   const [sortCountry, setSortCountry] = useState<string>("asc");
   const [sortPopulation, setSortPopulation] = useState<string>("asc");
   const [sortedData, setSortedData] = useState<CountryData[]>(data);
@@ -18,16 +19,16 @@ const DataTable: React.FC<DataTableProps> = ({ data }) => {
   const previousDataRef = useRef<CountryData[]>([]);
   const informData = useAppSelector((state) => state.inform.data);
   const {
-    population_growth_prct,
+    co2_per_gdp,
     gdp,
-    cement_co2,
-    co2_growth_abs,
+    ghg_per_capita,
+    cumulative_co2,
     co2_growth_prct,
     methane,
     methane_per_capita,
     nitrous_oxide,
     nitrous_oxide_per_capita,
-    temperature_change_anomaly,
+    total_ghg,
   } = informData as FormData;
 
   useEffect(() => {
@@ -48,16 +49,16 @@ const DataTable: React.FC<DataTableProps> = ({ data }) => {
               currentData.population !== prevDataItem.population ||
               currentData.co2 !== prevDataItem.co2 ||
               currentData.co2_per_capita !== prevDataItem.co2_per_capita ||
-              currentData.population_growth_prct !== prevDataItem.population_growth_prct ||
+              currentData.co2_per_gdp !== prevDataItem.co2_per_gdp ||
               currentData.gdp !== prevDataItem.gdp ||
-              currentData.cement_co2 !== prevDataItem.cement_co2 ||
-              currentData.co2_growth_abs !== prevDataItem.co2_growth_abs ||
+              currentData.ghg_per_capita !== prevDataItem.ghg_per_capita ||
+              currentData.cumulative_co2 !== prevDataItem.cumulative_co2 ||
               currentData.co2_growth_prct !== prevDataItem.co2_growth_prct ||
               currentData.methane !== prevDataItem.methane ||
               currentData.methane_per_capita !== prevDataItem.methane_per_capita ||
               currentData.nitrous_oxide !== prevDataItem.nitrous_oxide ||
               currentData.nitrous_oxide_per_capita !== prevDataItem.nitrous_oxide_per_capita ||
-              currentData.temperature_change_anomaly !== prevDataItem.temperature_change_anomaly;
+              currentData.total_ghg !== prevDataItem.total_ghg;
 
             if (hasChanges) {
               changedRowIds.add(item.id);
@@ -127,16 +128,16 @@ const DataTable: React.FC<DataTableProps> = ({ data }) => {
             </th>
             <th>CO2</th>
             <th>CO2 per capita</th>
-            {population_growth_prct && <th>Population Growth %</th>}
+            {co2_per_gdp && <th>CO2 per GDP</th>}
             {gdp && <th>GDP</th>}
-            {cement_co2 && <th>Cement CO2</th>}
-            {co2_growth_abs && <th>CO2 Growth Abs</th>}
+            {ghg_per_capita && <th>GHG per capita</th>}
+            {cumulative_co2 && <th>Cumulative CO2</th>}
             {co2_growth_prct && <th>CO2 Growth %</th>}
             {methane && <th>Methane</th>}
             {methane_per_capita && <th>Methane per capita</th>}
             {nitrous_oxide && <th>Nitrous Oxide</th>}
             {nitrous_oxide_per_capita && <th>Nitrous Oxide per capita</th>}
-            {temperature_change_anomaly && <th>Temperature Change Anomaly</th>}
+            {total_ghg && <th>Total GHG</th>}
           </tr>
         </thead>
         <tbody>
@@ -160,10 +161,10 @@ const DataTable: React.FC<DataTableProps> = ({ data }) => {
                   ? item.data[0].co2_per_capita.toFixed(2)
                   : "N/A"}
               </td>
-              {population_growth_prct && (
+              {co2_per_gdp && (
                 <td className={highlightedRows.has(item.id) ? "highlighted-cell" : ""}>
-                  {item.data.length > 0 && item.data[0].population_growth_prct !== undefined
-                    ? item.data[0].population_growth_prct.toFixed(2) + "%"
+                  {item.data.length > 0 && item.data[0].co2_per_gdp !== undefined
+                    ? item.data[0].co2_per_gdp.toFixed(2)
                     : "N/A"}
                 </td>
               )}
@@ -174,17 +175,17 @@ const DataTable: React.FC<DataTableProps> = ({ data }) => {
                     : "N/A"}
                 </td>
               )}
-              {cement_co2 && (
+              {ghg_per_capita && (
                 <td className={highlightedRows.has(item.id) ? "highlighted-cell" : ""}>
-                  {item.data.length > 0 && item.data[0].cement_co2 !== undefined
-                    ? item.data[0].cement_co2.toFixed(2)
+                  {item.data.length > 0 && item.data[0].ghg_per_capita !== undefined
+                    ? item.data[0].ghg_per_capita.toFixed(2)
                     : "N/A"}
                 </td>
               )}
-              {co2_growth_abs && (
+              {cumulative_co2 && (
                 <td className={highlightedRows.has(item.id) ? "highlighted-cell" : ""}>
-                  {item.data.length > 0 && item.data[0].co2_growth_abs !== undefined
-                    ? item.data[0].co2_growth_abs.toFixed(2)
+                  {item.data.length > 0 && item.data[0].cumulative_co2 !== undefined
+                    ? item.data[0].cumulative_co2.toFixed(2)
                     : "N/A"}
                 </td>
               )}
@@ -223,10 +224,10 @@ const DataTable: React.FC<DataTableProps> = ({ data }) => {
                     : "N/A"}
                 </td>
               )}
-              {temperature_change_anomaly && (
+              {total_ghg && (
                 <td className={highlightedRows.has(item.id) ? "highlighted-cell" : ""}>
-                  {item.data.length > 0 && item.data[0].temperature_change_anomaly !== undefined
-                    ? item.data[0].temperature_change_anomaly.toFixed(2) + "°C"
+                  {item.data.length > 0 && item.data[0].total_ghg !== undefined
+                    ? item.data[0].total_ghg.toFixed(2)
                     : "N/A"}
                 </td>
               )}

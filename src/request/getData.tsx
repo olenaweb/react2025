@@ -43,17 +43,17 @@ export async function getCountryData(currYear: number, currCountry: string): Pro
             .map((value: Values) => ({
               year: value.year,
               population: value.population,
-              population_growth_prct: value.population_growth_prct,
+              co2_per_gdp: value.co2_per_gdp,
               gdp: value.gdp,
               co2: value.co2,
               co2_per_capita: value.co2_per_capita,
-              co2_growth_abs: value.co2_growth_abs,
+              cumulative_co2: value.cumulative_co2,
               co2_growth_prct: value.co2_growth_prct,
               methane: value.methane,
               methane_per_capita: value.methane_per_capita,
               nitrous_oxide: value.nitrous_oxide,
               nitrous_oxide_per_capita: value.nitrous_oxide_per_capita,
-              temperature_change_anomaly: value.temperature_change_anomaly,
+              total_ghg: value.total_ghg,
             })),
         }));
         return selectedCountries;

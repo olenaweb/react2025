@@ -1,14 +1,14 @@
 export interface FormData {
-  population_growth_prct?: boolean;
+  co2_per_gdp?: boolean;
   gdp?: boolean;
-  cement_co2?: boolean;
-  co2_growth_abs?: boolean;
+  ghg_per_capita?: boolean;
+  cumulative_co2?: boolean;
   co2_growth_prct?: boolean;
   methane?: boolean;
   methane_per_capita?: boolean;
   nitrous_oxide?: boolean;
   nitrous_oxide_per_capita?: boolean;
-  temperature_change_anomaly?: boolean;
+  total_ghg?: boolean;
 }
 
 export interface ErrorResponse {
@@ -27,18 +27,18 @@ export interface CountryData {
 export interface Values {
   year: number;
   population: number;
-  population_growth_prct?: number;
+  co2_per_gdp?: number;
   gdp?: number;
   co2?: number;
   co2_per_capita?: number;
-  cement_co2?: number;
-  co2_growth_abs?: number;
+  ghg_per_capita?: number;
+  cumulative_co2?: number;
   co2_growth_prct?: number;
   methane?: number;
   methane_per_capita?: number;
   nitrous_oxide?: number;
   nitrous_oxide_per_capita?: number;
-  temperature_change_anomaly?: number;
+  total_ghg?: number;
 }
 export interface FetchError extends Error {
   message: string;

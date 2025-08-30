@@ -7,16 +7,16 @@ type InformState = {
 
 const initialState: InformState = {
   data: {
-    population_growth_prct: false,
+    co2_per_gdp: false,
     gdp: false,
-    cement_co2: false,
-    co2_growth_abs: false,
+    ghg_per_capita: false,
+    cumulative_co2: false,
     co2_growth_prct: false,
     methane: false,
     methane_per_capita: false,
     nitrous_oxide: false,
     nitrous_oxide_per_capita: false,
-    temperature_change_anomaly: false,
+    total_ghg: false,
   } as FormData,
 };
 
