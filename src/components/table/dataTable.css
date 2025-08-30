@@ -109,6 +109,7 @@ button.datatable-sorter {
   background: transparent;
   color: white;
   font-size: clamp(0.875rem, 0.8085rem + 0.2128vw, 1rem);
+  letter-spacing: 0.5px;
   padding: 5px 2px;
 }
 
