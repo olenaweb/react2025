@@ -6,8 +6,11 @@ import { FormData } from "@/type/type";
 import "./content.css";
 import { useAppDispatch, useAppSelector } from "@/app/appHook";
 import { saveInform } from "@/features/countries/informSlice";
+type Props = {
+  onClose?: () => void;
+};
 
-const Content: React.FC = () => {
+const Content: React.FC<Props> = () => {
   const dispatch = useAppDispatch();
   const informData = useAppSelector((state) => state.inform.data);
   const {
