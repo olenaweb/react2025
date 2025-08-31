@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback, memo } from "react";
 
 import { CountryData, Response } from "@/type/type";
 import "./dataTable.css";
@@ -8,13 +7,14 @@ import Loader from "@/components/loader/loader";
 
 import { useAppSelector } from "@/app/appHook";
 import { getCountryData } from "@/request/get-country-data";
+import './dataTable.css';
 
 interface DataTableProps {
   year: number;
   country: string;
 }
 
-const DataTable: React.FC<DataTableProps> = ({ year, country }) => {
+const DataTable = memo(function MemoDataTable({ year, country }: DataTableProps) {
   const [sortCountry, setSortCountry] = useState<string>("asc");
   const [sortPopulation, setSortPopulation] = useState<string>("asc");
 
@@ -333,6 +333,6 @@ const DataTable: React.FC<DataTableProps> = ({ year, country }) => {
       </table>
     </div>
   );
-};
+});
 
 export default DataTable;
