@@ -1,0 +1,143 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-y: scroll;
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+  --background-color: rgb(184, 179, 156);
+  --background-container-color: rgb(169, 142, 3);
+  --background-detail-container-color: rgb(24 69 10);
+  --color: rgb(207, 207, 6);
+  --bright-color: rgb(251, 234, 4);
+  --detail-color: rgb(148, 248, 7);
+
+  --background-dark-color: rgb(99, 122, 166);
+  --background-container-dark-color: rgb(3, 41, 118);
+  --background-detail-container-dark-color: rgb(114 112 101);
+  --dark-color: rgb(240, 249, 252);
+  --dark-button: #d7d0d0;
+  --view-background: #01031d;
+}
+
+html {
+  background-color: var(--background-color);
+  color: black;
+}
+
+.bold {
+  font-weight: 600;
+  color: #1a1a17;
+}
+
+a {
+  font-weight: 500;
+  text-decoration: inherit;
+}
+
+a {
+  color: white;
+}
+
+a:hover {
+  color: #03cd03;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+  background: gainsboro;
+}
+
+h1 {
+  font-size: clamp(1rem, 0.5714rem + 2.1429vw, 2.5rem);
+  line-height: 1.1;
+  text-shadow: 0 0 3px #594601;
+}
+
+p {
+  font-size: clamp(0.875rem, 0.5536rem + 1.6071vw, 2rem);
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: var(--color);
+  text-shadow: 0 0 3px #594601;
+}
+
+h2 {
+  text-shadow: 0 0 3px #594601;
+  font-size: clamp(0.8rem, 0.6476rem + 1.7621vw, 1.5rem);
+}
+
+h2 {
+  color: var(--color);
+}
+
+button {
+  cursor: pointer;
+  padding: 4px 23px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: black;
+  background: white;
+  padding: 4px 23px;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: clamp(0.875rem, 0.7357rem + 0.5714vw, 1.25rem);
+  transition: border-color 0.25s;
+}
+
+button:disabled {
+  background: grey;
+  color: white;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+button:hover,
+button:active {
+  border-color: #85582e;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+  border-color: #e3750d;
+}
+
+image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+input {
+  background: white;
+}

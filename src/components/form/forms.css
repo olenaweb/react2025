@@ -1,0 +1,103 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  padding: 20px;
+  background-color: var(--background-color);
+  color: var(--color);
+  box-shadow: 2px 2px 8px 2px rgba(195, 195, 195, 1);
+  border-radius: 10px;
+}
+
+.form {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(5, 116px);
+  gap: 15px;
+  font-size: clamp(0.875rem, 0.6964rem + 0.8929vw, 1.5rem);
+}
+
+p.error {
+  font-size: clamp(0.875rem, 0.7679rem + 0.5357vw, 1.25rem);
+  color: rgb(146, 4, 4);
+}
+
+label {
+  font-size: clamp(0.875rem, 0.6964rem + 0.8929vw, 1.25rem);
+  padding: 0 10px;
+  color: #000;
+}
+
+.inputBlock {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  min-height: 4rem;
+}
+
+input#year {
+  max-width: 193px;
+}
+
+.country.inputBlock {
+  min-width: 390px;
+}
+
+.label-input {
+  display: flex;
+  align-items: center;
+}
+
+input,
+select {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
+  border: 0.2rem solid green;
+  border-radius: 1rem;
+  font-size: clamp(0.875rem, 0.7679rem + 0.5357vw, 1.25rem);
+  height: 40px;
+  color: #000;
+}
+
+input.country {
+  min-width: 381px;
+}
+
+.options {
+  font-size: clamp(0.875rem, 0.7679rem + 0.5357vw, 1.25rem);
+  cursor: pointer;
+  height: 40px;
+}
+
+.choose-options {
+  color: rgb(112, 70, 2);
+  font-size: clamp(0.875rem, 0.7679rem + 0.5357vw, 1.25rem);
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #000;
+}
+
+.buttons {
+  display: flex;
+  min-height: 5rem;
+  justify-content: center;
+  align-items: start;
+  gap: 10px;
+}
+
+.submit-btn,
+.add-fields-btn {
+  height: 40px;
+}
+
+.submit-btn {
+  margin-left: -11px;
+}
