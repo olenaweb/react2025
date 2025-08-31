@@ -54,7 +54,15 @@ Before & After Optimization
 
   ![alt text](public/pic3.png)
 
+  ![alt text](public/pic4.png)
+  add columns 
+  ![alt text](public/pic6.png)
+
 ## Ranked Chart
+  ![alt text](public/pic7.png)
+  ![alt text](public/pic8.png)
+   add columns 
+  ![alt text](public/pic5.png)
 
 
 
