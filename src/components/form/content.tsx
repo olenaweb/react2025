@@ -7,7 +7,6 @@ import "./content.css";
 import { useAppDispatch, useAppSelector } from "@/app/appHook";
 import { saveInform } from "@/features/countries/informSlice";
 
-
 const Content: React.FC = () => {
   const dispatch = useAppDispatch();
   const informData = useAppSelector((state) => state.inform.data);
