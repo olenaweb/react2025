@@ -28,6 +28,7 @@
   max-height: calc(100vh - 150px);
   max-width: 100%;
   font-size: clamp(0.875rem, 0.6755rem + 0.6383vw, 1.25rem);
+  box-shadow: 5px 5px rgb(182, 152, 2);
 }
 
 .data-table {

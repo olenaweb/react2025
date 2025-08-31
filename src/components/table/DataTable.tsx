@@ -60,8 +60,7 @@ const DataTable: React.FC<DataTableProps> = ({ year, country }) => {
         console.error("Error fetching data:", error);
         setErrorMessage("Something's gone wrong :-( ");
         setIsInitialLoad(false);
-      }
-      finally {
+      } finally {
         setIsLoading(false);
       }
     };
@@ -163,7 +162,7 @@ const DataTable: React.FC<DataTableProps> = ({ year, country }) => {
   };
 
   if (isLoading) {
-    return (<Loader />);
+    return <Loader />;
   }
 
   if (errorMessage && !isInitialLoad) {
@@ -176,7 +175,6 @@ const DataTable: React.FC<DataTableProps> = ({ year, country }) => {
 
   return (
     <div className="data-table-container">
-
       <table className="data-table">
         <thead>
           <tr>
@@ -303,7 +301,6 @@ const DataTable: React.FC<DataTableProps> = ({ year, country }) => {
           ))}
         </tbody>
       </table>
-
     </div>
   );
 };
