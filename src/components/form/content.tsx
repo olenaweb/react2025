@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm, SubmitHandler, Resolver } from "react-hook-form";
+import { useCallback } from "react";
 
 import { FormData } from "@/type/type";
 import "./content.css";
@@ -33,9 +34,13 @@ const Content: React.FC<Props> = () => {
       total_ghg: informData.total_ghg || false,
     },
   });
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
-    dispatch(saveInform(data));
-  };
+
+  const onSubmit: SubmitHandler<FormData> = useCallback(
+    async (data) => {
+      dispatch(saveInform(data));
+    },
+    [dispatch]
+  );
   return (
     <>
       <div className={"inform-content"}>

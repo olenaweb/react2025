@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 import "./forms.css";
 import Modal from "@/components/form/modal";
@@ -49,19 +49,23 @@ const SearchForm: React.FC<SearchProps> = ({ updateCountry, updateYear }) => {
   });
 
   const [isOpen, setIsOpen] = useState(false);
-  const doCloseHandle = () => {
-    setIsOpen(false);
-  };
 
-  const controlFormHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const doCloseHandle = useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
+  const controlFormHandle = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setIsOpen(true);
-  };
+  }, []);
 
-  const onSubmit: SubmitHandler<FormDataInput> = async (data) => {
-    updateCountry?.(data.country);
-    updateYear?.(data.year);
-  };
+  const onSubmit: SubmitHandler<FormDataInput> = useCallback(
+    async (data) => {
+      updateCountry?.(data.country);
+      updateYear?.(data.year);
+    },
+    [updateCountry, updateYear]
+  );
   return (
     <>
       <div className="search-block">

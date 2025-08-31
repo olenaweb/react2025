@@ -1,6 +1,6 @@
 import "./index.css";
 import "./app.css";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import React, { Suspense } from "react";
 
 const DataTable = React.lazy(() => import("@/components/table/DataTable"));
@@ -11,13 +11,13 @@ const App: React.FC = () => {
   const [currYear, setCurrentYear] = useState<number>(2023);
   const [currCountry, setCurrentCountry] = useState<string>("");
 
-  const updateCounty = (country: string) => {
+  const updateCounty = useCallback((country: string) => {
     setCurrentCountry(country);
-  };
+  }, []);
 
-  const updateYear = (year: number) => {
+  const updateYear = useCallback((year: number) => {
     setCurrentYear(year);
-  };
+  }, []);
 
   return (
     <div className="view-app">

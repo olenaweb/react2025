@@ -24,9 +24,11 @@ Before & After Optimization
 | Before Optimization | After Optimization | Improvement (%) |
 | ------------------- | ------------------ | --------------- |
 |       32.8ms        |                    |                 |
+| lazy  118ms         |                    |                 |
 
 - Flame Graph
   ![alt text](public/pic1.png)
+  ![alt text](public/pic9.png)
 
 ## 2. Render Duration:
 |                     |  Render Duration before  | Render Duration after |
@@ -45,9 +47,9 @@ Before & After Optimization
 | ---------------------- | --------------- | ------------------- | ------------------ | --------------- |
 | Sort by Name           | DataTable       |   130.7ms           | 4                  |                 |
 | Sort by Population     | DataTable       |   166.1ms           | 4                  |                 |
-| Another country        | DataTable       |   166.1ms           | 4                  |                 |
-| Another year           | DataTable       |   166.1ms           | 4                  |                 |
-| Adding/removing columns| DataTable       |   166.1ms           | 4                  |                 |
+| Another country        | DataTable       |   2.1ms             | 4                  |                 |
+| Another year           | DataTable       |   58.1ms           | 4                  |                 |
+| Adding/removing columns| DataTable       |   202.1ms           | 4                  |                 |
 
 ## Flame Graph
   ![alt text](public/pic2.png)
@@ -57,12 +59,18 @@ Before & After Optimization
   ![alt text](public/pic4.png)
   add columns 
   ![alt text](public/pic6.png)
+  ![alt text](public/pic12-columns.png)
 
 ## Ranked Chart
   ![alt text](public/pic7.png)
   ![alt text](public/pic8.png)
    add columns 
   ![alt text](public/pic5.png)
+  another country
+  ![alt text](public/pic10-country.png)
+  another Year
+  ![alt text](public/pic11-year.png)
+
 
 
 
