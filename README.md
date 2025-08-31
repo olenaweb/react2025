@@ -61,42 +61,42 @@ Before & After Optimization
   ![alt text](public/pic3.png)
 
   ![alt text](public/pic4.png)
-  add columns 
+  ##### add columns 
   ![alt text](public/pic6.png)
   ![alt text](public/pic12-columns.png)
   ##### After optimisation
-  sort by name
+  ##### sort by name
   ![alt text](public/pic15-afterSortName.png)
-  sort by population
+  ##### sort by population
   ![alt text](public/pic17-afterSortPopulation.png)
-  add columns 
+  ##### add columns 
   ![alt text](public/pic18-afterAddColumn.png)
-  another country
+  ##### another country
   ![alt text](public/pic20-afterCountry.png)
- another Year
+ ##### another Year
   ![alt text](public/pic22-afterYear.png)
 
 
 ## 5. Ranked Chart
   ![alt text](public/pic7.png)
   ![alt text](public/pic8.png)
-  add columns 
+  ##### add columns 
   ![alt text](public/pic5.png)
-  another country
+  ##### another country
   ![alt text](public/pic10-country.png)
-  another Year
+  ##### another Year
   ![alt text](public/pic11-year.png)
 
  ##### After optimisation
-  sort by name
+  ##### sort by name
   ![alt text](public/pic16-afterSortName.png)
-  sort by population
+  ##### sort by population
   ![alt text](public/pic18-afterSortPopulation.png)
-  add columns 
+  ##### add columns 
   ![alt text](public/pic19-afterAddColumn.png)
-  another country
+  ##### another country
   ![alt text](public/pic21-afterCountry.png)
- another Year
+ ##### another Year
   ![alt text](public/pic23-afterYear.png)
 
 
