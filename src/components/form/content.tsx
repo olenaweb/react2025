@@ -1,17 +1,12 @@
-import React from "react";
 import { useForm, SubmitHandler, Resolver } from "react-hook-form";
-import { useCallback } from "react";
+import { useCallback, memo } from "react";
 
 import { FormData } from "@/type/type";
 import "./content.css";
 import { useAppDispatch, useAppSelector } from "@/app/appHook";
 import { saveInform } from "@/features/countries/informSlice";
 
-type Props = {
-  onClose?: () => void;
-};
-
-const Content: React.FC<Props> = () => {
+const Content = memo(function MemoContent() {
   const dispatch = useAppDispatch();
   const informData = useAppSelector((state) => state.inform.data);
   const {
@@ -183,5 +178,5 @@ const Content: React.FC<Props> = () => {
       </div>
     </>
   );
-};
+});
 export default Content;

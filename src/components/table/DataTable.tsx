@@ -7,7 +7,7 @@ import Loader from "@/components/loader/loader";
 
 import { useAppSelector } from "@/app/appHook";
 import { getCountryData } from "@/request/get-country-data";
-import './dataTable.css';
+import "./dataTable.css";
 
 interface DataTableProps {
   year: number;
