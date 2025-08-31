@@ -49,11 +49,11 @@ Before & After Optimization
 
 | Interaction Type       | Component       | Before Optimization | After Optimization | Improvement (%) |
 | ---------------------- | --------------- | ------------------- | ------------------ | --------------- |
-| Sort by Name           | DataTable       |   130.7ms           | 108ms              |                 |
-| Sort by Population     | DataTable       |   166.1ms           | 95.2ms             |                 |
-| Another country        | DataTable       |   2.1ms             | 2.4ms              |                 |
-| Another year           | DataTable       |   58.1ms            | 69ms               |                 |
-| Adding/removing columns| DataTable       |   202.1ms           | 212ms              |                 |
+| Sort by Name           | DataTable       |   130.7ms           | 108ms              |  82.63%         |
+| Sort by Population     | DataTable       |   166.1ms           | 95.2ms             |  57.31%         |
+| Another country        | DataTable       |   2.1ms             | 2.4ms              |  114%           |
+| Another year           | DataTable       |   58.1ms            | 69ms               |  118%           |
+| Adding/removing columns| DataTable       |   202.1ms           | 212ms              |  104%           |
 
 ## 4. Flame Graph
   ![alt text](public/pic2.png)
@@ -102,7 +102,12 @@ Before & After Optimization
 
 ## Conclusion
 
-After optimization (with useMemo, useCallback) resulted in major improvements in render efficiency.
-`useMemo` optimized expensive computations,
-`useCallback` memoized functions to prevent redundant re-creations. 
+After optimization (with useMemo, useCallback) resulted in major improvements in render efficiency:
+`useMemo` optimized expensive computations (filtering, column selection).
+
+`useCallback` memoized functions to prevent redundant re-creations:
+ Prevention of unnecessary rewarders - functions are not relaxed at each rendere;
+ Stable links to functions - the components of the extent are not transcended without the need;
+ Optimized dependencies are the exact arrays of dependencies for each callback;
+ Memoized formatting - formatting functions are cached. 
 
